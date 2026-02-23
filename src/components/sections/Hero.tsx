@@ -30,7 +30,7 @@ export function Hero() {
               transition={{ delay: 0.2, duration: 0.5 }}
             >
               <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-              <span className="text-sm text-muted-foreground">正在寻找游戏产品策划机会</span>
+              <span className="text-sm text-muted-foreground">正在寻找运营或产品相关的工作</span>
             </motion.div>
 
             {/* 主标题 */}
@@ -41,8 +41,14 @@ export function Hero() {
               transition={{ delay: 0.3, duration: 0.8 }}
             >
               <span className="text-foreground">{personalInfo.name}</span>
-              <span className="mx-4 text-muted-foreground">|</span>
-              <span className="gradient-text">{personalInfo.title}</span>
+              {personalInfo.title?.trim() && (
+                <>
+                  <span className="mx-4 text-muted-foreground">|</span>
+                  <span className="text-lg sm:text-xl lg:text-2xl text-muted-foreground font-semibold">
+                    {personalInfo.title}
+                  </span>
+                </>
+              )}
             </motion.h1>
 
             {/* 副标题 */}

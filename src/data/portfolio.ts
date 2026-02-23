@@ -2,7 +2,7 @@
 export interface PortfolioItem {
   id: string;
   title: string;
-  category: 'game-analysis' | 'product' | 'aigc' | 'design';
+  category: 'game-analysis' | 'product' | 'aigc' | 'design' | 'misc';
   tags: string[];
   description: string;
   coverImage: string;
@@ -11,38 +11,6 @@ export interface PortfolioItem {
 }
 
 export const portfolioData: PortfolioItem[] = [
-  {
-    id: 'wangzhe-analysis',
-    title: '王者荣耀产品分析报告',
-    category: 'game-analysis',
-    tags: ['MOBA', '产品分析', '用户研究'],
-    description: '从核心玩法、用户分层、商业化三个维度深度分析王者荣耀的产品设计与商业模式',
-    coverImage: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=600&h=400&fit=crop',
-    detailContent: `
-## 项目概述
-作为一名拥有10年王者荣耀游戏经验的资深玩家，我从产品策划的角度对王者荣耀进行了全面深入的分析。
-
-## 分析维度
-
-### 1. 核心玩法分析
-- 英雄设计逻辑与平衡性思考
-- 地图机制与节奏把控
-- 匹配系统与段位设计
-
-### 2. 用户分层研究
-- 新手玩家的引导机制
-- 核心玩家的留存策略
-- 高端玩家的竞技需求
-
-### 3. 商业化模式
-- 皮肤经济的设计策略
-- 赛季通行证的价值设计
-- 活动运营的节奏规划
-
-## 核心洞察
-（此处预留详细内容）
-    `,
-  },
   {
     id: 'liujin-tongniu',
     title: '宁夏鎏金铜牛文创项目',
@@ -180,6 +148,22 @@ App 界面、网页设计
 （此处预留作品画廊）
     `,
   },
+  {
+    id: 'more-coming',
+    title: '更多作品整理中',
+    category: 'misc',
+    tags: ['模板', '待补充'],
+    description: '游戏分析模板与更多项目将持续补充，敬请期待',
+    coverImage: 'https://images.unsplash.com/photo-1484417894907-623942c8ee29?w=600&h=400&fit=crop',
+    detailContent: `
+## 整理中
+- 游戏分析模板
+- 运营/产品相关案例
+- AIGC 项目补充
+
+（后续将持续更新）
+    `,
+  },
 ];
 
 // 作品分类
@@ -301,6 +285,15 @@ export interface SkillCategory {
 
 export const skillCategories: SkillCategory[] = [
   {
+    name: 'AIGC',
+    skills: [
+      { name: '多模态内容生产 Pipeline（图文/视频/音频）', level: 90 },
+      { name: 'ComfyUI 工作流搭建', level: 88 },
+      { name: 'Stable Diffusion WebUI', level: 85 },
+      { name: 'Midjourney 等 30+ 内容生产 AI 工具', level: 85 },
+    ],
+  },
+  {
     name: '产品能力',
     skills: [
       { name: '用户研究', level: 85 },
@@ -316,15 +309,6 @@ export const skillCategories: SkillCategory[] = [
       { name: '用户运营', level: 85 },
       { name: '活动策划', level: 85 },
       { name: '社群运营', level: 80 },
-    ],
-  },
-  {
-    name: 'AIGC',
-    skills: [
-      { name: 'One-stop Workflow', level: 90 },
-      { name: 'Midjourney', level: 85 },
-      { name: 'Stable Diffusion', level: 80 },
-      { name: 'ComfyUI', level: 75 },
     ],
   },
   {
@@ -350,8 +334,8 @@ export const otherSkills = [
 // 个人信息
 export const personalInfo = {
   name: '王泰然',
-  title: '游戏产品策划',
-  subtitle: '10年核心玩家 × 腾讯实习经历 × AIGC 产品思维',
+  title: '',
+  subtitle: '10年游戏经验 × 腾讯实习经历 × AIGC 产品思维',
   email: 'wtairan_nxu@163.com',
   phone: '15769672279',
   wechat: '15769672279',
@@ -362,5 +346,5 @@ export const personalInfo = {
   },
   bio: '我是一名热爱游戏的产品策划人，拥有10年核心玩家经历。在腾讯成长守护中心实习期间，积累了丰富的内容运营和 AIGC 应用经验。我相信只有真正理解玩家，才能做出好的游戏产品。',
   tags: ['游戏产品', '用户运营', 'AIGC', '腾讯实习', '10年玩家'],
-  targetCompanies: ['腾讯', '网易', '米哈游'],
+  targetCompanies: ['AIGC 深度运用', '腾讯实习生', '10年游戏经验'],
 };

@@ -154,6 +154,7 @@ function PortfolioCard({
     product: '#10b981',
     aigc: '#8b5cf6',
     design: '#ec4899',
+    misc: '#6b7280',
   };
 
   return (
@@ -180,7 +181,7 @@ function PortfolioCard({
             className="absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-medium text-white"
             style={{ backgroundColor: categoryColors[item.category] + 'CC' }}
           >
-            {portfolioCategories.find((c) => c.id === item.category)?.name}
+            {portfolioCategories.find((c) => c.id === item.category)?.name ?? '待补充'}
           </div>
         </div>
 
