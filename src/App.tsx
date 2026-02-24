@@ -18,8 +18,14 @@ function App() {
       {/* Hero区域 - 视差效果（包含固定背景层） */}
       <Hero />
 
-      {/* 主要内容 - 位于Hero之后，会覆盖固定背景 */}
-      <main className="relative z-20 bg-slate-950">
+      {/* 自然过渡区域 - 从Hero到About的融合层 */}
+      <div className="hero-to-about-transition" />
+
+      {/* 主要内容 - 位于Hero之后，带有渐变融入效果 */}
+      <main className="relative z-20">
+        {/* About区域顶部渐变融入层 */}
+        <div className="about-fade-in-overlay" />
+        
         {/* 关于我 */}
         <About />
 

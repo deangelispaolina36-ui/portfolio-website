@@ -1,59 +1,132 @@
 import { motion } from 'framer-motion';
-import { GraduationCap, Mail, Phone, MessageCircle } from 'lucide-react';
+import { GraduationCap, Mail, Phone, MessageCircle, Sparkles } from 'lucide-react';
 import { personalInfo } from '../../data/portfolio';
 import { AnimatedSection } from '../common';
 
 export function About() {
   return (
-    <section id="about" className="section-padding relative">
-      <div className="container-custom">
+    <section id="about" className="section-padding relative section-glow-purple overflow-hidden">
+      {/* 背景装饰 */}
+      <div className="floating-orb floating-orb-1" />
+      <div className="floating-orb floating-orb-2" />
+      
+      {/* 网格点阵背景 */}
+      <div className="absolute inset-0 section-grid-dots opacity-30" />
+      
+      {/* 顶部分隔线 */}
+      <div className="absolute top-0 left-[10%] right-[10%] h-px bg-gradient-to-r from-transparent via-purple-500/30 to-transparent" />
+
+      <div className="container-custom relative z-10">
         <AnimatedSection>
           {/* Section 标题 */}
           <div className="text-center mb-16">
-            <motion.span
-              className="inline-block px-4 py-1.5 rounded-full text-sm font-medium glass border border-primary/20 text-primary mb-4"
+            <motion.div
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium glass-card-premium border border-purple-500/20 text-purple-400 mb-6"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
+              <Sparkles className="w-4 h-4" />
               关于我
-            </motion.span>
+            </motion.div>
             <motion.h2
-              className="text-3xl sm:text-4xl lg:text-5xl font-bold font-display"
+              className="text-4xl sm:text-5xl lg:text-6xl font-bold"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
             >
-              <span className="gradient-text">About Me</span>
+              <span className="gradient-text-vivid">About Me</span>
             </motion.h2>
+            <motion.p
+              className="text-gray-400 text-lg mt-4 max-w-2xl mx-auto"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+            >
+              热爱游戏，深耕产品，持续创造价值
+            </motion.p>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
-            {/* 左侧：自我介绍 */}
+          <div className="grid lg:grid-cols-3 gap-8 lg:gap-10 items-start">
+            {/* 左侧：个人照片卡片 */}
             <motion.div
-              className="space-y-6"
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              className="lg:col-span-1"
+              initial={{ opacity: 0, x: -40, scale: 0.95 }}
+              whileInView={{ opacity: 1, x: 0, scale: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+            >
+              <div className="about-photo-card group">
+                {/* 光晕装饰 */}
+                <div className="about-photo-glow" />
+                
+                {/* 照片容器 */}
+                <div className="about-photo-container">
+                  <motion.img 
+                    src="/image/主页头像.png" 
+                    alt={personalInfo.name}
+                    className="about-photo-image"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ duration: 0.4 }}
+                  />
+                  {/* 照片边框光效 */}
+                  <div className="about-photo-border-glow" />
+                </div>
+                
+                {/* 姓名标签 */}
+                <motion.div 
+                  className="about-photo-name"
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.3 }}
+                >
+                  <span className="gradient-text-vivid text-xl font-semibold">{personalInfo.name}</span>
+                  <span className="text-gray-400 text-sm mt-1 block">游戏策划 · AIGC探索者</span>
+                </motion.div>
+                
+                {/* 浮动装饰元素 */}
+                <div className="about-photo-float-decoration float-1" />
+                <div className="about-photo-float-decoration float-2" />
+              </div>
+            </motion.div>
+
+            {/* 中间：自我介绍 */}
+            <motion.div
+              className="lg:col-span-1 space-y-6"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: 0.1 }}
             >
               {/* 个人简介 */}
-              <div className="glass rounded-2xl p-6 lg:p-8">
-                <h3 className="text-xl font-semibold mb-4 gradient-text">个人简介</h3>
-                <p className="text-muted-foreground leading-relaxed text-lg">
+              <div className="glass-card-premium p-8 card-glow-hover">
+                <div className="flex items-center gap-3 mb-5">
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500/20 to-pink-500/20 flex items-center justify-center">
+                    <span className="text-xl">👨‍💻</span>
+                  </div>
+                  <h3 className="text-xl font-semibold gradient-text-vivid">个人简介</h3>
+                </div>
+                <p className="text-gray-300 leading-relaxed text-lg">
                   {personalInfo.bio}
                 </p>
               </div>
 
               {/* 标签云 */}
-              <div className="glass rounded-2xl p-6 lg:p-8">
-                <h3 className="text-xl font-semibold mb-4 gradient-text">核心标签</h3>
+              <div className="glass-card-premium p-8 card-glow-hover">
+                <div className="flex items-center gap-3 mb-5">
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500/20 to-pink-500/20 flex items-center justify-center">
+                    <span className="text-xl">🏷️</span>
+                  </div>
+                  <h3 className="text-xl font-semibold gradient-text-vivid">核心标签</h3>
+                </div>
                 <div className="flex flex-wrap gap-3">
                   {personalInfo.tags.map((tag, index) => (
                     <motion.span
                       key={tag}
-                      className="px-4 py-2 rounded-full text-sm font-medium bg-gradient-to-r from-primary/10 to-secondary/10 border border-primary/20 text-foreground tag-cloud-item cursor-default"
+                      className="tag-enhanced"
                       initial={{ opacity: 0, scale: 0.8 }}
                       whileInView={{ opacity: 1, scale: 1 }}
                       viewport={{ once: true }}
@@ -69,75 +142,80 @@ export function About() {
 
             {/* 右侧：教育背景和联系方式 */}
             <motion.div
-              className="space-y-6"
-              initial={{ opacity: 0, x: 30 }}
+              className="lg:col-span-1 space-y-6"
+              initial={{ opacity: 0, x: 40 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+              transition={{ duration: 0.7, delay: 0.2 }}
             >
               {/* 教育背景 */}
-              <div className="glass rounded-2xl p-6 lg:p-8">
-                <h3 className="text-xl font-semibold mb-4 gradient-text flex items-center gap-2">
-                  <GraduationCap className="w-5 h-5" />
-                  教育背景
-                </h3>
-                <div className="space-y-3">
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center flex-shrink-0">
-                      <span className="text-2xl">🎓</span>
-                    </div>
-                    <div>
-                      <h4 className="text-lg font-semibold text-foreground">
-                        {personalInfo.education.school}
-                      </h4>
-                      <p className="text-muted-foreground">
-                        {personalInfo.education.major}
-                      </p>
-                      <p className="text-sm text-muted-foreground/70">
-                        {personalInfo.education.period}
-                      </p>
-                    </div>
+              <div className="glass-card-premium p-8 card-glow-hover">
+                <div className="flex items-center gap-3 mb-5">
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500/20 to-pink-500/20 flex items-center justify-center">
+                    <GraduationCap className="w-5 h-5 text-purple-400" />
+                  </div>
+                  <h3 className="text-xl font-semibold gradient-text-vivid">教育背景</h3>
+                </div>
+                <div className="flex items-start gap-4">
+                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-500/10 to-pink-500/10 flex items-center justify-center flex-shrink-0 border border-purple-500/20">
+                    <span className="text-3xl">🎓</span>
+                  </div>
+                  <div>
+                    <h4 className="text-lg font-semibold text-white">
+                      {personalInfo.education.school}
+                    </h4>
+                    <p className="text-purple-300">
+                      {personalInfo.education.major}
+                    </p>
+                    <p className="text-sm text-gray-500 mt-1">
+                      {personalInfo.education.period}
+                    </p>
                   </div>
                 </div>
               </div>
 
               {/* 联系方式 */}
-              <div className="glass rounded-2xl p-6 lg:p-8">
-                <h3 className="text-xl font-semibold mb-4 gradient-text">联系方式</h3>
+              <div className="glass-card-premium p-8 card-glow-hover">
+                <div className="flex items-center gap-3 mb-5">
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500/20 to-pink-500/20 flex items-center justify-center">
+                    <span className="text-xl">📬</span>
+                  </div>
+                  <h3 className="text-xl font-semibold gradient-text-vivid">联系方式</h3>
+                </div>
                 <div className="space-y-4">
                   <a
                     href={`mailto:${personalInfo.email}`}
-                    className="flex items-center gap-4 p-3 rounded-xl hover:bg-primary/10 transition-colors group"
+                    className="contact-card-enhanced flex items-center gap-4 group"
                   >
-                    <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center group-hover:from-primary/30 group-hover:to-secondary/30 transition-colors">
-                      <Mail className="w-5 h-5 text-primary" />
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500/10 to-pink-500/10 flex items-center justify-center border border-purple-500/20 group-hover:border-purple-500/40 transition-colors">
+                      <Mail className="w-5 h-5 text-purple-400" />
                     </div>
                     <div>
-                      <p className="text-sm text-muted-foreground">邮箱</p>
-                      <p className="text-foreground font-medium">{personalInfo.email}</p>
+                      <p className="text-sm text-gray-500">邮箱</p>
+                      <p className="text-white font-medium group-hover:text-purple-300 transition-colors">{personalInfo.email}</p>
                     </div>
                   </a>
 
                   <a
                     href={`tel:${personalInfo.phone}`}
-                    className="flex items-center gap-4 p-3 rounded-xl hover:bg-primary/10 transition-colors group"
+                    className="contact-card-enhanced flex items-center gap-4 group"
                   >
-                    <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center group-hover:from-primary/30 group-hover:to-secondary/30 transition-colors">
-                      <Phone className="w-5 h-5 text-primary" />
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500/10 to-pink-500/10 flex items-center justify-center border border-purple-500/20 group-hover:border-purple-500/40 transition-colors">
+                      <Phone className="w-5 h-5 text-purple-400" />
                     </div>
                     <div>
-                      <p className="text-sm text-muted-foreground">电话</p>
-                      <p className="text-foreground font-medium">{personalInfo.phone}</p>
+                      <p className="text-sm text-gray-500">电话</p>
+                      <p className="text-white font-medium group-hover:text-purple-300 transition-colors">{personalInfo.phone}</p>
                     </div>
                   </a>
 
-                  <div className="flex items-center gap-4 p-3 rounded-xl">
-                    <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
-                      <MessageCircle className="w-5 h-5 text-primary" />
+                  <div className="contact-card-enhanced flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500/10 to-pink-500/10 flex items-center justify-center border border-purple-500/20">
+                      <MessageCircle className="w-5 h-5 text-purple-400" />
                     </div>
                     <div>
-                      <p className="text-sm text-muted-foreground">微信</p>
-                      <p className="text-foreground font-medium">{personalInfo.wechat}</p>
+                      <p className="text-sm text-gray-500">微信</p>
+                      <p className="text-white font-medium">{personalInfo.wechat}</p>
                     </div>
                   </div>
                 </div>

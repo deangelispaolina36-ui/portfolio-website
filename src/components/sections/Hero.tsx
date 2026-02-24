@@ -21,6 +21,9 @@ export function Hero() {
   const backgroundY = useTransform(smoothScrollY, [0, windowHeight], [0, windowHeight * 0.3]);
   const backgroundScale = useTransform(smoothScrollY, [0, windowHeight], [1, 1.15]);
   
+  // 底部融合层透明度 - 随滚动增强
+  const fadeOverlayOpacity = useTransform(smoothScrollY, [0, windowHeight * 0.5, windowHeight], [0, 0.6, 1]);
+  
   // 文字内容视差效果
   const textOpacity = useTransform(smoothScrollY, [0, windowHeight * 0.5], [1, 0]);
   const textY = useTransform(smoothScrollY, [0, windowHeight], [0, -windowHeight * 0.2]);
@@ -49,12 +52,18 @@ export function Hero() {
           style={{
             y: backgroundY,
             scale: backgroundScale,
-            backgroundImage: `url('/image/主页头像.png')`,
+            backgroundImage: `url('/image/hero-bg.png')`,
           }}
         >
           {/* 智能遮罩层 - 从左到右渐变 */}
           <div className="hero-smart-gradient" />
         </motion.div>
+        
+        {/* 底部融合过渡层 - 创造无缝过渡效果 */}
+        <motion.div 
+          className="hero-fade-overlay"
+          style={{ opacity: fadeOverlayOpacity }}
+        />
       </div>
 
       {/* 首屏内容区 - 相对定位，可滚动 */}
