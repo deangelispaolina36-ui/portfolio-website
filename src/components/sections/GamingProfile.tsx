@@ -3,13 +3,13 @@ import { Gamepad2, Timer, Trophy, Zap } from 'lucide-react';
 import { gamingProfiles } from '../../data/portfolio';
 import { AnimatedSection } from '../common';
 
-// 游戏代表性角色图片映射（可选配置）
+// 游戏代表性角色图片映射
 const gameCharacterImages: Record<string, string> = {
-  moba: '/image/games/moba-hero.png',      // 王者荣耀英雄
-  fps: '/image/games/fps-hero.png',        // FPS游戏角色
-  racing: '/image/games/racing-hero.png',  // 竞速游戏
-  action: '/image/games/action-hero.png',  // 动作竞技
-  steam: '/image/games/steam-hero.png',    // Steam游戏
+  moba: '/image/王者荣耀.png',
+  fps: '/image/无畏契约.png',
+  racing: '/image/QQ飞车.png',
+  action: '/image/永劫无间.png',
+  steam: '/image/黑神话悟空.png',
 };
 
 export function GamingProfile() {
@@ -85,36 +85,98 @@ export function GamingProfile() {
                     style={{ background: `linear-gradient(90deg, transparent, ${profile.color}, transparent)` }}
                   />
 
-                  {/* 顶部角色图片区域 */}
+                  {/* 全息投影角色图片区域 */}
                   <div 
-                    className="relative w-full h-28 rounded-xl mb-4 overflow-hidden flex items-center justify-center"
+                    className="hologram-container relative w-full h-40 rounded-xl mb-4 overflow-hidden"
                     style={{
-                      background: `linear-gradient(135deg, ${profile.color}15 0%, ${profile.color}05 100%)`,
-                      border: `1px solid ${profile.color}20`,
+                      background: `linear-gradient(180deg, ${profile.color}08 0%, ${profile.color}02 100%)`,
                     }}
                   >
-                    {/* 背景装饰 */}
+                    {/* 全息底座 */}
                     <div 
-                      className="absolute inset-0 opacity-20"
+                      className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[80%] h-3 rounded-full"
                       style={{
-                        background: `radial-gradient(circle at 50% 120%, ${profile.color}40 0%, transparent 60%)`,
+                        background: `radial-gradient(ellipse at center, ${profile.color}60 0%, ${profile.color}20 50%, transparent 70%)`,
+                        boxShadow: `0 0 20px ${profile.color}40, 0 0 40px ${profile.color}20`,
                       }}
                     />
-                    {/* 大图标作为角色占位 */}
-                    <motion.span 
-                      className="text-6xl relative z-10 filter drop-shadow-lg"
-                      whileHover={{ scale: 1.1 }}
-                      transition={{ type: 'spring', stiffness: 300 }}
+                    
+                    {/* 扫描线动画 */}
+                    <div className="hologram-scanline absolute inset-0 pointer-events-none" />
+                    
+                    {/* 全息网格背景 */}
+                    <div 
+                      className="absolute inset-0 opacity-10"
+                      style={{
+                        backgroundImage: `
+                          linear-gradient(${profile.color}20 1px, transparent 1px),
+                          linear-gradient(90deg, ${profile.color}20 1px, transparent 1px)
+                        `,
+                        backgroundSize: '20px 20px',
+                      }}
+                    />
+                    
+                    {/* 角色图片 - 全息效果 */}
+                    <motion.div
+                      className="hologram-image absolute inset-0 flex items-center justify-center"
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: index * 0.1 + 0.3, duration: 0.5 }}
                     >
-                      {profile.icon}
-                    </motion.span>
-                    {/* 光效装饰 */}
+                      <motion.img
+                        src={gameCharacterImages[profile.id]}
+                        alt={profile.category}
+                        className="hologram-character w-auto h-32 object-contain relative z-10"
+                        style={{
+                          filter: `drop-shadow(0 0 10px ${profile.color}80) drop-shadow(0 0 20px ${profile.color}40)`,
+                        }}
+                        animate={{
+                          y: [0, -5, 0],
+                        }}
+                        transition={{
+                          duration: 3,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                        }}
+                        whileHover={{ 
+                          scale: 1.1,
+                          filter: `drop-shadow(0 0 15px ${profile.color}) drop-shadow(0 0 30px ${profile.color}80)`,
+                        }}
+                      />
+                      
+                      {/* 全息故障效果层 */}
+                      <div 
+                        className="hologram-glitch absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100"
+                        style={{
+                          background: `linear-gradient(transparent 50%, ${profile.color}10 50%)`,
+                          backgroundSize: '100% 4px',
+                        }}
+                      />
+                    </motion.div>
+                    
+                    {/* 顶部光晕 */}
                     <div 
-                      className="absolute bottom-0 left-0 right-0 h-1/2"
+                      className="absolute top-0 left-0 right-0 h-12"
                       style={{
-                        background: `linear-gradient(to top, ${profile.color}10 0%, transparent 100%)`,
+                        background: `linear-gradient(to bottom, ${profile.color}15 0%, transparent 100%)`,
                       }}
                     />
+                    
+                    {/* 底部光束 */}
+                    <div 
+                      className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[60%] h-full"
+                      style={{
+                        background: `linear-gradient(to top, ${profile.color}20 0%, transparent 60%)`,
+                        clipPath: 'polygon(20% 100%, 80% 100%, 100% 0%, 0% 0%)',
+                      }}
+                    />
+                    
+                    {/* 边角装饰 */}
+                    <div className="absolute top-2 left-2 w-4 h-4 border-l-2 border-t-2 rounded-tl-sm" style={{ borderColor: `${profile.color}50` }} />
+                    <div className="absolute top-2 right-2 w-4 h-4 border-r-2 border-t-2 rounded-tr-sm" style={{ borderColor: `${profile.color}50` }} />
+                    <div className="absolute bottom-2 left-2 w-4 h-4 border-l-2 border-b-2 rounded-bl-sm" style={{ borderColor: `${profile.color}50` }} />
+                    <div className="absolute bottom-2 right-2 w-4 h-4 border-r-2 border-b-2 rounded-br-sm" style={{ borderColor: `${profile.color}50` }} />
                   </div>
 
                   {/* 品类名称 */}

@@ -1579,6 +1579,168 @@ html {
   border-color: rgba(139, 92, 246, 0.2);
 }
 
+/* ==================== 全息投影效果 ==================== */
+
+/* 全息容器 */
+.hologram-container {
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
+/* 全息扫描线动画 */
+.hologram-scanline {
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(255, 255, 255, 0.03) 50%,
+    transparent 100%
+  );
+  background-size: 100% 8px;
+  animation: scanline 8s linear infinite;
+}
+
+@keyframes scanline {
+  0% {
+    background-position: 0 -100%;
+  }
+  100% {
+    background-position: 0 100%;
+  }
+}
+
+/* 全息角色图片 */
+.hologram-character {
+  transition: all 0.3s ease;
+}
+
+/* 全息故障效果 */
+.hologram-glitch {
+  animation: glitch 0.3s ease-in-out infinite;
+  mix-blend-mode: overlay;
+}
+
+@keyframes glitch {
+  0%, 100% {
+    transform: translate(0);
+    opacity: 0;
+  }
+  20% {
+    transform: translate(-2px, 2px);
+    opacity: 0.3;
+  }
+  40% {
+    transform: translate(2px, -2px);
+    opacity: 0.2;
+  }
+  60% {
+    transform: translate(-1px, 1px);
+    opacity: 0.4;
+  }
+  80% {
+    transform: translate(1px, -1px);
+    opacity: 0.1;
+  }
+}
+
+/* 全息闪烁效果 */
+.hologram-image {
+  animation: hologramFlicker 4s ease-in-out infinite;
+}
+
+@keyframes hologramFlicker {
+  0%, 100% {
+    opacity: 1;
+  }
+  92% {
+    opacity: 1;
+  }
+  93% {
+    opacity: 0.8;
+  }
+  94% {
+    opacity: 1;
+  }
+  96% {
+    opacity: 0.9;
+  }
+  97% {
+    opacity: 1;
+  }
+}
+
+/* 全息呼吸光效 */
+.hologram-container::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at center bottom,
+    rgba(139, 92, 246, 0.1) 0%,
+    transparent 60%
+  );
+  animation: hologramGlow 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes hologramGlow {
+  0%, 100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* 悬停时增强效果 */
+.group:hover .hologram-container {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.group:hover .hologram-container::after {
+  animation: hologramGlowIntense 1.5s ease-in-out infinite;
+}
+
+@keyframes hologramGlowIntense {
+  0%, 100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* 全息启动动画 */
+.hologram-container::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.5), transparent);
+  transform: translate(-50%, -50%) scaleX(0);
+  animation: hologramStartup 0.5s ease-out forwards;
+  pointer-events: none;
+  z-index: 20;
+}
+
+@keyframes hologramStartup {
+  0% {
+    transform: translate(-50%, -50%) scaleX(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translate(-50%, -50%) scaleX(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scaleX(1);
+    opacity: 0;
+  }
+}
+
 /* Section 背景渐变 - 交替使用 */
 .section-bg-gradient-1 {
   background: linear-gradient(180deg, 
