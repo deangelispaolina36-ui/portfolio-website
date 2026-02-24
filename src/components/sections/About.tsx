@@ -5,14 +5,7 @@ import { AnimatedSection } from '../common';
 
 export function About() {
   return (
-    <section id="about" className="section-padding relative section-glow-purple overflow-hidden">
-      {/* 背景装饰 */}
-      <div className="floating-orb floating-orb-1" />
-      <div className="floating-orb floating-orb-2" />
-      
-      {/* 网格点阵背景 */}
-      <div className="absolute inset-0 section-grid-dots opacity-30" />
-      
+    <section id="about" className="section-padding relative overflow-hidden">
       {/* 顶部分隔线 */}
       <div className="absolute top-0 left-[10%] right-[10%] h-px bg-gradient-to-r from-transparent via-purple-500/30 to-transparent" />
 
@@ -49,57 +42,14 @@ export function About() {
             </motion.p>
           </div>
 
-          <div className="grid lg:grid-cols-3 gap-8 lg:gap-10 items-start">
-            {/* 左侧：个人照片卡片 */}
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">
+            {/* 左侧：自我介绍 */}
             <motion.div
-              className="lg:col-span-1"
-              initial={{ opacity: 0, x: -40, scale: 0.95 }}
-              whileInView={{ opacity: 1, x: 0, scale: 1 }}
+              className="space-y-6"
+              initial={{ opacity: 0, x: -40 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-            >
-              <div className="about-photo-card group">
-                {/* 光晕装饰 */}
-                <div className="about-photo-glow" />
-                
-                {/* 照片容器 */}
-                <div className="about-photo-container">
-                  <motion.img 
-                    src="/image/主页头像.png" 
-                    alt={personalInfo.name}
-                    className="about-photo-image"
-                    whileHover={{ scale: 1.05 }}
-                    transition={{ duration: 0.4 }}
-                  />
-                  {/* 照片边框光效 */}
-                  <div className="about-photo-border-glow" />
-                </div>
-                
-                {/* 姓名标签 */}
-                <motion.div 
-                  className="about-photo-name"
-                  initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.3 }}
-                >
-                  <span className="gradient-text-vivid text-xl font-semibold">{personalInfo.name}</span>
-                  <span className="text-gray-400 text-sm mt-1 block">游戏策划 · AIGC探索者</span>
-                </motion.div>
-                
-                {/* 浮动装饰元素 */}
-                <div className="about-photo-float-decoration float-1" />
-                <div className="about-photo-float-decoration float-2" />
-              </div>
-            </motion.div>
-
-            {/* 中间：自我介绍 */}
-            <motion.div
-              className="lg:col-span-1 space-y-6"
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7, delay: 0.1 }}
+              transition={{ duration: 0.7 }}
             >
               {/* 个人简介 */}
               <div className="glass-card-premium p-8 card-glow-hover">
@@ -142,7 +92,7 @@ export function About() {
 
             {/* 右侧：教育背景和联系方式 */}
             <motion.div
-              className="lg:col-span-1 space-y-6"
+              className="space-y-6"
               initial={{ opacity: 0, x: 40 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}

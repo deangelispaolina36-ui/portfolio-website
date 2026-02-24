@@ -8,6 +8,7 @@ import {
   Skills, 
   Contact 
 } from "./components/sections";
+import { ParticleBackground } from "./components/common";
 
 function App() {
   return (
@@ -21,8 +22,20 @@ function App() {
       {/* 自然过渡区域 - 从Hero到About的融合层 */}
       <div className="hero-to-about-transition" />
 
-      {/* 主要内容 - 位于Hero之后，带有渐变融入效果 */}
+      {/* 主要内容 - 位于Hero之后，带有渐变融入效果和动态粒子背景 */}
       <main className="relative z-20">
+        {/* 动态粒子背景 - 固定在视口，作为所有内容页面的背景 */}
+        <div className="main-particle-bg">
+          <ParticleBackground 
+            particleCount={80}
+            colors={['rgba(139, 92, 246, 0.5)', 'rgba(236, 72, 153, 0.4)', 'rgba(99, 102, 241, 0.4)', 'rgba(167, 139, 250, 0.3)']}
+            maxRadius={2.5}
+            minRadius={0.8}
+            speed={0.3}
+            connectDistance={120}
+          />
+        </div>
+        
         {/* About区域顶部渐变融入层 */}
         <div className="about-fade-in-overlay" />
         
