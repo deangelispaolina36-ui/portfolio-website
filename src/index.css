@@ -1960,3 +1960,99 @@ html {
     aspect-ratio: 4 / 5;
   }
 }
+
+/* ================================
+   证件照个人名片样式
+   ================================ */
+
+/* 证件照包装器 */
+.profile-photo-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 外圈光晕效果 */
+.profile-photo-glow {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at center,
+    rgba(139, 92, 246, 0.25) 0%,
+    rgba(236, 72, 153, 0.15) 40%,
+    transparent 70%
+  );
+  filter: blur(30px);
+  pointer-events: none;
+  opacity: 0.8;
+  transition: all 0.5s ease;
+  z-index: 0;
+}
+
+.profile-photo-wrapper:hover .profile-photo-glow {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+/* 证件照容器 */
+.profile-photo-container {
+  position: relative;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  overflow: hidden;
+  z-index: 1;
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(236, 72, 153, 0.2));
+  padding: 4px;
+}
+
+/* 证件照图片 */
+.profile-photo-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  border-radius: 50%;
+  transition: transform 0.4s ease;
+}
+
+.profile-photo-wrapper:hover .profile-photo-image {
+  transform: scale(1.05);
+}
+
+/* 边框光效 */
+.profile-photo-border {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.5), rgba(236, 72, 153, 0.5)) border-box;
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) padding-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0.6;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.profile-photo-wrapper:hover .profile-photo-border {
+  opacity: 1;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+  .profile-photo-container {
+    width: 140px;
+    height: 140px;
+  }
+  
+  .profile-photo-glow {
+    width: 180px;
+    height: 180px;
+  }
+}
