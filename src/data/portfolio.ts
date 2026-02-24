@@ -357,7 +357,7 @@ export const personalInfo = {
   subtitle: '10年游戏经验 × 腾讯实习经历 × AIGC 产品思维',
   email: 'wtairan_nxu@163.com',
   phone: '15769672279',
-  wechat: '15769672279',
+  wechat: 'vwtairan857',
   education: {
     school: '宁夏大学',
     period: '2022-2026',
