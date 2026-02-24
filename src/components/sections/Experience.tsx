@@ -1,7 +1,14 @@
 import { motion } from 'framer-motion';
-import { Building2, Calendar, MapPin, Star } from 'lucide-react';
+import { Building2, Calendar, MapPin, Star, Users, Play, Zap } from 'lucide-react';
 import { experiences } from '../../data/portfolio';
 import { AnimatedSection } from '../common';
+
+// 腾讯工作数据指标
+const tencentMetrics = [
+  { value: '1.1亿+', label: '粉丝矩阵', icon: Users },
+  { value: '1.3亿', label: '播放KPI', icon: Play },
+  { value: '70%', label: '效率提升', icon: Zap },
+];
 
 export function Experience() {
   return (
@@ -125,6 +132,36 @@ export function Experience() {
                         </motion.div>
                       ))}
                     </div>
+
+                    {/* 腾讯数据指标 - 只在腾讯经历下显示 */}
+                    {exp.id === 'tencent' && (
+                      <motion.div
+                        className="mt-6 pt-6 border-t border-white/10"
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.6 }}
+                      >
+                        <div className={`grid grid-cols-3 gap-4 ${index % 2 === 0 ? 'md:text-right' : 'md:text-left'}`}>
+                          {tencentMetrics.map((metric, mIndex) => (
+                            <motion.div
+                              key={mIndex}
+                              className="text-center"
+                              initial={{ opacity: 0, scale: 0.8 }}
+                              whileInView={{ opacity: 1, scale: 1 }}
+                              viewport={{ once: true }}
+                              transition={{ delay: 0.7 + mIndex * 0.1 }}
+                            >
+                              <div className="w-10 h-10 mx-auto mb-2 rounded-xl bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
+                                <metric.icon className="w-5 h-5 text-primary" />
+                              </div>
+                              <p className="text-xl font-bold gradient-text">{metric.value}</p>
+                              <p className="text-xs text-muted-foreground">{metric.label}</p>
+                            </motion.div>
+                          ))}
+                        </div>
+                      </motion.div>
+                    )}
                   </motion.div>
                 </div>
 

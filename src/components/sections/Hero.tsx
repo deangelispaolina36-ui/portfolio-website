@@ -149,16 +149,12 @@ export function Hero() {
               <div className="relative">
                 <div className="hexagon w-64 h-64 sm:w-72 sm:h-72 lg:w-80 lg:h-80 bg-gradient-to-br from-primary to-secondary p-1">
                   <div className="hexagon w-full h-full bg-card flex items-center justify-center overflow-hidden">
-                    {/* 占位头像 */}
-                    <div className="w-full h-full bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
-                      <span className="text-6xl">👨‍💻</span>
-                    </div>
-                    {/* 如果有真实头像，使用下面的代码 */}
-                    {/* <img
-                      src="/avatar.jpg"
+                    {/* 真实头像 */}
+                    <img
+                      src="/image/证件照.png"
                       alt={personalInfo.name}
                       className="w-full h-full object-cover"
-                    /> */}
+                    />
                   </div>
                 </div>
 

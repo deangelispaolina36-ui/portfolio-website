@@ -12,6 +12,8 @@ function PortfolioModal({
   item: PortfolioItem;
   onClose: () => void;
 }) {
+  const [imageError, setImageError] = useState(false);
+  
   return (
     <motion.div
       className="fixed inset-0 z-50 flex items-center justify-center p-4"
@@ -46,11 +48,19 @@ function PortfolioModal({
 
         {/* 封面图 */}
         <div className="relative h-64 overflow-hidden">
-          <img
-            src={item.coverImage}
-            alt={item.title}
-            className="w-full h-full object-cover"
-          />
+          {!imageError ? (
+            <img
+              src={item.coverImage}
+              alt={item.title}
+              className="w-full h-full object-cover"
+              onError={() => setImageError(true)}
+            />
+          ) : (
+            /* 图片加载失败时显示紫色渐变背景 */
+            <div className="w-full h-full bg-gradient-to-br from-primary via-secondary to-accent flex items-center justify-center">
+              <span className="text-6xl opacity-80">🎨</span>
+            </div>
+          )}
           <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent" />
           
           {/* 标题覆盖 */}
@@ -149,6 +159,8 @@ function PortfolioCard({
   index: number;
   onClick: () => void;
 }) {
+  const [imageError, setImageError] = useState(false);
+  
   const categoryColors: Record<string, string> = {
     'game-analysis': '#f59e0b',
     product: '#10b981',
@@ -169,11 +181,19 @@ function PortfolioCard({
       <div className="relative glass rounded-2xl overflow-hidden card-hover h-full">
         {/* 封面图 */}
         <div className="relative h-48 overflow-hidden">
-          <img
-            src={item.coverImage}
-            alt={item.title}
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-          />
+          {!imageError ? (
+            <img
+              src={item.coverImage}
+              alt={item.title}
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              onError={() => setImageError(true)}
+            />
+          ) : (
+            /* 图片加载失败时显示紫色渐变背景 */
+            <div className="w-full h-full bg-gradient-to-br from-primary via-secondary to-accent flex items-center justify-center">
+              <span className="text-5xl opacity-80">🎨</span>
+            </div>
+          )}
           <div className="absolute inset-0 bg-gradient-to-t from-card via-card/50 to-transparent" />
           
           {/* 分类标签 */}

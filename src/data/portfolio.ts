@@ -150,18 +150,32 @@ App 界面、网页设计
   },
   {
     id: 'more-coming',
-    title: '更多作品整理中',
-    category: 'misc',
-    tags: ['模板', '待补充'],
-    description: '游戏分析模板与更多项目将持续补充，敬请期待',
-    coverImage: 'https://images.unsplash.com/photo-1484417894907-623942c8ee29?w=600&h=400&fit=crop',
+    title: '游戏分析报告 - Coming Soon',
+    category: 'game-analysis',
+    tags: ['MOBA', '产品分析', '敬请期待'],
+    description: '王者荣耀、和平精英等热门游戏的深度产品分析报告，即将上线',
+    coverImage: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=600&h=400&fit=crop',
     detailContent: `
-## 整理中
-- 游戏分析模板
-- 运营/产品相关案例
-- AIGC 项目补充
+## 即将上线
 
-（后续将持续更新）
+正在整理以下内容：
+
+### 王者荣耀产品分析
+- 核心玩法机制分析
+- 用户分层与留存策略
+- 商业化模式解读
+
+### 和平精英产品分析
+- 战术竞技品类特点
+- 赛季系统设计
+- 社交功能分析
+
+### 更多游戏分析
+- 永劫无间
+- 无畏契约
+- 原神
+
+敬请期待...
     `,
   },
 ];
@@ -246,11 +260,16 @@ export interface Experience {
   logo?: string;
 }
 
+export interface ExperienceMetric {
+  value: string;
+  label: string;
+}
+
 export const experiences: Experience[] = [
   {
     id: 'tencent',
-    company: '腾讯科技（深圳）',
-    department: '成长守护中心',
+    company: '腾讯 IEG · 成长守护中心',
+    department: '互动娱乐事业群（游戏）',
     location: '深圳',
     position: '内容运营实习生',
     period: '2025.09 - 2026.06',

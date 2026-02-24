@@ -137,7 +137,7 @@ export function Contact() {
                   <div className="w-3 h-3 rounded-full bg-green-500 animate-pulse" />
                   <div>
                     <p className="text-sm text-green-400">当前状态</p>
-                    <p className="text-foreground font-medium">正在寻找游戏产品策划机会</p>
+                    <p className="text-foreground font-medium">正在寻找 游戏策划 / 内容运营 机会</p>
                   </div>
                 </div>
 
