@@ -296,17 +296,17 @@ html {
   transform-origin: center center;
 }
 
-/* 智能遮罩 - 从左到右渐变 */
+/* 智能遮罩 - 从左到右渐变（适配紫粉色调海景） */
 .hero-smart-gradient {
   position: absolute;
   inset: 0;
   background: linear-gradient(
     to right,
-    rgba(15, 23, 42, 0.95) 0%,
-    rgba(15, 23, 42, 0.85) 25%,
-    rgba(15, 23, 42, 0.5) 50%,
-    rgba(15, 23, 42, 0.2) 70%,
-    transparent 100%
+    rgba(15, 15, 35, 0.95) 0%,
+    rgba(20, 18, 40, 0.85) 20%,
+    rgba(30, 25, 50, 0.6) 40%,
+    rgba(40, 35, 60, 0.3) 60%,
+    transparent 80%
   );
   pointer-events: none;
 }
@@ -316,10 +316,10 @@ html {
   .hero-smart-gradient {
     background: linear-gradient(
       to top,
-      rgba(15, 23, 42, 1) 0%,
-      rgba(15, 23, 42, 0.9) 30%,
-      rgba(15, 23, 42, 0.5) 60%,
-      rgba(15, 23, 42, 0.2) 100%
+      rgba(15, 15, 35, 1) 0%,
+      rgba(20, 18, 40, 0.95) 30%,
+      rgba(30, 25, 50, 0.6) 60%,
+      rgba(40, 35, 60, 0.2) 100%
     );
   }
 }
