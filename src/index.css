@@ -1587,18 +1587,21 @@ html {
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 0.75rem;
   overflow: hidden;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.4) 100%);
 }
 
-/* 全息扫描线动画 */
+/* 全息扫描线动画 - 增强版 */
 .hologram-scanline {
   background: linear-gradient(
     to bottom,
     transparent 0%,
-    rgba(255, 255, 255, 0.03) 50%,
+    rgba(255, 255, 255, 0.05) 48%,
+    rgba(139, 92, 246, 0.1) 50%,
+    rgba(255, 255, 255, 0.05) 52%,
     transparent 100%
   );
-  background-size: 100% 8px;
-  animation: scanline 8s linear infinite;
+  background-size: 100% 200%;
+  animation: scanline 4s linear infinite;
 }
 
 @keyframes scanline {
@@ -1606,13 +1609,20 @@ html {
     background-position: 0 -100%;
   }
   100% {
-    background-position: 0 100%;
+    background-position: 0 200%;
   }
 }
 
 /* 全息角色图片 */
 .hologram-character {
   transition: all 0.3s ease;
+  /* 添加轻微的蓝色色调，增强全息感 */
+  filter: brightness(1.05) saturate(0.9);
+}
+
+/* 悬停时图片效果增强 */
+.group:hover .hologram-character {
+  filter: brightness(1.15) saturate(1.1);
 }
 
 /* 全息故障效果 */
@@ -1677,7 +1687,8 @@ html {
   inset: 0;
   background: radial-gradient(
     ellipse at center bottom,
-    rgba(139, 92, 246, 0.1) 0%,
+    rgba(139, 92, 246, 0.15) 0%,
+    rgba(139, 92, 246, 0.05) 30%,
     transparent 60%
   );
   animation: hologramGlow 3s ease-in-out infinite;

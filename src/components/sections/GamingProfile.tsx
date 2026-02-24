@@ -118,7 +118,7 @@ export function GamingProfile() {
                     
                     {/* 角色图片 - 全息效果 */}
                     <motion.div
-                      className="hologram-image absolute inset-0 flex items-center justify-center"
+                      className="hologram-image absolute inset-0 flex items-center justify-center p-2"
                       initial={{ opacity: 0, scale: 0.8 }}
                       whileInView={{ opacity: 1, scale: 1 }}
                       viewport={{ once: true }}
@@ -127,9 +127,10 @@ export function GamingProfile() {
                       <motion.img
                         src={gameCharacterImages[profile.id]}
                         alt={profile.category}
-                        className="hologram-character w-auto h-32 object-contain relative z-10"
+                        className="hologram-character max-w-full max-h-full object-contain relative z-10"
                         style={{
                           filter: `drop-shadow(0 0 10px ${profile.color}80) drop-shadow(0 0 20px ${profile.color}40)`,
+                          maxHeight: '130px',
                         }}
                         animate={{
                           y: [0, -5, 0],
