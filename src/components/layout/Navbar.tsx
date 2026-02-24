@@ -1,15 +1,13 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Gamepad2 } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 
 const navLinks = [
-  { name: '首页', href: '#hero' },
-  { name: '关于我', href: '#about' },
-  { name: '游戏履历', href: '#gaming' },
-  { name: '作品集', href: '#portfolio' },
-  { name: '工作经历', href: '#experience' },
-  { name: '技能', href: '#skills' },
-  { name: '联系', href: '#contact' },
+  { name: 'HOME', href: '#hero' },
+  { name: 'ABOUT', href: '#about' },
+  { name: 'GAMES', href: '#gaming' },
+  { name: 'WORKS', href: '#portfolio' },
+  { name: 'CAREER', href: '#experience' },
 ];
 
 export function Navbar() {
@@ -63,89 +61,136 @@ export function Navbar() {
 
   return (
     <>
+      {/* 桌面端：左侧垂直极简导航 */}
       <motion.nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled ? 'glass-strong py-3' : 'py-5'
+        className="fixed left-8 top-1/2 -translate-y-1/2 z-50 hidden lg:flex flex-col items-center gap-8"
+        initial={{ x: -50, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ duration: 0.8, delay: 0.5, ease: 'easeOut' }}
+      >
+        {/* 垂直线 - 顶部 */}
+        <motion.div 
+          className="w-px h-16 bg-gradient-to-b from-transparent to-white/20"
+          initial={{ height: 0 }}
+          animate={{ height: 64 }}
+          transition={{ duration: 0.8, delay: 0.8 }}
+        />
+
+        {/* 导航链接 */}
+        {navLinks.map((link, index) => (
+          <motion.a
+            key={link.name}
+            href={link.href}
+            className={`group relative text-xs tracking-[3px] font-light transition-all duration-300 ${
+              activeSection === link.href.replace('#', '')
+                ? 'text-white'
+                : 'text-white/40 hover:text-white'
+            }`}
+            style={{ writingMode: 'vertical-rl', textOrientation: 'mixed' }}
+            onClick={(e) => {
+              e.preventDefault();
+              scrollToSection(link.href);
+            }}
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.9 + index * 0.1 }}
+            whileHover={{ x: 4 }}
+          >
+            {link.name}
+            {/* 活动指示器 */}
+            <motion.span
+              className={`absolute left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-amber-400 ${
+                activeSection === link.href.replace('#', '') ? 'opacity-100' : 'opacity-0 group-hover:opacity-50'
+              }`}
+              style={{ bottom: '-12px' }}
+              layoutId="navIndicator"
+            />
+          </motion.a>
+        ))}
+
+        {/* 垂直线 - 底部 */}
+        <motion.div 
+          className="w-px h-16 bg-gradient-to-t from-transparent to-white/20"
+          initial={{ height: 0 }}
+          animate={{ height: 64 }}
+          transition={{ duration: 0.8, delay: 1.2 }}
+        />
+
+        {/* 联系按钮 */}
+        <motion.a
+          href="#contact"
+          className="text-xs tracking-[3px] font-light text-amber-400/80 hover:text-amber-400 transition-colors"
+          style={{ writingMode: 'vertical-rl', textOrientation: 'mixed' }}
+          onClick={(e) => {
+            e.preventDefault();
+            scrollToSection('#contact');
+          }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 1.5 }}
+          whileHover={{ x: 4 }}
+        >
+          CONTACT
+        </motion.a>
+      </motion.nav>
+
+      {/* 移动端导航栏 */}
+      <motion.div
+        className={`fixed top-0 left-0 right-0 z-50 lg:hidden transition-all duration-500 ${
+          isScrolled ? 'bg-[#0f172a]/95 backdrop-blur-xl py-4 border-b border-white/5' : 'py-5'
         }`}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: 0.6, ease: 'easeOut' }}
       >
         <div className="container-custom">
           <div className="flex items-center justify-between">
-            {/* Logo */}
+            {/* Logo - 极简文字 */}
             <motion.a
               href="#hero"
-              className="flex items-center gap-2 text-xl font-bold"
+              className="flex items-center gap-3"
               onClick={(e) => {
                 e.preventDefault();
                 scrollToSection('#hero');
               }}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
             >
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
-                <Gamepad2 className="w-5 h-5 text-white" />
-              </div>
-              <span className="gradient-text hidden sm:inline">王泰然</span>
+              <span className="text-lg font-editorial tracking-wide text-white">TR</span>
+              <span className="text-xs text-white/40 tracking-[2px] uppercase">Wang</span>
             </motion.a>
 
-            {/* 桌面端导航 */}
-            <div className="hidden lg:flex items-center gap-1">
-              {navLinks.map((link) => (
-                <motion.a
-                  key={link.name}
-                  href={link.href}
-                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                    activeSection === link.href.replace('#', '')
-                      ? 'text-primary bg-primary/10'
-                      : 'text-muted-foreground hover:text-foreground hover:bg-white/5'
-                  }`}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    scrollToSection(link.href);
-                  }}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  {link.name}
-                </motion.a>
-              ))}
-            </div>
-
-            {/* CTA 按钮 */}
-            <div className="hidden lg:block">
-              <motion.a
-                href="#contact"
-                className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-primary to-secondary text-white font-medium text-sm btn-neon"
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollToSection('#contact');
-                }}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                联系我
-              </motion.a>
-            </div>
-
-            {/* 移动端菜单按钮 */}
+            {/* 菜单按钮 - 极简风格 */}
             <motion.button
-              className="lg:hidden w-10 h-10 rounded-xl glass flex items-center justify-center"
+              className="w-10 h-10 flex items-center justify-center relative"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              whileTap={{ scale: 0.9 }}
+              whileTap={{ scale: 0.95 }}
             >
-              {isMobileMenuOpen ? (
-                <X className="w-5 h-5" />
-              ) : (
-                <Menu className="w-5 h-5" />
-              )}
+              <motion.div
+                className="flex flex-col justify-center items-center gap-1.5"
+                animate={isMobileMenuOpen ? 'open' : 'closed'}
+              >
+                <motion.span
+                  className="w-6 h-px bg-white block"
+                  variants={{
+                    open: { rotate: 45, y: 3.5 },
+                    closed: { rotate: 0, y: 0 }
+                  }}
+                  transition={{ duration: 0.3 }}
+                />
+                <motion.span
+                  className="w-6 h-px bg-white block"
+                  variants={{
+                    open: { rotate: -45, y: -3.5 },
+                    closed: { rotate: 0, y: 0 }
+                  }}
+                  transition={{ duration: 0.3 }}
+                />
+              </motion.div>
             </motion.button>
           </div>
         </div>
-      </motion.nav>
+      </motion.div>
 
-      {/* 移动端菜单 */}
+      {/* 移动端全屏菜单 */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
@@ -154,9 +199,9 @@ export function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
-            {/* 背景遮罩 */}
+            {/* 背景 */}
             <motion.div
-              className="absolute inset-0 bg-background/95 backdrop-blur-lg"
+              className="absolute inset-0 bg-[#0f172a]"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -165,50 +210,45 @@ export function Navbar() {
 
             {/* 菜单内容 */}
             <motion.div
-              className="absolute top-20 left-4 right-4 glass-strong rounded-2xl p-6"
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+              className="absolute inset-0 flex flex-col items-center justify-center"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
             >
-              <nav className="space-y-2">
-                {navLinks.map((link, index) => (
+              <nav className="flex flex-col items-center gap-8">
+                {[...navLinks, { name: 'CONTACT', href: '#contact' }].map((link, index) => (
                   <motion.a
                     key={link.name}
                     href={link.href}
-                    className={`block px-4 py-3 rounded-xl text-base font-medium transition-colors ${
+                    className={`text-2xl font-editorial tracking-[8px] transition-all ${
                       activeSection === link.href.replace('#', '')
-                        ? 'text-primary bg-primary/10'
-                        : 'text-muted-foreground hover:text-foreground hover:bg-white/5'
+                        ? 'text-white'
+                        : 'text-white/50 hover:text-white'
                     }`}
                     onClick={(e) => {
                       e.preventDefault();
                       scrollToSection(link.href);
                     }}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.05 }}
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -30 }}
+                    transition={{ delay: index * 0.08, duration: 0.4 }}
                   >
                     {link.name}
                   </motion.a>
                 ))}
               </nav>
 
-              <div className="mt-6 pt-6 border-t border-border">
-                <motion.a
-                  href="#contact"
-                  className="block w-full py-3 rounded-xl bg-gradient-to-r from-primary to-secondary text-white font-medium text-center"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    scrollToSection('#contact');
-                  }}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.3 }}
-                >
-                  联系我
-                </motion.a>
-              </div>
+              {/* 底部装饰 */}
+              <motion.div
+                className="absolute bottom-12 flex flex-col items-center gap-4"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.5 }}
+              >
+                <div className="w-px h-12 bg-gradient-to-b from-white/20 to-transparent" />
+                <span className="text-xs text-white/30 tracking-[3px]">PORTFOLIO 2026</span>
+              </motion.div>
             </motion.div>
           </motion.div>
         )}

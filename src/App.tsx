@@ -13,13 +13,19 @@ import { FlowingBackground } from "./components/common";
 function App() {
   return (
     <div className="min-h-screen bg-transparent text-white relative">
-      {/* 全局动态流动背景 */}
+      {/* Cyberpunk 弥散渐变背景 */}
+      <div className="cyber-atmosphere" />
+      
+      {/* 噪点纹理叠加层 */}
+      <div className="noise-overlay" />
+      
+      {/* 全局动态流动背景（保留粒子效果） */}
       <FlowingBackground 
         showMouseGlow={true}
         showParticles={true}
-        showWaves={true}
+        showWaves={false}
         showLines={true}
-        showGrid={true}
+        showGrid={false}
       />
 
       {/* 导航栏 */}
