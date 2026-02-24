@@ -368,16 +368,15 @@ html {
   z-index: 5;
 }
 
-/* 主内容区粒子背景容器 */
+/* 主内容区粒子背景容器 - 只在main区域内显示，不覆盖Hero */
 .main-particle-bg {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   z-index: 0;
   pointer-events: none;
-  background: radial-gradient(ellipse at 50% 50%, rgba(15, 23, 42, 0.95) 0%, rgba(2, 6, 23, 1) 100%);
 }
 
 /* 移动端遮罩调整 */

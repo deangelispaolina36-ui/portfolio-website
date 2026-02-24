@@ -23,8 +23,8 @@ function App() {
       <div className="hero-to-about-transition" />
 
       {/* 主要内容 - 位于Hero之后，带有渐变融入效果和动态粒子背景 */}
-      <main className="relative z-20">
-        {/* 动态粒子背景 - 固定在视口，作为所有内容页面的背景 */}
+      <main className="relative z-20 bg-slate-950">
+        {/* 动态粒子背景 - 作为main区域的背景 */}
         <div className="main-particle-bg">
           <ParticleBackground 
             particleCount={80}
