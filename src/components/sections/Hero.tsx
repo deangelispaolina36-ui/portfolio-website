@@ -52,7 +52,7 @@ export function Hero() {
           style={{
             y: backgroundY,
             scale: backgroundScale,
-            backgroundImage: `url('/image/hero-bg.png')`,
+            backgroundImage: `url('/image/主页头像.png')`,
           }}
         >
           {/* 智能遮罩层 - 从左到右渐变 */}
