@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { GraduationCap, Mail, Phone, MessageCircle, Sparkles } from 'lucide-react';
+import { GraduationCap, Mail, Phone, Sparkles } from 'lucide-react';
 import { personalInfo } from '../../data/portfolio';
 import { AnimatedSection } from '../common';
 
@@ -76,8 +76,8 @@ export function About() {
             </motion.div>
           </motion.div>
 
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">
-            {/* 左侧：自我介绍 */}
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-stretch">
+            {/* 左侧：自我介绍和标签云 */}
             <motion.div
               className="space-y-6"
               initial={{ opacity: 0, x: -40 }}
@@ -188,20 +188,10 @@ export function About() {
                       <Phone className="w-5 h-5 text-purple-400" />
                     </div>
                     <div>
-                      <p className="text-sm text-gray-500">电话</p>
+                      <p className="text-sm text-gray-500">电话 / 微信同号</p>
                       <p className="text-white font-medium group-hover:text-purple-300 transition-colors">{personalInfo.phone}</p>
                     </div>
                   </a>
-
-                  <div className="contact-card-enhanced flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500/10 to-pink-500/10 flex items-center justify-center border border-purple-500/20">
-                      <MessageCircle className="w-5 h-5 text-purple-400" />
-                    </div>
-                    <div>
-                      <p className="text-sm text-gray-500">微信</p>
-                      <p className="text-white font-medium">{personalInfo.wechat}</p>
-                    </div>
-                  </div>
                 </div>
               </div>
             </motion.div>
