@@ -144,7 +144,7 @@ export function Contact() {
                   </div>
                   <div>
                     <p className="text-sm text-gray-500">当前位置</p>
-                    <p className="text-white font-medium">深圳 / 宁夏</p>
+                    <p className="text-white font-medium">深圳</p>
                   </div>
                 </div>
 
@@ -156,7 +156,7 @@ export function Contact() {
                   </div>
                   <div>
                     <p className="text-sm text-green-400">当前状态</p>
-                    <p className="text-white font-medium">正在寻找 游戏策划 / 内容运营 机会</p>
+                    <p className="text-white font-medium">正在寻找 运营 / 产品 相关机会</p>
                   </div>
                 </div>
 
