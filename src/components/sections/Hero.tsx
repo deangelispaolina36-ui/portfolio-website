@@ -125,7 +125,7 @@ export function Hero() {
             >
               <div className="hero-slogan-line" />
               <p className="hero-slogan-parallax">
-                以玩家视角，构建虚拟世界
+                与用户站在一起
               </p>
             </motion.div>
 
