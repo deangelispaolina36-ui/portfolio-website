@@ -2916,3 +2916,675 @@ html {
     opacity: 0.8;
   }
 }
+
+/* ================================
+   动态背景组件样式 - 非 Hero 区域专用
+   ================================ */
+
+/* 环境光球 - 大型漂浮光晕 */
+.dynamic-ambient-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.dynamic-orb-1 {
+  width: 700px;
+  height: 700px;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, transparent 70%);
+  top: 0%;
+  left: -15%;
+  animation: dynamicOrb1 40s ease-in-out infinite;
+}
+
+.dynamic-orb-2 {
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(236, 72, 153, 0.12) 0%, transparent 70%);
+  top: 30%;
+  right: -20%;
+  animation: dynamicOrb2 45s ease-in-out infinite;
+}
+
+.dynamic-orb-3 {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+  bottom: 20%;
+  left: 10%;
+  animation: dynamicOrb3 35s ease-in-out infinite;
+}
+
+.dynamic-orb-4 {
+  width: 650px;
+  height: 650px;
+  background: radial-gradient(circle, rgba(167, 139, 250, 0.12) 0%, transparent 70%);
+  bottom: 5%;
+  right: 5%;
+  animation: dynamicOrb1 50s ease-in-out infinite reverse;
+}
+
+@keyframes dynamicOrb1 {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.5;
+  }
+  25% {
+    transform: translate(100px, 80px) scale(1.2);
+    opacity: 0.9;
+  }
+  50% {
+    transform: translate(50px, 150px) scale(0.85);
+    opacity: 0.6;
+  }
+  75% {
+    transform: translate(-80px, 60px) scale(1.1);
+    opacity: 0.8;
+  }
+}
+
+@keyframes dynamicOrb2 {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.45;
+  }
+  33% {
+    transform: translate(-90px, 100px) scale(1.25);
+    opacity: 0.85;
+  }
+  66% {
+    transform: translate(70px, -80px) scale(0.8);
+    opacity: 0.55;
+  }
+}
+
+@keyframes dynamicOrb3 {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translate(120px, -100px) scale(1.3);
+    opacity: 0.9;
+  }
+}
+
+/* 流动波纹层 */
+.dynamic-wave-layer {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.dynamic-wave {
+  position: absolute;
+  width: 250%;
+  height: 250%;
+  top: -75%;
+  left: -75%;
+  will-change: transform;
+}
+
+.dynamic-wave-1 {
+  background: 
+    radial-gradient(ellipse 90% 60% at 25% 40%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+    radial-gradient(ellipse 70% 50% at 75% 25%, rgba(236, 72, 153, 0.08) 0%, transparent 50%);
+  animation: dynamicWave1 35s ease-in-out infinite;
+}
+
+.dynamic-wave-2 {
+  background: 
+    radial-gradient(ellipse 80% 70% at 65% 65%, rgba(99, 102, 241, 0.09) 0%, transparent 50%),
+    radial-gradient(ellipse 60% 40% at 35% 75%, rgba(6, 182, 212, 0.06) 0%, transparent 50%);
+  animation: dynamicWave2 30s ease-in-out infinite;
+  animation-delay: -12s;
+}
+
+.dynamic-wave-3 {
+  background: 
+    radial-gradient(ellipse 50% 40% at 50% 50%, rgba(167, 139, 250, 0.06) 0%, transparent 60%);
+  animation: dynamicWave3 25s ease-in-out infinite;
+  animation-delay: -6s;
+}
+
+@keyframes dynamicWave1 {
+  0%, 100% {
+    transform: translate(0%, 0%) rotate(0deg) scale(1);
+  }
+  25% {
+    transform: translate(6%, -4%) rotate(3deg) scale(1.05);
+  }
+  50% {
+    transform: translate(-4%, 6%) rotate(-2deg) scale(0.95);
+  }
+  75% {
+    transform: translate(-6%, -3%) rotate(2deg) scale(1.02);
+  }
+}
+
+@keyframes dynamicWave2 {
+  0%, 100% {
+    transform: translate(0%, 0%) rotate(0deg) scale(1);
+  }
+  33% {
+    transform: translate(-5%, 5%) rotate(-3deg) scale(1.08);
+  }
+  66% {
+    transform: translate(5%, -5%) rotate(3deg) scale(0.92);
+  }
+}
+
+@keyframes dynamicWave3 {
+  0%, 100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.3) rotate(180deg);
+    opacity: 1;
+  }
+}
+
+/* 动态光柱 */
+.dynamic-light-beam {
+  position: absolute;
+  width: 3px;
+  background: linear-gradient(to bottom,
+    transparent 0%,
+    rgba(139, 92, 246, 0.5) 15%,
+    rgba(167, 139, 250, 0.7) 50%,
+    rgba(139, 92, 246, 0.5) 85%,
+    transparent 100%
+  );
+  animation: dynamicBeamMove 12s ease-in-out infinite;
+  pointer-events: none;
+  border-radius: 2px;
+  box-shadow: 0 0 15px rgba(139, 92, 246, 0.3);
+}
+
+.dynamic-beam-1 {
+  left: 8%;
+  height: 45%;
+  top: 15%;
+}
+
+.dynamic-beam-2 {
+  right: 12%;
+  height: 55%;
+  top: 25%;
+  animation-delay: -4s;
+  background: linear-gradient(to bottom,
+    transparent 0%,
+    rgba(236, 72, 153, 0.4) 15%,
+    rgba(244, 114, 182, 0.6) 50%,
+    rgba(236, 72, 153, 0.4) 85%,
+    transparent 100%
+  );
+  box-shadow: 0 0 15px rgba(236, 72, 153, 0.3);
+}
+
+.dynamic-beam-3 {
+  left: 45%;
+  height: 40%;
+  bottom: 10%;
+  animation-delay: -8s;
+  background: linear-gradient(to bottom,
+    transparent 0%,
+    rgba(99, 102, 241, 0.4) 15%,
+    rgba(129, 140, 248, 0.6) 50%,
+    rgba(99, 102, 241, 0.4) 85%,
+    transparent 100%
+  );
+  box-shadow: 0 0 15px rgba(99, 102, 241, 0.3);
+}
+
+@keyframes dynamicBeamMove {
+  0%, 100% {
+    transform: translateY(0) scaleY(1);
+    opacity: 0.25;
+  }
+  25% {
+    transform: translateY(-30px) scaleY(1.15);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translateY(15px) scaleY(0.85);
+    opacity: 0.35;
+  }
+  75% {
+    transform: translateY(-20px) scaleY(1.08);
+    opacity: 0.6;
+  }
+}
+
+/* 流动线条 */
+.dynamic-lines-container {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.dynamic-flow-line {
+  position: absolute;
+  height: 2px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(139, 92, 246, 0.4) 15%, 
+    rgba(236, 72, 153, 0.5) 50%, 
+    rgba(99, 102, 241, 0.4) 85%, 
+    transparent 100%
+  );
+  animation: dynamicLineFlow 10s ease-in-out infinite;
+  opacity: 0;
+  border-radius: 1px;
+}
+
+.dynamic-flow-line:nth-child(1) {
+  top: 15%;
+  width: 70%;
+  left: -70%;
+  animation-delay: 0s;
+}
+
+.dynamic-flow-line:nth-child(2) {
+  top: 30%;
+  width: 85%;
+  left: -85%;
+  animation-delay: 2s;
+}
+
+.dynamic-flow-line:nth-child(3) {
+  top: 50%;
+  width: 60%;
+  left: -60%;
+  animation-delay: 4s;
+}
+
+.dynamic-flow-line:nth-child(4) {
+  top: 70%;
+  width: 75%;
+  left: -75%;
+  animation-delay: 6s;
+}
+
+.dynamic-flow-line:nth-child(5) {
+  top: 85%;
+  width: 90%;
+  left: -90%;
+  animation-delay: 8s;
+}
+
+@keyframes dynamicLineFlow {
+  0% {
+    transform: translateX(0%);
+    opacity: 0;
+  }
+  8% {
+    opacity: 1;
+  }
+  92% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(calc(100vw + 100%));
+    opacity: 0;
+  }
+}
+
+/* 能量脉冲环 */
+.dynamic-pulse-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid;
+  pointer-events: none;
+  animation: dynamicPulse 5s ease-out infinite;
+}
+
+.dynamic-ring-1 {
+  width: 350px;
+  height: 350px;
+  top: 15%;
+  left: 25%;
+  border-color: rgba(139, 92, 246, 0.25);
+}
+
+.dynamic-ring-2 {
+  width: 450px;
+  height: 450px;
+  bottom: 20%;
+  right: 15%;
+  border-color: rgba(236, 72, 153, 0.2);
+  animation-delay: -2.5s;
+}
+
+.dynamic-ring-3 {
+  width: 300px;
+  height: 300px;
+  top: 50%;
+  right: 40%;
+  border-color: rgba(99, 102, 241, 0.2);
+  animation-delay: -1.2s;
+}
+
+@keyframes dynamicPulse {
+  0% {
+    transform: scale(0.7);
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+/* 星光粒子 */
+.dynamic-starfield {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.dynamic-star {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: white;
+  border-radius: 50%;
+  animation: dynamicTwinkle 4s ease-in-out infinite;
+}
+
+.dynamic-star-1 { top: 8%; left: 12%; animation-delay: 0s; }
+.dynamic-star-2 { top: 15%; left: 75%; animation-delay: 0.4s; }
+.dynamic-star-3 { top: 25%; left: 30%; animation-delay: 0.8s; }
+.dynamic-star-4 { top: 35%; left: 85%; animation-delay: 1.2s; }
+.dynamic-star-5 { top: 45%; left: 8%; animation-delay: 1.6s; }
+.dynamic-star-6 { top: 55%; left: 92%; animation-delay: 2s; }
+.dynamic-star-7 { top: 65%; left: 45%; animation-delay: 2.4s; }
+.dynamic-star-8 { top: 72%; left: 18%; animation-delay: 2.8s; }
+.dynamic-star-9 { top: 78%; left: 70%; animation-delay: 3.2s; }
+.dynamic-star-10 { top: 85%; left: 55%; animation-delay: 0.2s; }
+.dynamic-star-11 { top: 22%; left: 55%; animation-delay: 1s; }
+.dynamic-star-12 { top: 40%; left: 38%; animation-delay: 1.8s; }
+.dynamic-star-13 { top: 58%; left: 65%; animation-delay: 2.6s; }
+.dynamic-star-14 { top: 90%; left: 25%; animation-delay: 3.4s; }
+.dynamic-star-15 { top: 12%; left: 48%; animation-delay: 0.6s; }
+
+@keyframes dynamicTwinkle {
+  0%, 100% {
+    opacity: 0.15;
+    transform: scale(1);
+    box-shadow: 0 0 3px rgba(255, 255, 255, 0.3);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.8);
+    box-shadow: 0 0 12px rgba(167, 139, 250, 0.9), 0 0 25px rgba(139, 92, 246, 0.5);
+  }
+}
+
+/* 漂浮光点 */
+.dynamic-floating-dots {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.dynamic-dot {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(167, 139, 250, 0.7);
+  box-shadow: 0 0 12px rgba(167, 139, 250, 0.5);
+  animation: dynamicDotFloat 18s ease-in-out infinite;
+}
+
+.dynamic-dot-1 { top: 12%; left: 8%; animation-delay: 0s; }
+.dynamic-dot-2 { top: 25%; right: 12%; animation-delay: -3s; background: rgba(236, 72, 153, 0.6); box-shadow: 0 0 12px rgba(236, 72, 153, 0.4); }
+.dynamic-dot-3 { bottom: 30%; left: 18%; animation-delay: -6s; background: rgba(99, 102, 241, 0.6); box-shadow: 0 0 12px rgba(99, 102, 241, 0.4); }
+.dynamic-dot-4 { bottom: 45%; right: 22%; animation-delay: -9s; }
+.dynamic-dot-5 { top: 55%; left: 35%; animation-delay: -12s; background: rgba(6, 182, 212, 0.5); box-shadow: 0 0 12px rgba(6, 182, 212, 0.3); }
+.dynamic-dot-6 { top: 70%; right: 35%; animation-delay: -2s; background: rgba(244, 114, 182, 0.6); box-shadow: 0 0 12px rgba(244, 114, 182, 0.4); }
+.dynamic-dot-7 { top: 38%; left: 60%; animation-delay: -5s; }
+.dynamic-dot-8 { bottom: 18%; left: 50%; animation-delay: -8s; background: rgba(129, 140, 248, 0.6); box-shadow: 0 0 12px rgba(129, 140, 248, 0.4); }
+.dynamic-dot-9 { top: 82%; right: 8%; animation-delay: -11s; background: rgba(167, 139, 250, 0.6); }
+.dynamic-dot-10 { top: 5%; left: 42%; animation-delay: -14s; background: rgba(236, 72, 153, 0.5); box-shadow: 0 0 12px rgba(236, 72, 153, 0.3); }
+
+@keyframes dynamicDotFloat {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.35;
+  }
+  25% {
+    transform: translate(40px, -50px) scale(1.3);
+    opacity: 0.9;
+  }
+  50% {
+    transform: translate(-30px, -80px) scale(0.75);
+    opacity: 0.5;
+  }
+  75% {
+    transform: translate(50px, -30px) scale(1.15);
+    opacity: 0.75;
+  }
+}
+
+/* 呼吸网格 */
+.dynamic-grid-overlay {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(139, 92, 246, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(139, 92, 246, 0.03) 1px, transparent 1px);
+  background-size: 70px 70px;
+  animation: dynamicGridBreathe 12s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes dynamicGridBreathe {
+  0%, 100% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+/* 渐变遮罩 */
+.dynamic-gradient-veil {
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse 120% 90% at 50% 0%, rgba(15, 15, 35, 0.4) 0%, transparent 60%),
+    radial-gradient(ellipse 90% 110% at 0% 50%, rgba(139, 92, 246, 0.04) 0%, transparent 45%),
+    radial-gradient(ellipse 90% 110% at 100% 50%, rgba(236, 72, 153, 0.04) 0%, transparent 45%);
+  animation: dynamicVeilShift 35s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes dynamicVeilShift {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.65;
+  }
+}
+
+/* ================================
+   Section 过渡效果系统
+   ================================ */
+
+/* Section 分隔光效 */
+.section-divider-glow {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 150px;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.section-divider-glow.section-divider-top {
+  top: 0;
+  background: linear-gradient(to bottom,
+    rgba(139, 92, 246, 0.06) 0%,
+    rgba(236, 72, 153, 0.03) 30%,
+    transparent 100%
+  );
+}
+
+.section-divider-glow.section-divider-bottom {
+  bottom: 0;
+  background: linear-gradient(to top,
+    rgba(99, 102, 241, 0.05) 0%,
+    rgba(167, 139, 250, 0.02) 30%,
+    transparent 100%
+  );
+}
+
+/* Section 间隔霓虹线 */
+.section-neon-line {
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(139, 92, 246, 0.4) 20%,
+    rgba(236, 72, 153, 0.5) 50%,
+    rgba(99, 102, 241, 0.4) 80%,
+    transparent 100%
+  );
+  box-shadow: 
+    0 0 10px rgba(139, 92, 246, 0.3),
+    0 0 20px rgba(236, 72, 153, 0.2);
+}
+
+.section-neon-line.top {
+  top: 0;
+}
+
+.section-neon-line.bottom {
+  bottom: 0;
+}
+
+/* Section 内容淡入动画 */
+.section-content-fade {
+  animation: sectionFadeIn 0.8s ease-out forwards;
+}
+
+@keyframes sectionFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Section 背景渐变过渡 */
+.section-bg-transition {
+  position: relative;
+}
+
+.section-bg-transition::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 200px;
+  background: linear-gradient(to bottom,
+    rgba(2, 6, 23, 0.9) 0%,
+    rgba(2, 6, 23, 0.5) 50%,
+    transparent 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+.section-bg-transition::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 200px;
+  background: linear-gradient(to top,
+    rgba(2, 6, 23, 0.9) 0%,
+    rgba(2, 6, 23, 0.5) 50%,
+    transparent 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* 平滑滚动过渡容器 */
+.smooth-scroll-container {
+  scroll-behavior: smooth;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Section 进入动画 - 从下方滑入 */
+.section-enter-slide {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.section-enter-slide.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Section 进入动画 - 淡入 */
+.section-enter-fade {
+  opacity: 0;
+  transition: opacity 0.8s ease-out;
+}
+
+.section-enter-fade.visible {
+  opacity: 1;
+}
+
+/* Section 进入动画 - 缩放 */
+.section-enter-scale {
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.section-enter-scale.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* 交错动画延迟类 */
+.section-stagger-1 { transition-delay: 0.1s; }
+.section-stagger-2 { transition-delay: 0.2s; }
+.section-stagger-3 { transition-delay: 0.3s; }
+.section-stagger-4 { transition-delay: 0.4s; }
+.section-stagger-5 { transition-delay: 0.5s; }
+
+/* Section 内部元素渐入效果 */
+.section-item-reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.section-item-reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}

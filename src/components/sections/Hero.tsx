@@ -21,6 +21,13 @@ export function Hero() {
   const backgroundY = useTransform(smoothScrollY, [0, windowHeight], [0, windowHeight * 0.3]);
   const backgroundScale = useTransform(smoothScrollY, [0, windowHeight], [1, 1.15]);
   
+  // 背景图片透明度 - 滚动时极速隐藏，确保不影响其他页面
+  // 滚动到 30% 屏幕高度时开始隐藏，50% 时完全消失
+  const backgroundOpacity = useTransform(smoothScrollY, [0, windowHeight * 0.3, windowHeight * 0.5], [1, 0.3, 0]);
+  
+  // 控制背景图片 visibility - 滚动超过 50% 时完全隐藏元素
+  const backgroundVisibility = useTransform(smoothScrollY, (value) => value > windowHeight * 0.5 ? 'hidden' : 'visible');
+  
   // 底部融合层透明度 - 随滚动增强
   const fadeOverlayOpacity = useTransform(smoothScrollY, [0, windowHeight * 0.5, windowHeight], [0, 0.6, 1]);
   
@@ -45,8 +52,15 @@ export function Hero() {
 
   return (
     <>
-      {/* 固定定位的背景层 - 全屏背景图 */}
-      <div className="fixed inset-0 w-full h-screen z-0 overflow-hidden">
+      {/* 固定定位的背景层 - 全屏背景图，滚动后完全隐藏 */}
+      <motion.div 
+        className="fixed inset-0 w-full h-screen z-0 overflow-hidden"
+        style={{ 
+          opacity: backgroundOpacity,
+          visibility: backgroundVisibility,
+          pointerEvents: 'none',
+        }}
+      >
         <motion.div 
           className="hero-parallax-bg"
           style={{
@@ -64,7 +78,7 @@ export function Hero() {
           className="hero-fade-overlay"
           style={{ opacity: fadeOverlayOpacity }}
         />
-      </div>
+      </motion.div>
 
       {/* 首屏内容区 - 相对定位，可滚动 */}
       <section 

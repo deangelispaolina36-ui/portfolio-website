@@ -1,258 +1,329 @@
-import { useEffect, useState, useCallback } from 'react';
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { useEffect, useCallback, useRef, useState } from 'react';
+import { motion, useMotionValue, useSpring, AnimatePresence } from 'framer-motion';
 
 interface MouseGlowProps {
-  /** 光晕颜色，默认紫色 */
-  color?: string;
-  /** 光晕大小，默认 400px */
+  /** 主光晕颜色 */
+  primaryColor?: string;
+  /** 次要光晕颜色 */
+  secondaryColor?: string;
+  /** 光晕大小 */
   size?: number;
-  /** 是否启用呼吸动画 */
-  enableBreathing?: boolean;
-  /** 光晕不透明度 */
-  opacity?: number;
 }
 
 /**
- * 全局鼠标跟随光晕组件 - 增强版
- * 使用 Framer Motion 的 spring 动画实现平滑跟随效果
- * 新增：多层光晕、速度感应、涟漪效果
+ * 稳定流畅的鼠标跟随光效
+ * - 多层柔和光晕，自然渐变
+ * - 高性能 RAF 更新
+ * - 平滑的弹性物理跟随
+ * - 所有页面持续生效
  */
 export function MouseGlow({
-  color = 'rgba(139, 92, 246, 0.15)',
-  size = 450,
-  enableBreathing = true,
-  opacity = 1,
+  primaryColor = 'rgba(139, 92, 246, 0.15)',
+  secondaryColor = 'rgba(236, 72, 153, 0.1)',
+  size = 400,
 }: MouseGlowProps) {
+  const [isMounted, setIsMounted] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
-  const [velocity, setVelocity] = useState({ x: 0, y: 0 });
+  const rafId = useRef<number>();
+  const lastUpdateTime = useRef(0);
   
-  // 使用 motion values 跟踪鼠标位置
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
+  // 鼠标原始位置
+  const mouseX = useMotionValue(typeof window !== 'undefined' ? window.innerWidth / 2 : 0);
+  const mouseY = useMotionValue(typeof window !== 'undefined' ? window.innerHeight / 2 : 0);
   
-  // 跟踪上一次位置用于计算速度
-  const prevX = useMotionValue(0);
-  const prevY = useMotionValue(0);
+  // 最外层光晕 - 最慢、最柔和的跟随
+  const outerSpringConfig = { 
+    damping: 40, 
+    stiffness: 50, 
+    mass: 1,
+    restDelta: 0.001 
+  };
+  const outerX = useSpring(mouseX, outerSpringConfig);
+  const outerY = useSpring(mouseY, outerSpringConfig);
+  
+  // 主光晕层 - 中等速度跟随
+  const mainSpringConfig = { 
+    damping: 30, 
+    stiffness: 100, 
+    mass: 0.6,
+    restDelta: 0.001 
+  };
+  const mainX = useSpring(mouseX, mainSpringConfig);
+  const mainY = useSpring(mouseY, mainSpringConfig);
+  
+  // 内层光晕 - 较快跟随
+  const innerSpringConfig = { 
+    damping: 25, 
+    stiffness: 150, 
+    mass: 0.4,
+    restDelta: 0.001 
+  };
+  const innerX = useSpring(mouseX, innerSpringConfig);
+  const innerY = useSpring(mouseY, innerSpringConfig);
+  
+  // 核心亮点 - 即时跟随
+  const coreSpringConfig = { 
+    damping: 20, 
+    stiffness: 300, 
+    mass: 0.2,
+    restDelta: 0.001 
+  };
+  const coreX = useSpring(mouseX, coreSpringConfig);
+  const coreY = useSpring(mouseY, coreSpringConfig);
 
-  // 快速跟随层 - 紧跟鼠标
-  const fastSpringConfig = { damping: 20, stiffness: 300, mass: 0.3 };
-  const fastX = useSpring(mouseX, fastSpringConfig);
-  const fastY = useSpring(mouseY, fastSpringConfig);
+  // 可见性动画
+  const visibilityValue = useMotionValue(0);
+  const smoothVisibility = useSpring(visibilityValue, { 
+    damping: 25, 
+    stiffness: 120 
+  });
 
-  // 中速跟随层 - 略有延迟
-  const mediumSpringConfig = { damping: 25, stiffness: 150, mass: 0.5 };
-  const mediumX = useSpring(mouseX, mediumSpringConfig);
-  const mediumY = useSpring(mouseY, mediumSpringConfig);
-
-  // 慢速跟随层 - 更大延迟，创造拖尾效果
-  const slowSpringConfig = { damping: 30, stiffness: 80, mass: 0.8 };
-  const slowX = useSpring(mouseX, slowSpringConfig);
-  const slowY = useSpring(mouseY, slowSpringConfig);
-
-  // 基于速度调整大小
-  const dynamicScale = useTransform(
-    [fastX, fastY],
-    ([latestX, latestY]: number[]) => {
-      const speed = Math.sqrt(velocity.x ** 2 + velocity.y ** 2);
-      return 1 + Math.min(speed * 0.0005, 0.3);
-    }
-  );
-
+  // 高性能鼠标移动处理
   const handleMouseMove = useCallback((e: MouseEvent) => {
-    const newX = e.clientX - size / 2;
-    const newY = e.clientY - size / 2;
+    const now = performance.now();
     
-    // 计算速度
-    const dx = newX - prevX.get();
-    const dy = newY - prevY.get();
-    setVelocity({ x: dx, y: dy });
-    
-    prevX.set(newX);
-    prevY.set(newY);
-    mouseX.set(newX);
-    mouseY.set(newY);
-    
-    if (!isVisible) setIsVisible(true);
-  }, [mouseX, mouseY, prevX, prevY, size, isVisible]);
+    // 节流：至少间隔 8ms（约 120fps）
+    if (now - lastUpdateTime.current < 8) {
+      return;
+    }
+    lastUpdateTime.current = now;
 
+    if (rafId.current) {
+      cancelAnimationFrame(rafId.current);
+    }
+    
+    rafId.current = requestAnimationFrame(() => {
+      mouseX.set(e.clientX);
+      mouseY.set(e.clientY);
+      
+      if (!isVisible) {
+        setIsVisible(true);
+        visibilityValue.set(1);
+      }
+    });
+  }, [mouseX, mouseY, visibilityValue, isVisible]);
+
+  const handleMouseLeave = useCallback(() => {
+    setIsVisible(false);
+    visibilityValue.set(0);
+  }, [visibilityValue]);
+
+  const handleMouseEnter = useCallback(() => {
+    setIsVisible(true);
+    visibilityValue.set(1);
+  }, [visibilityValue]);
+
+  // 初始化和事件监听
   useEffect(() => {
-    // 检测是否为触摸设备
+    setIsMounted(true);
+    
+    // 检测触摸设备
     const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
     if (isTouchDevice) return;
 
-    // 初始化位置
-    mouseX.set(window.innerWidth / 2 - size / 2);
-    mouseY.set(window.innerHeight / 2 - size / 2);
-    prevX.set(window.innerWidth / 2 - size / 2);
-    prevY.set(window.innerHeight / 2 - size / 2);
+    // 初始化位置到屏幕中心
+    mouseX.set(window.innerWidth / 2);
+    mouseY.set(window.innerHeight / 2);
 
-    window.addEventListener('mousemove', handleMouseMove);
-    
-    // 鼠标离开窗口时隐藏
-    const handleMouseLeave = () => setIsVisible(false);
-    const handleMouseEnter = () => setIsVisible(true);
-    
+    // 添加事件监听
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
     document.addEventListener('mouseleave', handleMouseLeave);
     document.addEventListener('mouseenter', handleMouseEnter);
+    
+    // 监听滚动时保持光效
+    const handleScroll = () => {
+      // 滚动时保持可见
+      if (isVisible) {
+        visibilityValue.set(1);
+      }
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
 
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
       document.removeEventListener('mouseleave', handleMouseLeave);
       document.removeEventListener('mouseenter', handleMouseEnter);
+      window.removeEventListener('scroll', handleScroll);
+      if (rafId.current) {
+        cancelAnimationFrame(rafId.current);
+      }
     };
-  }, [handleMouseMove, mouseX, mouseY, prevX, prevY, size]);
+  }, [handleMouseMove, handleMouseLeave, handleMouseEnter, mouseX, mouseY, visibilityValue, isVisible]);
 
-  // 触摸设备上不渲染
+  // 服务端渲染或触摸设备不渲染
+  if (!isMounted) return null;
   if (typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0)) {
     return null;
   }
 
   return (
-    <>
-      {/* 第一层：最外层大光晕 - 慢速跟随 */}
+    <AnimatePresence>
+      {/* 最外层 - 环境光晕（最大、最慢） */}
       <motion.div
-        className="fixed pointer-events-none z-[1]"
+        className="fixed pointer-events-none"
+        style={{
+          width: size * 2,
+          height: size * 2,
+          x: outerX,
+          y: outerY,
+          translateX: '-50%',
+          translateY: '-50%',
+          opacity: smoothVisibility,
+          zIndex: 9990,
+        }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+      >
+        <div 
+          className="w-full h-full rounded-full"
+          style={{
+            background: `radial-gradient(circle at center, 
+              rgba(139, 92, 246, 0.03) 0%, 
+              rgba(99, 102, 241, 0.02) 30%, 
+              transparent 60%
+            )`,
+            filter: 'blur(60px)',
+          }}
+        />
+      </motion.div>
+
+      {/* 外层 - 大光晕 */}
+      <motion.div
+        className="fixed pointer-events-none"
         style={{
           width: size * 1.5,
           height: size * 1.5,
-          x: slowX,
-          y: slowY,
-          marginLeft: -size * 0.25,
-          marginTop: -size * 0.25,
-          opacity: isVisible ? opacity * 0.4 : 0,
+          x: outerX,
+          y: outerY,
+          translateX: '-50%',
+          translateY: '-50%',
+          opacity: smoothVisibility,
+          zIndex: 9991,
         }}
-        transition={{ opacity: { duration: 0.3 } }}
       >
-        <motion.div
-          className="absolute inset-0 rounded-full"
+        <div 
+          className="w-full h-full rounded-full"
           style={{
-            background: `radial-gradient(circle at center, rgba(139, 92, 246, 0.06) 0%, rgba(236, 72, 153, 0.03) 40%, transparent 70%)`,
+            background: `radial-gradient(circle at center, 
+              ${secondaryColor} 0%, 
+              rgba(99, 102, 241, 0.04) 35%, 
+              transparent 65%
+            )`,
+            filter: 'blur(45px)',
           }}
-          animate={enableBreathing ? {
-            scale: [1, 1.08, 1],
-            opacity: [0.5, 0.8, 0.5],
-          } : undefined}
-          transition={enableBreathing ? {
-            duration: 4,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          } : undefined}
         />
       </motion.div>
 
-      {/* 第二层：中层光晕 - 中速跟随 */}
+      {/* 主光晕层 */}
       <motion.div
-        className="fixed pointer-events-none z-[2]"
+        className="fixed pointer-events-none"
         style={{
           width: size,
           height: size,
-          x: mediumX,
-          y: mediumY,
-          opacity: isVisible ? opacity * 0.7 : 0,
+          x: mainX,
+          y: mainY,
+          translateX: '-50%',
+          translateY: '-50%',
+          opacity: smoothVisibility,
+          zIndex: 9992,
         }}
-        transition={{ opacity: { duration: 0.2 } }}
       >
-        <motion.div
-          className="absolute inset-0 rounded-full"
+        <div 
+          className="w-full h-full rounded-full"
           style={{
-            background: `radial-gradient(circle at center, ${color} 0%, rgba(236, 72, 153, 0.08) 40%, transparent 70%)`,
+            background: `radial-gradient(circle at center, 
+              ${primaryColor} 0%, 
+              ${secondaryColor} 40%, 
+              transparent 70%
+            )`,
+            filter: 'blur(35px)',
           }}
-          animate={enableBreathing ? {
-            scale: [1, 1.12, 1],
-            opacity: [0.7, 1, 0.7],
-          } : undefined}
-          transition={enableBreathing ? {
-            duration: 3,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          } : undefined}
         />
       </motion.div>
 
-      {/* 第三层：核心光晕 - 快速跟随 */}
+      {/* 内层聚焦光晕 */}
       <motion.div
-        className="fixed pointer-events-none z-[3]"
+        className="fixed pointer-events-none"
         style={{
-          width: size * 0.6,
-          height: size * 0.6,
-          x: fastX,
-          y: fastY,
-          marginLeft: size * 0.2,
-          marginTop: size * 0.2,
-          opacity: isVisible ? opacity : 0,
-          scale: dynamicScale,
+          width: size * 0.45,
+          height: size * 0.45,
+          x: innerX,
+          y: innerY,
+          translateX: '-50%',
+          translateY: '-50%',
+          opacity: smoothVisibility,
+          zIndex: 9993,
         }}
-        transition={{ opacity: { duration: 0.15 } }}
       >
-        <motion.div
-          className="absolute inset-0 rounded-full"
+        <div 
+          className="w-full h-full rounded-full"
           style={{
-            background: `radial-gradient(circle at center, rgba(167, 139, 250, 0.25) 0%, rgba(139, 92, 246, 0.12) 40%, transparent 70%)`,
-          }}
-          animate={enableBreathing ? {
-            scale: [1, 1.15, 1],
-            opacity: [0.8, 1, 0.8],
-          } : undefined}
-          transition={enableBreathing ? {
-            duration: 2,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          } : undefined}
-        />
-        
-        {/* 高亮核心点 */}
-        <motion.div
-          className="absolute rounded-full"
-          style={{
-            width: '30%',
-            height: '30%',
-            left: '35%',
-            top: '35%',
-            background: `radial-gradient(circle at center, rgba(255, 255, 255, 0.15) 0%, rgba(167, 139, 250, 0.1) 50%, transparent 70%)`,
-          }}
-          animate={{
-            scale: [1, 1.3, 1],
-            opacity: [0.6, 1, 0.6],
-          }}
-          transition={{
-            duration: 1.5,
-            repeat: Infinity,
-            ease: 'easeInOut',
+            background: `radial-gradient(circle at center, 
+              rgba(167, 139, 250, 0.2) 0%, 
+              rgba(139, 92, 246, 0.1) 50%, 
+              transparent 80%
+            )`,
+            filter: 'blur(20px)',
           }}
         />
       </motion.div>
 
-      {/* 第四层：鼠标指针光点 - 即时跟随 */}
+      {/* 核心光点 */}
       <motion.div
-        className="fixed pointer-events-none z-[4]"
+        className="fixed pointer-events-none"
+        style={{
+          width: size * 0.15,
+          height: size * 0.15,
+          x: coreX,
+          y: coreY,
+          translateX: '-50%',
+          translateY: '-50%',
+          opacity: smoothVisibility,
+          zIndex: 9994,
+        }}
+      >
+        <div 
+          className="w-full h-full rounded-full"
+          style={{
+            background: `radial-gradient(circle at center, 
+              rgba(199, 183, 255, 0.25) 0%, 
+              rgba(167, 139, 250, 0.15) 50%, 
+              transparent 80%
+            )`,
+            filter: 'blur(10px)',
+          }}
+        />
+      </motion.div>
+
+      {/* 中心亮点 - 最小、最快 */}
+      <motion.div
+        className="fixed pointer-events-none"
         style={{
           width: 8,
           height: 8,
-          x: mouseX,
-          y: mouseY,
-          marginLeft: size / 2 - 4,
-          marginTop: size / 2 - 4,
-          opacity: isVisible ? 0.9 : 0,
+          x: coreX,
+          y: coreY,
+          translateX: '-50%',
+          translateY: '-50%',
+          opacity: smoothVisibility,
+          zIndex: 9995,
         }}
-        transition={{ opacity: { duration: 0.1 } }}
       >
-        <motion.div
-          className="absolute inset-0 rounded-full bg-white/30"
+        <div 
+          className="w-full h-full rounded-full"
           style={{
-            boxShadow: '0 0 15px rgba(167, 139, 250, 0.6), 0 0 30px rgba(139, 92, 246, 0.4)',
-          }}
-          animate={{
-            scale: [1, 1.4, 1],
-            opacity: [0.7, 1, 0.7],
-          }}
-          transition={{
-            duration: 1,
-            repeat: Infinity,
-            ease: 'easeInOut',
+            background: 'rgba(255, 255, 255, 0.5)',
+            boxShadow: `
+              0 0 6px rgba(199, 183, 255, 0.9),
+              0 0 15px rgba(167, 139, 250, 0.6),
+              0 0 30px rgba(139, 92, 246, 0.3),
+              0 0 45px rgba(139, 92, 246, 0.15)
+            `,
           }}
         />
       </motion.div>
-    </>
+    </AnimatePresence>
   );
 }
 
