@@ -2545,3 +2545,374 @@ html {
     height: 180px;
   }
 }
+
+/* ================================
+   增强版背景光效系统 - 非首页区域
+   ================================ */
+
+/* 主内容区域增强背景 */
+.main-content-enhanced-bg {
+  position: relative;
+  background: linear-gradient(180deg, 
+    rgba(2, 6, 23, 1) 0%,
+    rgba(15, 15, 35, 1) 10%,
+    rgba(10, 10, 25, 1) 50%,
+    rgba(15, 15, 35, 1) 90%,
+    rgba(2, 6, 23, 1) 100%
+  );
+}
+
+/* 动态光斑 - 大型漂浮光晕 */
+.ambient-light-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.ambient-light-orb-1 {
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.12) 0%, transparent 70%);
+  top: 5%;
+  left: -10%;
+  animation: ambientOrb1 35s ease-in-out infinite;
+}
+
+.ambient-light-orb-2 {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(236, 72, 153, 0.1) 0%, transparent 70%);
+  top: 25%;
+  right: -15%;
+  animation: ambientOrb2 40s ease-in-out infinite;
+  animation-delay: -15s;
+}
+
+.ambient-light-orb-3 {
+  width: 450px;
+  height: 450px;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.08) 0%, transparent 70%);
+  bottom: 30%;
+  left: 10%;
+  animation: ambientOrb3 30s ease-in-out infinite;
+  animation-delay: -8s;
+}
+
+.ambient-light-orb-4 {
+  width: 550px;
+  height: 550px;
+  background: radial-gradient(circle, rgba(167, 139, 250, 0.1) 0%, transparent 70%);
+  bottom: 10%;
+  right: 5%;
+  animation: ambientOrb1 38s ease-in-out infinite reverse;
+  animation-delay: -20s;
+}
+
+@keyframes ambientOrb1 {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.6;
+  }
+  25% {
+    transform: translate(80px, 60px) scale(1.15);
+    opacity: 0.9;
+  }
+  50% {
+    transform: translate(40px, 120px) scale(0.9);
+    opacity: 0.7;
+  }
+  75% {
+    transform: translate(-60px, 40px) scale(1.1);
+    opacity: 0.85;
+  }
+}
+
+@keyframes ambientOrb2 {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.5;
+  }
+  33% {
+    transform: translate(-70px, 80px) scale(1.2);
+    opacity: 0.85;
+  }
+  66% {
+    transform: translate(50px, -60px) scale(0.85);
+    opacity: 0.6;
+  }
+}
+
+@keyframes ambientOrb3 {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.55;
+  }
+  50% {
+    transform: translate(100px, -80px) scale(1.25);
+    opacity: 0.9;
+  }
+}
+
+/* 星光点缀效果 */
+.starfield-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.star-particle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: white;
+  border-radius: 50%;
+  animation: starTwinkle 3s ease-in-out infinite;
+}
+
+.star-particle:nth-child(1) { top: 10%; left: 15%; animation-delay: 0s; }
+.star-particle:nth-child(2) { top: 20%; left: 80%; animation-delay: 0.5s; }
+.star-particle:nth-child(3) { top: 35%; left: 25%; animation-delay: 1s; }
+.star-particle:nth-child(4) { top: 45%; left: 70%; animation-delay: 1.5s; }
+.star-particle:nth-child(5) { top: 55%; left: 10%; animation-delay: 2s; }
+.star-particle:nth-child(6) { top: 65%; left: 90%; animation-delay: 2.5s; }
+.star-particle:nth-child(7) { top: 75%; left: 40%; animation-delay: 0.3s; }
+.star-particle:nth-child(8) { top: 85%; left: 60%; animation-delay: 1.8s; }
+
+@keyframes starTwinkle {
+  0%, 100% {
+    opacity: 0.2;
+    transform: scale(1);
+    box-shadow: 0 0 2px rgba(255, 255, 255, 0.3);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.5);
+    box-shadow: 0 0 8px rgba(167, 139, 250, 0.8), 0 0 15px rgba(139, 92, 246, 0.4);
+  }
+}
+
+/* 能量脉冲环效果 */
+.energy-pulse-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid;
+  pointer-events: none;
+  animation: energyPulse 4s ease-out infinite;
+}
+
+.energy-pulse-ring-1 {
+  width: 300px;
+  height: 300px;
+  top: 20%;
+  left: 30%;
+  border-color: rgba(139, 92, 246, 0.2);
+}
+
+.energy-pulse-ring-2 {
+  width: 400px;
+  height: 400px;
+  bottom: 25%;
+  right: 20%;
+  border-color: rgba(236, 72, 153, 0.15);
+  animation-delay: -2s;
+}
+
+@keyframes energyPulse {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}
+
+/* Section 分隔渐变光带 */
+.section-light-divider {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 200px;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.section-light-divider-top {
+  top: 0;
+  background: linear-gradient(to bottom,
+    rgba(139, 92, 246, 0.08) 0%,
+    rgba(236, 72, 153, 0.04) 30%,
+    transparent 100%
+  );
+}
+
+.section-light-divider-bottom {
+  bottom: 0;
+  background: linear-gradient(to top,
+    rgba(99, 102, 241, 0.06) 0%,
+    rgba(167, 139, 250, 0.03) 30%,
+    transparent 100%
+  );
+}
+
+/* 霓虹边缘发光效果 */
+.neon-edge-glow {
+  position: relative;
+}
+
+.neon-edge-glow::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(139, 92, 246, 0.5) 20%,
+    rgba(236, 72, 153, 0.6) 50%,
+    rgba(99, 102, 241, 0.5) 80%,
+    transparent 100%
+  );
+  box-shadow: 
+    0 0 10px rgba(139, 92, 246, 0.3),
+    0 0 20px rgba(236, 72, 153, 0.2),
+    0 0 30px rgba(99, 102, 241, 0.1);
+  animation: neonFlicker 3s ease-in-out infinite;
+}
+
+@keyframes neonFlicker {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+/* 动态光柱效果 */
+.light-beam {
+  position: absolute;
+  width: 2px;
+  background: linear-gradient(to bottom,
+    transparent 0%,
+    rgba(139, 92, 246, 0.4) 20%,
+    rgba(167, 139, 250, 0.6) 50%,
+    rgba(139, 92, 246, 0.4) 80%,
+    transparent 100%
+  );
+  animation: lightBeamMove 10s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.light-beam-1 {
+  left: 10%;
+  height: 40%;
+  top: 20%;
+}
+
+.light-beam-2 {
+  right: 15%;
+  height: 50%;
+  top: 30%;
+  animation-delay: -3s;
+}
+
+.light-beam-3 {
+  left: 50%;
+  height: 35%;
+  bottom: 15%;
+  animation-delay: -6s;
+}
+
+@keyframes lightBeamMove {
+  0%, 100% {
+    transform: translateY(0) scaleY(1);
+    opacity: 0.3;
+  }
+  25% {
+    transform: translateY(-20px) scaleY(1.1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateY(10px) scaleY(0.9);
+    opacity: 0.4;
+  }
+  75% {
+    transform: translateY(-15px) scaleY(1.05);
+    opacity: 0.55;
+  }
+}
+
+/* 全局悬浮微粒效果增强 */
+.micro-particles {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.micro-particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: rgba(167, 139, 250, 0.5);
+  border-radius: 50%;
+  animation: microFloat 20s linear infinite;
+}
+
+.micro-particle:nth-child(odd) {
+  background: rgba(236, 72, 153, 0.4);
+}
+
+.micro-particle:nth-child(3n) {
+  background: rgba(99, 102, 241, 0.45);
+  width: 2px;
+  height: 2px;
+}
+
+@keyframes microFloat {
+  0% {
+    transform: translateY(100vh) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.8;
+  }
+  90% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(-100vh) translateX(50px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* 渐变光晕叠加层 - 增强版 */
+.enhanced-glow-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: 
+    radial-gradient(ellipse 60% 40% at 10% 20%, rgba(139, 92, 246, 0.06) 0%, transparent 50%),
+    radial-gradient(ellipse 50% 50% at 90% 30%, rgba(236, 72, 153, 0.05) 0%, transparent 50%),
+    radial-gradient(ellipse 70% 30% at 50% 80%, rgba(99, 102, 241, 0.04) 0%, transparent 50%),
+    radial-gradient(ellipse 40% 60% at 20% 70%, rgba(167, 139, 250, 0.05) 0%, transparent 50%);
+  animation: glowOverlayShift 40s ease-in-out infinite;
+}
+
+@keyframes glowOverlayShift {
+  0%, 100% {
+    filter: hue-rotate(0deg);
+    opacity: 1;
+  }
+  50% {
+    filter: hue-rotate(15deg);
+    opacity: 0.8;
+  }
+}
