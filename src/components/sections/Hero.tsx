@@ -87,7 +87,7 @@ export function Hero() {
         className="hero-section-parallax"
       >
         {/* 装饰性大数字 */}
-        <div className="hero-decorative-number-parallax">10</div>
+        <div className="hero-decorative-number-parallax">15</div>
 
         {/* 内容区域 - 左侧 */}
         <motion.div 
