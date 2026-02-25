@@ -214,7 +214,7 @@ export const gamingProfiles: GamingProfile[] = [
     id: 'fps',
     category: 'FPS/战术竞技',
     games: ['和平精英', '无畏契约'],
-    duration: '8年',
+    duration: '15年',
     achievement: '核心体验者',
     color: '#ef4444',
     icon: '🎯',
@@ -354,7 +354,7 @@ export const otherSkills = [
 export const personalInfo = {
   name: '王泰然',
   title: '',
-  subtitle: '10年游戏经验 × 腾讯实习经历 × AIGC 产品思维',
+  subtitle: '15年游戏经验 × 腾讯实习经历 × AIGC 产品思维',
   email: 'wtairan_nxu@163.com',
   phone: '15769672279',
   wechat: 'vwtairan857',
@@ -363,7 +363,7 @@ export const personalInfo = {
     period: '2022-2026',
     major: '广告学 & 数字化创新创业管理',
   },
-  bio: '我是一名热爱游戏的游戏策划人，拥有10年核心玩家经历。在腾讯成长守护中心实习期间，积累了丰富的内容运营和 AIGC 应用经验。我相信只有真正理解玩家，才能做出好的游戏产品。',
-  tags: ['游戏策划', '用户运营', 'AIGC', '腾讯实习', '10年玩家'],
-  targetCompanies: ['AIGC 深度运用', '腾讯实习生', '10年游戏经验'],
+  bio: '我是一名热爱游戏的游戏策划人，拥有15年核心玩家经历。在腾讯成长守护中心实习期间，积累了丰富的内容运营和 AIGC 应用经验。我相信只有真正理解玩家，才能做出好的游戏产品。',
+  tags: ['游戏策划', '用户运营', 'AIGC', '腾讯实习', '15年玩家'],
+  targetCompanies: ['AIGC 深度运用', '腾讯实习生', '15年游戏经验'],
 };

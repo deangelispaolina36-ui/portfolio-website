@@ -45,7 +45,7 @@ export function GamingProfile() {
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
             >
-              <span className="gradient-text-vivid">10年游戏深耕</span>
+              <span className="gradient-text-vivid">15年游戏深耕</span>
             </motion.h2>
             <motion.p
               className="text-gray-400 text-lg max-w-2xl mx-auto"
@@ -239,7 +239,7 @@ export function GamingProfile() {
             transition={{ delay: 0.5, duration: 0.7 }}
           >
             {[
-              { label: '游戏经验', value: '10年+', icon: <Gamepad2 className="w-5 h-5" />, color: '#8b5cf6' },
+              { label: '游戏经验', value: '15年+', icon: <Gamepad2 className="w-5 h-5" />, color: '#8b5cf6' },
               { label: '游戏品类', value: '5+', icon: '🎯', color: '#ec4899' },
               { label: '游戏理解', value: '深度', icon: <Zap className="w-5 h-5" />, color: '#06b6d4' },
             ].map((stat, index) => (
