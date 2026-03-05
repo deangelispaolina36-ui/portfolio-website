@@ -1,22 +1,30 @@
-import { useEffect, useState, useRef, useMemo } from 'react';
-import { motion, useScroll, useTransform, useSpring, useMotionValue, useAnimationFrame } from 'framer-motion';
+import { useEffect, useState, useRef, useMemo, useCallback } from 'react';
+import { motion, useScroll, useTransform, useSpring, useMotionValue } from 'framer-motion';
 
 /**
- * 科技感背景组件
+ * 增强版科技感背景组件
  * 特性：
- * - 深邃渐变基底 + 几何网格
- * - 多层视差光球
- * - 流动光线动画（响应滚动）
- * - 星光点缀
- * - 区域色彩变化
+ * - 鼠标交互响应 - 光球跟随鼠标移动
+ * - 滚动视差 - 多层不同速度移动
+ * - 动态光线 - 扫描线和脉冲效果
+ * - 粒子系统 - 浮动发光粒子
+ * - 霓虹网格 - 呼吸发光效果
  */
 export function TechBackground() {
   const [windowHeight, setWindowHeight] = useState(0);
-  const [windowWidth, setWindowWidth] = useState(0);
+  const [mounted, setMounted] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  
+  // 鼠标位置
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
   
   const { scrollY } = useScroll();
   
+  // 平滑鼠标跟随
+  const smoothMouseX = useSpring(mouseX, { stiffness: 50, damping: 20 });
+  const smoothMouseY = useSpring(mouseY, { stiffness: 50, damping: 20 });
+
   // 平滑滚动值
   const smoothScrollY = useSpring(scrollY, {
     stiffness: 50,
@@ -24,25 +32,26 @@ export function TechBackground() {
     restDelta: 0.001
   });
 
-  // 流动光线位置
-  const lineProgress = useMotionValue(0);
-  
   useEffect(() => {
     setWindowHeight(window.innerHeight);
-    setWindowWidth(window.innerWidth);
+    setMounted(true);
     const handleResize = () => {
       setWindowHeight(window.innerHeight);
-      setWindowWidth(window.innerWidth);
     };
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // 流动光线动画 - 响应滚动加速
-  useAnimationFrame((time) => {
-    const progress = (time * 0.00008) % 1;
-    lineProgress.set(progress);
-  });
+  // 鼠标移动处理
+  const handleMouseMove = useCallback((e: MouseEvent) => {
+    mouseX.set(e.clientX);
+    mouseY.set(e.clientY);
+  }, [mouseX, mouseY]);
+
+  useEffect(() => {
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, [handleMouseMove]);
 
   // 背景透明度 - 与 Hero 背景消失同步
   const backgroundOpacity = useTransform(
@@ -51,44 +60,43 @@ export function TechBackground() {
     [0, 1]
   );
 
-  // 多层视差效果
-  const layer1Y = useTransform(smoothScrollY, [0, windowHeight * 8], [0, -200]);
-  const layer2Y = useTransform(smoothScrollY, [0, windowHeight * 8], [0, -120]);
-  const layer3Y = useTransform(smoothScrollY, [0, windowHeight * 8], [0, -60]);
+  // 多层视差效果 - 更大的移动范围
+  const layer1Y = useTransform(smoothScrollY, [0, windowHeight * 5], [0, -300]);
+  const layer2Y = useTransform(smoothScrollY, [0, windowHeight * 5], [0, -180]);
+  const layer3Y = useTransform(smoothScrollY, [0, windowHeight * 5], [0, -100]);
   
-  // 光球位置视差（水平方向也有微妙移动）
-  const orb1X = useTransform(smoothScrollY, [0, windowHeight * 5], [0, 50]);
-  const orb2X = useTransform(smoothScrollY, [0, windowHeight * 5], [0, -30]);
-  
-  // 流动光线响应滚动 - 滚动越快，光线越亮
-  const scrollVelocity = useSpring(
-    useTransform(scrollY, (value) => {
-      const prev = scrollY.getPrevious() || 0;
-      return Math.min(Math.abs(value - prev) / 10, 1);
-    }),
-    { stiffness: 100, damping: 30 }
-  );
-  
-  const lineOpacity = useTransform(scrollVelocity, [0, 1], [0.3, 0.8]);
-  
-  // 根据滚动位置调整背景氛围色调
-  const hueShift = useTransform(
-    smoothScrollY,
-    [0, windowHeight * 2, windowHeight * 4, windowHeight * 6],
-    [0, 10, -5, 5]
-  );
+  // 鼠标响应的光球位置
+  const orb1TransformX = useTransform(smoothMouseX, [0, typeof window !== 'undefined' ? window.innerWidth : 1920], [-50, 50]);
+  const orb1TransformY = useTransform(smoothMouseY, [0, typeof window !== 'undefined' ? window.innerHeight : 1080], [-30, 30]);
+  const orb2TransformX = useTransform(smoothMouseX, [0, typeof window !== 'undefined' ? window.innerWidth : 1920], [30, -30]);
+  const orb2TransformY = useTransform(smoothMouseY, [0, typeof window !== 'undefined' ? window.innerHeight : 1080], [20, -20]);
 
-  // 生成星点
-  const stars = useMemo(() => {
-    return Array.from({ length: 50 }, (_, i) => ({
+  // 生成粒子
+  const particles = useMemo(() => {
+    return Array.from({ length: 40 }, (_, i) => ({
       id: i,
       x: Math.random() * 100,
       y: Math.random() * 100,
-      size: Math.random() * 1.5 + 0.5,
-      opacity: Math.random() * 0.4 + 0.1,
+      size: Math.random() * 4 + 2,
+      duration: Math.random() * 3 + 4,
       delay: Math.random() * 5,
+      color: ['#8B5CF6', '#EC4899', '#6366F1', '#06B6D4'][Math.floor(Math.random() * 4)],
     }));
   }, []);
+
+  // 流星效果
+  const meteors = useMemo(() => {
+    return Array.from({ length: 6 }, (_, i) => ({
+      id: i,
+      startX: Math.random() * 100,
+      startY: Math.random() * 30,
+      angle: 30 + Math.random() * 30,
+      duration: 2 + Math.random() * 2,
+      delay: i * 3 + Math.random() * 2,
+    }));
+  }, []);
+
+  if (!mounted) return null;
 
   return (
     <motion.div
@@ -99,254 +107,409 @@ export function TechBackground() {
         zIndex: 1,
       }}
     >
-      {/* ===== 第1层：深邃渐变基底 ===== */}
-      <motion.div 
+      {/* ===== 第1层：深邃渐变基底 + 动态颜色 ===== */}
+      <div 
         className="absolute inset-0"
         style={{
-          filter: useTransform(hueShift, (h) => `hue-rotate(${h}deg)`),
+          background: `
+            radial-gradient(ellipse 80% 60% at 50% 0%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+            radial-gradient(ellipse 60% 50% at 0% 50%, rgba(139, 92, 246, 0.12) 0%, transparent 50%),
+            radial-gradient(ellipse 60% 50% at 100% 50%, rgba(236, 72, 153, 0.1) 0%, transparent 50%),
+            radial-gradient(ellipse 80% 40% at 50% 100%, rgba(6, 182, 212, 0.08) 0%, transparent 50%),
+            linear-gradient(180deg, #020617 0%, #0a0818 30%, #0f0a1a 50%, #0a0818 70%, #020617 100%)
+          `,
         }}
-      >
-        <div 
-          className="absolute inset-0"
-          style={{
-            background: `
-              radial-gradient(ellipse 150% 100% at 50% -20%, rgba(15, 23, 42, 0.9) 0%, transparent 60%),
-              radial-gradient(ellipse 100% 100% at 0% 30%, rgba(25, 25, 60, 0.35) 0%, transparent 50%),
-              radial-gradient(ellipse 100% 100% at 100% 70%, rgba(40, 15, 50, 0.25) 0%, transparent 50%),
-              linear-gradient(180deg, #010314 0%, #05071a 30%, #0a0818 70%, #020617 100%)
-            `,
-          }}
-        />
-      </motion.div>
+      />
 
-      {/* ===== 第2层：几何科技网格 ===== */}
-      <div className="absolute inset-0" style={{ opacity: 0.025 }}>
+      {/* ===== 第2层：霓虹网格 - 呼吸发光 ===== */}
+      <div className="absolute inset-0 grid-breathing">
         <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
           <defs>
-            <pattern id="tech-grid" width="60" height="60" patternUnits="userSpaceOnUse">
+            <pattern id="neon-grid" width="80" height="80" patternUnits="userSpaceOnUse">
               <path 
-                d="M 60 0 L 0 0 0 60" 
+                d="M 80 0 L 0 0 0 80" 
                 fill="none" 
-                stroke="rgba(139, 92, 246, 0.8)" 
+                stroke="url(#grid-gradient)" 
                 strokeWidth="0.5"
               />
             </pattern>
-            <linearGradient id="grid-fade" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stopColor="white" stopOpacity="0.3" />
-              <stop offset="50%" stopColor="white" stopOpacity="0.6" />
-              <stop offset="100%" stopColor="white" stopOpacity="0.2" />
+            <linearGradient id="grid-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#8B5CF6" stopOpacity="0.15" />
+              <stop offset="50%" stopColor="#EC4899" stopOpacity="0.1" />
+              <stop offset="100%" stopColor="#6366F1" stopOpacity="0.15" />
             </linearGradient>
-            <mask id="grid-mask">
+            <radialGradient id="grid-fade" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stopColor="white" stopOpacity="0.8" />
+              <stop offset="70%" stopColor="white" stopOpacity="0.4" />
+              <stop offset="100%" stopColor="white" stopOpacity="0.1" />
+            </radialGradient>
+            <mask id="grid-center-mask">
               <rect width="100%" height="100%" fill="url(#grid-fade)" />
             </mask>
           </defs>
-          <rect width="100%" height="100%" fill="url(#tech-grid)" mask="url(#grid-mask)" />
+          <rect 
+            width="100%" 
+            height="100%" 
+            fill="url(#neon-grid)" 
+            mask="url(#grid-center-mask)"
+            className="animate-grid-pulse"
+          />
         </svg>
       </div>
 
-      {/* ===== 第3层：星光点缀 ===== */}
+      {/* ===== 第3层：鼠标跟随主光球 ===== */}
       <motion.div 
-        className="absolute inset-0"
-        style={{ y: layer3Y }}
-      >
-        {stars.map((star) => (
-          <motion.div
-            key={star.id}
-            className="absolute rounded-full bg-white"
-            style={{
-              left: `${star.x}%`,
-              top: `${star.y}%`,
-              width: star.size,
-              height: star.size,
-              opacity: star.opacity,
-            }}
-            animate={{
-              opacity: [star.opacity, star.opacity * 1.5, star.opacity],
-              scale: [1, 1.2, 1],
-            }}
-            transition={{
-              duration: 3 + Math.random() * 2,
-              repeat: Infinity,
-              delay: star.delay,
-              ease: "easeInOut",
-            }}
-          />
-        ))}
-      </motion.div>
+        className="absolute rounded-full pointer-events-none"
+        style={{
+          width: 'clamp(500px, 60vw, 800px)',
+          height: 'clamp(500px, 60vw, 800px)',
+          x: orb1TransformX,
+          y: orb1TransformY,
+          top: '5%',
+          left: '-10%',
+          background: `
+            radial-gradient(circle, 
+              rgba(139, 92, 246, 0.25) 0%, 
+              rgba(99, 102, 241, 0.15) 30%,
+              rgba(79, 70, 229, 0.05) 60%,
+              transparent 80%
+            )
+          `,
+          filter: 'blur(60px)',
+        }}
+      />
+      
+      <motion.div 
+        className="absolute rounded-full pointer-events-none"
+        style={{
+          width: 'clamp(400px, 50vw, 700px)',
+          height: 'clamp(400px, 50vw, 700px)',
+          x: orb2TransformX,
+          y: orb2TransformY,
+          top: '20%',
+          right: '-5%',
+          background: `
+            radial-gradient(circle, 
+              rgba(236, 72, 153, 0.2) 0%, 
+              rgba(219, 39, 119, 0.1) 40%,
+              transparent 70%
+            )
+          `,
+          filter: 'blur(50px)',
+        }}
+      />
 
-      {/* ===== 第4层：主光球视差层 ===== */}
+      {/* ===== 第4层：视差光球层 ===== */}
       <motion.div 
         className="absolute inset-0"
         style={{ y: layer1Y }}
       >
-        {/* 紫色主光球 - 左上 */}
-        <motion.div
-          className="absolute rounded-full"
-          style={{
-            width: 'clamp(400px, 50vw, 700px)',
-            height: 'clamp(400px, 50vw, 700px)',
-            top: '0%',
-            left: '-15%',
-            x: orb1X,
-            background: `
-              radial-gradient(circle, 
-                rgba(139, 92, 246, 0.1) 0%, 
-                rgba(99, 102, 241, 0.05) 30%,
-                rgba(79, 70, 229, 0.02) 60%,
-                transparent 80%
-              )
-            `,
-            filter: 'blur(80px)',
-          }}
-        />
-        
-        {/* 青色光球 - 右上 */}
-        <motion.div
-          className="absolute rounded-full"
-          style={{
-            width: 'clamp(300px, 35vw, 500px)',
-            height: 'clamp(300px, 35vw, 500px)',
-            top: '10%',
-            right: '-8%',
-            x: orb2X,
-            background: `
-              radial-gradient(circle, 
-                rgba(6, 182, 212, 0.08) 0%, 
-                rgba(34, 211, 238, 0.03) 40%,
-                transparent 70%
-              )
-            `,
-            filter: 'blur(70px)',
-          }}
-        />
-      </motion.div>
-
-      {/* ===== 第5层：次要光球视差层 ===== */}
-      <motion.div 
-        className="absolute inset-0"
-        style={{ y: layer2Y }}
-      >
-        {/* 粉紫光球 - 左中 */}
+        {/* 青色动态光球 */}
         <motion.div
           className="absolute rounded-full"
           style={{
             width: 'clamp(350px, 40vw, 550px)',
             height: 'clamp(350px, 40vw, 550px)',
             top: '40%',
-            left: '-5%',
+            left: '20%',
             background: `
               radial-gradient(circle, 
-                rgba(236, 72, 153, 0.06) 0%, 
-                rgba(219, 39, 119, 0.03) 40%,
+                rgba(6, 182, 212, 0.2) 0%, 
+                rgba(34, 211, 238, 0.1) 40%,
                 transparent 70%
               )
             `,
-            filter: 'blur(90px)',
+            filter: 'blur(70px)',
+          }}
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.6, 0.9, 0.6],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut",
           }}
         />
         
-        {/* 靛蓝光球 - 右下 */}
+        {/* 紫粉渐变光球 */}
         <motion.div
           className="absolute rounded-full"
           style={{
             width: 'clamp(400px, 45vw, 600px)',
             height: 'clamp(400px, 45vw, 600px)',
-            bottom: '10%',
-            right: '-10%',
+            bottom: '20%',
+            right: '15%',
             background: `
               radial-gradient(circle, 
-                rgba(99, 102, 241, 0.07) 0%, 
-                rgba(129, 140, 248, 0.03) 40%,
+                rgba(167, 139, 250, 0.18) 0%, 
+                rgba(244, 114, 182, 0.1) 40%,
                 transparent 70%
               )
             `,
-            filter: 'blur(85px)',
+            filter: 'blur(80px)',
           }}
-        />
-        
-        {/* 深紫光球 - 底部中间 */}
-        <motion.div
-          className="absolute rounded-full"
-          style={{
-            width: 'clamp(300px, 30vw, 450px)',
-            height: 'clamp(300px, 30vw, 450px)',
-            bottom: '-5%',
-            left: '30%',
-            background: `
-              radial-gradient(circle, 
-                rgba(139, 92, 246, 0.05) 0%, 
-                transparent 60%
-              )
-            `,
-            filter: 'blur(100px)',
+          animate={{
+            scale: [1, 1.15, 1],
+            opacity: [0.5, 0.8, 0.5],
+          }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 2,
           }}
         />
       </motion.div>
 
-      {/* ===== 第6层：流动光线 ===== */}
+      {/* ===== 第5层：浮动粒子 ===== */}
+      <motion.div 
+        className="absolute inset-0"
+        style={{ y: layer2Y }}
+      >
+        {particles.map((particle) => (
+          <motion.div
+            key={particle.id}
+            className="absolute rounded-full"
+            style={{
+              left: `${particle.x}%`,
+              top: `${particle.y}%`,
+              width: particle.size,
+              height: particle.size,
+              backgroundColor: particle.color,
+              boxShadow: `0 0 ${particle.size * 3}px ${particle.color}`,
+            }}
+            animate={{
+              y: [-20, -60, -20],
+              x: [-10, 10, -10],
+              opacity: [0.3, 0.8, 0.3],
+              scale: [1, 1.3, 1],
+            }}
+            transition={{
+              duration: particle.duration,
+              repeat: Infinity,
+              delay: particle.delay,
+              ease: "easeInOut",
+            }}
+          />
+        ))}
+      </motion.div>
+
+      {/* ===== 第6层：扫描线效果 ===== */}
       <div className="absolute inset-0 overflow-hidden">
-        {/* 斜向流动光线 1 */}
+        {/* 水平扫描线 */}
         <motion.div
-          className="absolute"
+          className="absolute left-0 right-0 h-[2px]"
           style={{
-            width: '200%',
-            height: '1px',
-            top: '25%',
-            left: '-50%',
-            background: 'linear-gradient(90deg, transparent 0%, rgba(139, 92, 246, 0.4) 30%, rgba(6, 182, 212, 0.4) 50%, rgba(139, 92, 246, 0.4) 70%, transparent 100%)',
-            transform: 'rotate(-15deg)',
-            opacity: lineOpacity,
-            x: useTransform(lineProgress, [0, 1], ['-100%', '100%']),
+            background: 'linear-gradient(90deg, transparent 0%, rgba(139, 92, 246, 0.8) 20%, rgba(236, 72, 153, 0.9) 50%, rgba(139, 92, 246, 0.8) 80%, transparent 100%)',
+            boxShadow: '0 0 20px rgba(139, 92, 246, 0.5), 0 0 40px rgba(236, 72, 153, 0.3)',
+          }}
+          animate={{
+            top: ['-2px', '100%'],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "linear",
           }}
         />
         
-        {/* 斜向流动光线 2 */}
+        {/* 第二条扫描线 - 延迟 */}
         <motion.div
-          className="absolute"
+          className="absolute left-0 right-0 h-[1px]"
           style={{
-            width: '200%',
-            height: '1px',
-            top: '55%',
-            left: '-50%',
-            background: 'linear-gradient(90deg, transparent 0%, rgba(236, 72, 153, 0.3) 40%, rgba(99, 102, 241, 0.3) 60%, transparent 100%)',
-            transform: 'rotate(10deg)',
-            opacity: useTransform(lineOpacity, (o) => o * 0.7),
-            x: useTransform(lineProgress, [0, 1], ['100%', '-100%']),
+            background: 'linear-gradient(90deg, transparent 0%, rgba(6, 182, 212, 0.6) 30%, rgba(99, 102, 241, 0.7) 70%, transparent 100%)',
+            boxShadow: '0 0 15px rgba(6, 182, 212, 0.4)',
           }}
-        />
-        
-        {/* 水平流动光线 */}
-        <motion.div
-          className="absolute"
-          style={{
-            width: '150%',
-            height: '1px',
-            top: '75%',
-            left: '-25%',
-            background: 'linear-gradient(90deg, transparent 0%, rgba(6, 182, 212, 0.25) 50%, transparent 100%)',
-            opacity: useTransform(lineOpacity, (o) => o * 0.5),
-            x: useTransform(lineProgress, [0, 1], ['-50%', '50%']),
+          animate={{
+            top: ['-1px', '100%'],
+          }}
+          transition={{
+            duration: 12,
+            repeat: Infinity,
+            ease: "linear",
+            delay: 4,
           }}
         />
       </div>
 
-      {/* ===== 第7层：顶部渐变遮罩 ===== */}
+      {/* ===== 第7层：流星效果 ===== */}
+      <motion.div className="absolute inset-0" style={{ y: layer3Y }}>
+        {meteors.map((meteor) => (
+          <motion.div
+            key={meteor.id}
+            className="absolute"
+            style={{
+              left: `${meteor.startX}%`,
+              top: `${meteor.startY}%`,
+              width: '150px',
+              height: '2px',
+              background: `linear-gradient(${meteor.angle}deg, transparent 0%, rgba(139, 92, 246, 0.8) 50%, rgba(255, 255, 255, 0.9) 100%)`,
+              borderRadius: '2px',
+              transform: `rotate(${meteor.angle}deg)`,
+              boxShadow: '0 0 10px rgba(139, 92, 246, 0.6)',
+            }}
+            animate={{
+              x: [0, 300],
+              y: [0, 200],
+              opacity: [0, 1, 0],
+            }}
+            transition={{
+              duration: meteor.duration,
+              repeat: Infinity,
+              delay: meteor.delay,
+              ease: "easeOut",
+            }}
+          />
+        ))}
+      </motion.div>
+
+      {/* ===== 第8层：脉冲环效果 ===== */}
+      <div className="absolute inset-0 overflow-hidden">
+        {/* 中心脉冲环 1 */}
+        <motion.div
+          className="absolute rounded-full border-2"
+          style={{
+            width: '400px',
+            height: '400px',
+            top: '30%',
+            left: '50%',
+            x: '-50%',
+            borderColor: 'rgba(139, 92, 246, 0.3)',
+          }}
+          animate={{
+            scale: [0.5, 2, 2.5],
+            opacity: [0.8, 0.3, 0],
+          }}
+          transition={{
+            duration: 4,
+            repeat: Infinity,
+            ease: "easeOut",
+          }}
+        />
+        
+        {/* 脉冲环 2 */}
+        <motion.div
+          className="absolute rounded-full border"
+          style={{
+            width: '300px',
+            height: '300px',
+            top: '60%',
+            left: '25%',
+            borderColor: 'rgba(236, 72, 153, 0.25)',
+          }}
+          animate={{
+            scale: [0.5, 1.8, 2.2],
+            opacity: [0.7, 0.2, 0],
+          }}
+          transition={{
+            duration: 5,
+            repeat: Infinity,
+            ease: "easeOut",
+            delay: 1.5,
+          }}
+        />
+        
+        {/* 脉冲环 3 */}
+        <motion.div
+          className="absolute rounded-full border"
+          style={{
+            width: '350px',
+            height: '350px',
+            top: '20%',
+            right: '20%',
+            borderColor: 'rgba(6, 182, 212, 0.25)',
+          }}
+          animate={{
+            scale: [0.5, 1.6, 2],
+            opacity: [0.6, 0.25, 0],
+          }}
+          transition={{
+            duration: 6,
+            repeat: Infinity,
+            ease: "easeOut",
+            delay: 3,
+          }}
+        />
+      </div>
+
+      {/* ===== 第9层：霓虹边缘光 ===== */}
+      <div className="absolute inset-0 pointer-events-none">
+        {/* 顶部光带 */}
+        <motion.div
+          className="absolute top-0 left-0 right-0 h-[1px]"
+          style={{
+            background: 'linear-gradient(90deg, transparent 0%, rgba(139, 92, 246, 0.5) 20%, rgba(236, 72, 153, 0.6) 50%, rgba(99, 102, 241, 0.5) 80%, transparent 100%)',
+            boxShadow: '0 0 20px rgba(139, 92, 246, 0.4), 0 0 40px rgba(236, 72, 153, 0.2)',
+          }}
+          animate={{
+            opacity: [0.5, 1, 0.5],
+          }}
+          transition={{
+            duration: 3,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+        
+        {/* 底部光带 */}
+        <motion.div
+          className="absolute bottom-0 left-0 right-0 h-[1px]"
+          style={{
+            background: 'linear-gradient(90deg, transparent 0%, rgba(6, 182, 212, 0.4) 30%, rgba(99, 102, 241, 0.5) 70%, transparent 100%)',
+            boxShadow: '0 0 15px rgba(6, 182, 212, 0.3)',
+          }}
+          animate={{
+            opacity: [0.4, 0.8, 0.4],
+          }}
+          transition={{
+            duration: 4,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 1.5,
+          }}
+        />
+      </div>
+
+      {/* ===== 第10层：动态光斑 ===== */}
+      <motion.div
+        className="absolute rounded-full pointer-events-none"
+        style={{
+          width: '200px',
+          height: '200px',
+          background: 'radial-gradient(circle, rgba(167, 139, 250, 0.4) 0%, transparent 70%)',
+          filter: 'blur(40px)',
+        }}
+        animate={{
+          x: [0, 100, 50, 150, 0],
+          y: [0, 50, 100, 30, 0],
+          scale: [1, 1.3, 0.9, 1.2, 1],
+        }}
+        transition={{
+          duration: 20,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+        initial={{ top: '40%', left: '60%' }}
+      />
+
+      {/* ===== 第11层：噪点纹理 ===== */}
+      <div 
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          opacity: 0.03,
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
+        }}
+      />
+
+      {/* ===== 第12层：渐变遮罩 ===== */}
       <div 
         className="absolute inset-0 pointer-events-none"
         style={{
           background: `
-            linear-gradient(180deg, rgba(5, 5, 20, 0.6) 0%, transparent 15%),
-            linear-gradient(0deg, rgba(5, 5, 20, 0.4) 0%, transparent 10%)
+            linear-gradient(180deg, rgba(2, 6, 23, 0.3) 0%, transparent 10%),
+            linear-gradient(0deg, rgba(2, 6, 23, 0.5) 0%, transparent 15%)
           `,
-        }}
-      />
-
-      {/* ===== 第8层：噪点纹理（增加质感） ===== */}
-      <div 
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          opacity: 0.015,
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
         }}
       />
     </motion.div>
