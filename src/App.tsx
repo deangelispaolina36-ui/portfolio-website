@@ -8,19 +8,12 @@ import {
   Skills, 
   Contact 
 } from "./components/sections";
-import { ParticleBackground, MouseGlow, DynamicBackground, SectionTransition } from "./components/common";
+import { ParticleBackground, DynamicBackground, SectionTransition } from "./components/common";
 
 function App() {
   return (
     <div className="min-h-screen bg-slate-950 text-white relative overflow-x-hidden">
-      {/* 全局鼠标跟随光晕效果 - 自然流畅版 */}
-      <MouseGlow 
-        primaryColor="rgba(139, 92, 246, 0.12)" 
-        secondaryColor="rgba(236, 72, 153, 0.08)"
-        size={400}
-      />
-
-      {/* 动态背景层 - 仅在非Hero区域显示，跟随滚动互动 */}
+      {/* 动态背景层 - 简洁版，仅在非Hero区域显示 */}
       <DynamicBackground />
 
       {/* 导航栏 */}
@@ -34,15 +27,15 @@ function App() {
 
       {/* 主要内容 - 位于Hero之后，带有渐变融入效果和动态粒子背景 */}
       <main className="relative z-20 bg-transparent">
-        {/* 动态粒子背景 - 作为main区域的背景 */}
+        {/* 动态粒子背景 - 简化版 */}
         <div className="main-particle-bg">
           <ParticleBackground 
-            particleCount={60}
-            colors={['rgba(139, 92, 246, 0.35)', 'rgba(236, 72, 153, 0.25)', 'rgba(99, 102, 241, 0.3)', 'rgba(6, 182, 212, 0.2)']}
-            maxRadius={1.8}
-            minRadius={0.4}
-            speed={0.15}
-            connectDistance={100}
+            particleCount={30}
+            colors={['rgba(139, 92, 246, 0.25)', 'rgba(236, 72, 153, 0.18)', 'rgba(99, 102, 241, 0.22)', 'rgba(6, 182, 212, 0.15)']}
+            maxRadius={1.5}
+            minRadius={0.3}
+            speed={0.1}
+            connectDistance={80}
           />
         </div>
         
