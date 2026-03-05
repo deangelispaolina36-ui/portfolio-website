@@ -8,13 +8,13 @@ import {
   Skills, 
   Contact 
 } from "./components/sections";
-import { ParticleBackground, DynamicBackground, SectionTransition } from "./components/common";
+import { TechBackground, SectionTransition } from "./components/common";
 
 function App() {
   return (
     <div className="min-h-screen bg-slate-950 text-white relative overflow-x-hidden">
-      {/* 动态背景层 - 简洁版，仅在非Hero区域显示 */}
-      <DynamicBackground />
+      {/* 科技感动态背景 - 仅在非Hero区域显示 */}
+      <TechBackground />
 
       {/* 导航栏 */}
       <Navbar />
@@ -25,20 +25,8 @@ function App() {
       {/* 自然过渡区域 - 从Hero到About的融合层 */}
       <div className="hero-to-about-transition" />
 
-      {/* 主要内容 - 位于Hero之后，带有渐变融入效果和动态粒子背景 */}
+      {/* 主要内容 - 位于Hero之后 */}
       <main className="relative z-20 bg-transparent">
-        {/* 动态粒子背景 - 简化版 */}
-        <div className="main-particle-bg">
-          <ParticleBackground 
-            particleCount={30}
-            colors={['rgba(139, 92, 246, 0.25)', 'rgba(236, 72, 153, 0.18)', 'rgba(99, 102, 241, 0.22)', 'rgba(6, 182, 212, 0.15)']}
-            maxRadius={1.5}
-            minRadius={0.3}
-            speed={0.1}
-            connectDistance={80}
-          />
-        </div>
-        
         {/* About区域顶部渐变融入层 */}
         <div className="about-fade-in-overlay" />
         

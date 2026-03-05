@@ -5,3 +5,4 @@ export { GlassCard } from './GlassCard';
 export { GradientText } from './GradientText';
 export { ParticleBackground } from './ParticleBackground';
 export { SectionTransition } from './SectionTransition';
+export { TechBackground } from './TechBackground';
