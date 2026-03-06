@@ -6,8 +6,8 @@ import { AnimatedSection } from '../common';
 // 腾讯工作数据指标
 const tencentMetrics = [
   { value: '1.1亿+', label: '粉丝矩阵', icon: Users, color: '#8b5cf6' },
-  { value: '1.3亿', label: '播放KPI', icon: Play, color: '#ec4899' },
-  { value: '70%', label: '效率提升', icon: Zap, color: '#f59e0b' },
+  { value: '6000万+', label: '个人贡献播放量', icon: Play, color: '#ec4899' },
+  { value: '70%', label: '独立搭建AI工作流提效', icon: Zap, color: '#f59e0b' },
 ];
 
 export function Experience() {
