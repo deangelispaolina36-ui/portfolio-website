@@ -10,7 +10,7 @@ const gameLogoImages: Record<string, string> = {
   fps: '/image/无畏契约.png',
   racing: '/image/QQ飞车.png',
   action: '/image/永劫无间.png',
-  arpg: '/image/黑神话悟空.png',
+  arpg: '/image/爱弥斯.png', // 使用爱弥斯立绘
 };
 
 export function GamingProfile() {
