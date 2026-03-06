@@ -189,63 +189,188 @@ export const portfolioCategories = [
   { id: 'design', name: '创意设计' },
 ];
 
-// 游戏履历数据
+// 游戏履历数据 - 新版结构
+export interface GameDetail {
+  name: string;
+  duration?: string;
+  achievements: string[];
+}
+
 export interface GamingProfile {
   id: string;
   category: string;
-  games: string[];
-  duration: string;
-  achievement: string;
+  categoryEn: string;
+  games: GameDetail[];
   color: string;
   icon: string;
+  gradient: string;
 }
 
 export const gamingProfiles: GamingProfile[] = [
   {
     id: 'moba',
     category: 'MOBA',
-    games: ['王者荣耀'],
-    duration: '10年',
-    achievement: '巅峰2000+，多英雄国标/万战',
+    categoryEn: 'Multiplayer Online Battle Arena',
+    games: [
+      {
+        name: '王者荣耀',
+        duration: '10年',
+        achievements: ['百星王者', '巅峰2100', '小国标花木兰', '万战英雄'],
+      },
+    ],
     color: '#f59e0b',
     icon: '⚔️',
+    gradient: 'from-amber-500/20 to-orange-600/20',
   },
   {
     id: 'fps',
-    category: 'FPS/战术竞技',
-    games: ['和平精英', '无畏契约'],
-    duration: '15年',
-    achievement: '核心体验者',
+    category: 'FPS / Tactical',
+    categoryEn: 'First Person Shooter',
+    games: [
+      {
+        name: '和平精英',
+        achievements: ['超级王牌'],
+      },
+      {
+        name: '无畏契约',
+        achievements: ['超凡'],
+      },
+      {
+        name: '生死狙击',
+        duration: '15年',
+        achievements: ['高天梯玩家'],
+      },
+    ],
     color: '#ef4444',
     icon: '🎯',
-  },
-  {
-    id: 'racing',
-    category: '竞速',
-    games: ['QQ飞车'],
-    duration: '8年',
-    achievement: '资深玩家',
-    color: '#06b6d4',
-    icon: '🏎️',
+    gradient: 'from-red-500/20 to-rose-600/20',
   },
   {
     id: 'action',
-    category: '动作竞技',
-    games: ['永劫无间'],
-    duration: '4年',
-    achievement: '硬核玩家',
+    category: 'Action',
+    categoryEn: 'Action Combat',
+    games: [
+      {
+        name: '永劫无间',
+        achievements: ['修罗', '高校榜32'],
+      },
+      {
+        name: '幽灵行者',
+        duration: '200h',
+        achievements: [],
+      },
+      {
+        name: '黑神话',
+        duration: '220h',
+        achievements: ['双结局'],
+      },
+    ],
     color: '#8b5cf6',
     icon: '⚡',
+    gradient: 'from-violet-500/20 to-purple-600/20',
   },
   {
-    id: 'steam',
-    category: '主机/Steam',
-    games: ['3A大作广泛涉猎'],
-    duration: '',
-    achievement: '广泛涉猎各类大作',
-    color: '#3b82f6',
-    icon: '🎮',
+    id: 'racing',
+    category: 'Racing',
+    categoryEn: 'Racing Games',
+    games: [
+      {
+        name: 'QQ飞车',
+        achievements: ['绝影星耀'],
+      },
+      {
+        name: '地平线5',
+        duration: '400h',
+        achievements: ['超跑收藏'],
+      },
+    ],
+    color: '#06b6d4',
+    icon: '🏎️',
+    gradient: 'from-cyan-500/20 to-teal-600/20',
   },
+  {
+    id: 'arpg',
+    category: 'ARPG',
+    categoryEn: 'Action Role-Playing Game',
+    games: [
+      {
+        name: '战双',
+        duration: '3年',
+        achievements: [],
+      },
+      {
+        name: '鸣潮',
+        duration: '1年',
+        achievements: [],
+      },
+    ],
+    color: '#ec4899',
+    icon: '🗡️',
+    gradient: 'from-pink-500/20 to-fuchsia-600/20',
+  },
+];
+
+// 游戏理解能力维度
+export interface GameUnderstanding {
+  id: string;
+  title: string;
+  titleEn: string;
+  items: string[];
+  color: string;
+  icon: string;
+}
+
+export const gameUnderstandings: GameUnderstanding[] = [
+  {
+    id: 'player-ecology',
+    title: '玩家生态理解',
+    titleEn: 'Player Ecology',
+    items: ['玩家分层', '竞技生态', '段位系统', '社区文化'],
+    color: '#8b5cf6',
+    icon: '👥',
+  },
+  {
+    id: 'game-mechanics',
+    title: '游戏机制理解',
+    titleEn: 'Game Mechanics',
+    items: ['动作反馈', '技能循环', 'Build体系', '数值成长'],
+    color: '#06b6d4',
+    icon: '⚙️',
+  },
+  {
+    id: 'competitive',
+    title: '竞技体验理解',
+    titleEn: 'Competitive Experience',
+    items: ['操作门槛', '风险收益', '版本环境', 'Meta变化'],
+    color: '#f59e0b',
+    icon: '🏆',
+  },
+  {
+    id: 'monetization',
+    title: '商业化理解',
+    titleEn: 'Monetization',
+    items: ['皮肤系统', '抽卡机制', '赛季设计', '成长驱动'],
+    color: '#ec4899',
+    icon: '💎',
+  },
+];
+
+// 游戏经历总结
+export const gameInsight = {
+  title: 'GAME INSIGHT',
+  paragraphs: [
+    '15年以上游戏经历，长期活跃于MOBA、FPS与动作类游戏生态。',
+    '对竞技游戏的玩家分层、版本节奏与Meta变化具有持续观察。',
+    '同时对动作系统反馈、Boss设计与Build构建保持高度兴趣。',
+  ],
+  conclusion: '希望将玩家视角转化为产品理解，参与创造更优秀的游戏体验。',
+};
+
+// Hero区数据统计
+export const gamingStats = [
+  { value: '15年+', label: '游戏经验' },
+  { value: '10+', label: '深度游戏' },
+  { value: '16000h+', label: '累计时长' },
 ];
 
 // 工作经历数据
