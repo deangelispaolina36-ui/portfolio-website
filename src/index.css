@@ -3401,33 +3401,33 @@ html {
    增强版背景动画 - TechBackground
    ================================ */
 
-/* 网格呼吸脉冲动画 */
+/* 网格呼吸脉冲动画 - 放慢速度 */
 .animate-grid-pulse {
-  animation: gridPulseGlow 4s ease-in-out infinite;
+  animation: gridPulseGlow 10s ease-in-out infinite;
 }
 
 @keyframes gridPulseGlow {
   0%, 100% {
-    opacity: 0.3;
+    opacity: 0.2;
     filter: brightness(1);
   }
   50% {
-    opacity: 0.6;
-    filter: brightness(1.3);
+    opacity: 0.4;
+    filter: brightness(1.15);
   }
 }
 
-/* 网格容器呼吸效果 */
+/* 网格容器呼吸效果 - 放慢速度 */
 .grid-breathing {
-  animation: gridBreathingAnim 6s ease-in-out infinite;
+  animation: gridBreathingAnim 15s ease-in-out infinite;
 }
 
 @keyframes gridBreathingAnim {
   0%, 100% {
-    opacity: 0.4;
+    opacity: 0.3;
   }
   50% {
-    opacity: 0.8;
+    opacity: 0.6;
   }
 }
 

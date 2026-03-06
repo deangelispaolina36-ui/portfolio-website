@@ -71,28 +71,28 @@ export function TechBackground() {
   const orb2TransformX = useTransform(smoothMouseX, [0, typeof window !== 'undefined' ? window.innerWidth : 1920], [30, -30]);
   const orb2TransformY = useTransform(smoothMouseY, [0, typeof window !== 'undefined' ? window.innerHeight : 1080], [20, -20]);
 
-  // 生成粒子
+  // 生成粒子 - 减少数量，放慢速度
   const particles = useMemo(() => {
-    return Array.from({ length: 40 }, (_, i) => ({
+    return Array.from({ length: 20 }, (_, i) => ({
       id: i,
       x: Math.random() * 100,
       y: Math.random() * 100,
-      size: Math.random() * 4 + 2,
-      duration: Math.random() * 3 + 4,
-      delay: Math.random() * 5,
+      size: Math.random() * 3 + 2,
+      duration: Math.random() * 8 + 12, // 放慢 3 倍
+      delay: Math.random() * 10,
       color: ['#8B5CF6', '#EC4899', '#6366F1', '#06B6D4'][Math.floor(Math.random() * 4)],
     }));
   }, []);
 
-  // 流星效果
+  // 流星效果 - 减少数量，放慢速度
   const meteors = useMemo(() => {
-    return Array.from({ length: 6 }, (_, i) => ({
+    return Array.from({ length: 3 }, (_, i) => ({
       id: i,
       startX: Math.random() * 100,
       startY: Math.random() * 30,
       angle: 30 + Math.random() * 30,
-      duration: 2 + Math.random() * 2,
-      delay: i * 3 + Math.random() * 2,
+      duration: 6 + Math.random() * 4, // 放慢 2-3 倍
+      delay: i * 8 + Math.random() * 5,
     }));
   }, []);
 
@@ -222,11 +222,11 @@ export function TechBackground() {
             filter: 'blur(70px)',
           }}
           animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.6, 0.9, 0.6],
+            scale: [1, 1.15, 1],
+            opacity: [0.5, 0.7, 0.5],
           }}
           transition={{
-            duration: 8,
+            duration: 20, // 从 8 秒放慢到 20 秒
             repeat: Infinity,
             ease: "easeInOut",
           }}
@@ -250,14 +250,14 @@ export function TechBackground() {
             filter: 'blur(80px)',
           }}
           animate={{
-            scale: [1, 1.15, 1],
-            opacity: [0.5, 0.8, 0.5],
+            scale: [1, 1.1, 1],
+            opacity: [0.4, 0.6, 0.4],
           }}
           transition={{
-            duration: 10,
+            duration: 25, // 从 10 秒放慢到 25 秒
             repeat: Infinity,
             ease: "easeInOut",
-            delay: 2,
+            delay: 5,
           }}
         />
       </motion.div>
@@ -280,10 +280,10 @@ export function TechBackground() {
               boxShadow: `0 0 ${particle.size * 3}px ${particle.color}`,
             }}
             animate={{
-              y: [-20, -60, -20],
-              x: [-10, 10, -10],
-              opacity: [0.3, 0.8, 0.3],
-              scale: [1, 1.3, 1],
+              y: [-10, -30, -10], // 减小移动幅度
+              x: [-5, 5, -5],
+              opacity: [0.2, 0.5, 0.2], // 降低透明度变化
+              scale: [1, 1.15, 1],
             }}
             transition={{
               duration: particle.duration,
@@ -295,20 +295,20 @@ export function TechBackground() {
         ))}
       </motion.div>
 
-      {/* ===== 第6层：扫描线效果 ===== */}
+      {/* ===== 第6层：扫描线效果 - 放慢速度 ===== */}
       <div className="absolute inset-0 overflow-hidden">
         {/* 水平扫描线 */}
         <motion.div
-          className="absolute left-0 right-0 h-[2px]"
+          className="absolute left-0 right-0 h-[1px]"
           style={{
-            background: 'linear-gradient(90deg, transparent 0%, rgba(139, 92, 246, 0.8) 20%, rgba(236, 72, 153, 0.9) 50%, rgba(139, 92, 246, 0.8) 80%, transparent 100%)',
-            boxShadow: '0 0 20px rgba(139, 92, 246, 0.5), 0 0 40px rgba(236, 72, 153, 0.3)',
+            background: 'linear-gradient(90deg, transparent 0%, rgba(139, 92, 246, 0.5) 20%, rgba(236, 72, 153, 0.6) 50%, rgba(139, 92, 246, 0.5) 80%, transparent 100%)',
+            boxShadow: '0 0 15px rgba(139, 92, 246, 0.3), 0 0 30px rgba(236, 72, 153, 0.2)',
           }}
           animate={{
             top: ['-2px', '100%'],
           }}
           transition={{
-            duration: 8,
+            duration: 25, // 从 8 秒放慢到 25 秒
             repeat: Infinity,
             ease: "linear",
           }}
@@ -318,17 +318,17 @@ export function TechBackground() {
         <motion.div
           className="absolute left-0 right-0 h-[1px]"
           style={{
-            background: 'linear-gradient(90deg, transparent 0%, rgba(6, 182, 212, 0.6) 30%, rgba(99, 102, 241, 0.7) 70%, transparent 100%)',
-            boxShadow: '0 0 15px rgba(6, 182, 212, 0.4)',
+            background: 'linear-gradient(90deg, transparent 0%, rgba(6, 182, 212, 0.4) 30%, rgba(99, 102, 241, 0.5) 70%, transparent 100%)',
+            boxShadow: '0 0 10px rgba(6, 182, 212, 0.3)',
           }}
           animate={{
             top: ['-1px', '100%'],
           }}
           transition={{
-            duration: 12,
+            duration: 35, // 从 12 秒放慢到 35 秒
             repeat: Infinity,
             ease: "linear",
-            delay: 4,
+            delay: 10,
           }}
         />
       </div>
@@ -364,25 +364,25 @@ export function TechBackground() {
         ))}
       </motion.div>
 
-      {/* ===== 第8层：脉冲环效果 ===== */}
+      {/* ===== 第8层：脉冲环效果 - 放慢速度 ===== */}
       <div className="absolute inset-0 overflow-hidden">
         {/* 中心脉冲环 1 */}
         <motion.div
-          className="absolute rounded-full border-2"
+          className="absolute rounded-full border"
           style={{
             width: '400px',
             height: '400px',
             top: '30%',
             left: '50%',
             x: '-50%',
-            borderColor: 'rgba(139, 92, 246, 0.3)',
+            borderColor: 'rgba(139, 92, 246, 0.2)',
           }}
           animate={{
-            scale: [0.5, 2, 2.5],
-            opacity: [0.8, 0.3, 0],
+            scale: [0.5, 1.8, 2],
+            opacity: [0.5, 0.2, 0],
           }}
           transition={{
-            duration: 4,
+            duration: 12, // 从 4 秒放慢到 12 秒
             repeat: Infinity,
             ease: "easeOut",
           }}
@@ -396,17 +396,17 @@ export function TechBackground() {
             height: '300px',
             top: '60%',
             left: '25%',
-            borderColor: 'rgba(236, 72, 153, 0.25)',
+            borderColor: 'rgba(236, 72, 153, 0.15)',
           }}
           animate={{
-            scale: [0.5, 1.8, 2.2],
-            opacity: [0.7, 0.2, 0],
+            scale: [0.5, 1.6, 1.8],
+            opacity: [0.4, 0.15, 0],
           }}
           transition={{
-            duration: 5,
+            duration: 15, // 从 5 秒放慢到 15 秒
             repeat: Infinity,
             ease: "easeOut",
-            delay: 1.5,
+            delay: 4,
           }}
         />
         
@@ -418,35 +418,35 @@ export function TechBackground() {
             height: '350px',
             top: '20%',
             right: '20%',
-            borderColor: 'rgba(6, 182, 212, 0.25)',
+            borderColor: 'rgba(6, 182, 212, 0.15)',
           }}
           animate={{
-            scale: [0.5, 1.6, 2],
-            opacity: [0.6, 0.25, 0],
+            scale: [0.5, 1.4, 1.6],
+            opacity: [0.4, 0.15, 0],
           }}
           transition={{
-            duration: 6,
+            duration: 18, // 从 6 秒放慢到 18 秒
             repeat: Infinity,
             ease: "easeOut",
-            delay: 3,
+            delay: 8,
           }}
         />
       </div>
 
-      {/* ===== 第9层：霓虹边缘光 ===== */}
+      {/* ===== 第9层：霓虹边缘光 - 放慢速度 ===== */}
       <div className="absolute inset-0 pointer-events-none">
         {/* 顶部光带 */}
         <motion.div
           className="absolute top-0 left-0 right-0 h-[1px]"
           style={{
-            background: 'linear-gradient(90deg, transparent 0%, rgba(139, 92, 246, 0.5) 20%, rgba(236, 72, 153, 0.6) 50%, rgba(99, 102, 241, 0.5) 80%, transparent 100%)',
-            boxShadow: '0 0 20px rgba(139, 92, 246, 0.4), 0 0 40px rgba(236, 72, 153, 0.2)',
+            background: 'linear-gradient(90deg, transparent 0%, rgba(139, 92, 246, 0.4) 20%, rgba(236, 72, 153, 0.5) 50%, rgba(99, 102, 241, 0.4) 80%, transparent 100%)',
+            boxShadow: '0 0 15px rgba(139, 92, 246, 0.3), 0 0 30px rgba(236, 72, 153, 0.15)',
           }}
           animate={{
-            opacity: [0.5, 1, 0.5],
+            opacity: [0.4, 0.7, 0.4],
           }}
           transition={{
-            duration: 3,
+            duration: 8, // 从 3 秒放慢到 8 秒
             repeat: Infinity,
             ease: "easeInOut",
           }}
@@ -456,37 +456,37 @@ export function TechBackground() {
         <motion.div
           className="absolute bottom-0 left-0 right-0 h-[1px]"
           style={{
-            background: 'linear-gradient(90deg, transparent 0%, rgba(6, 182, 212, 0.4) 30%, rgba(99, 102, 241, 0.5) 70%, transparent 100%)',
-            boxShadow: '0 0 15px rgba(6, 182, 212, 0.3)',
+            background: 'linear-gradient(90deg, transparent 0%, rgba(6, 182, 212, 0.3) 30%, rgba(99, 102, 241, 0.4) 70%, transparent 100%)',
+            boxShadow: '0 0 10px rgba(6, 182, 212, 0.2)',
           }}
           animate={{
-            opacity: [0.4, 0.8, 0.4],
+            opacity: [0.3, 0.6, 0.3],
           }}
           transition={{
-            duration: 4,
+            duration: 10, // 从 4 秒放慢到 10 秒
             repeat: Infinity,
             ease: "easeInOut",
-            delay: 1.5,
+            delay: 3,
           }}
         />
       </div>
 
-      {/* ===== 第10层：动态光斑 ===== */}
+      {/* ===== 第10层：动态光斑 - 放慢速度 ===== */}
       <motion.div
         className="absolute rounded-full pointer-events-none"
         style={{
           width: '200px',
           height: '200px',
-          background: 'radial-gradient(circle, rgba(167, 139, 250, 0.4) 0%, transparent 70%)',
-          filter: 'blur(40px)',
+          background: 'radial-gradient(circle, rgba(167, 139, 250, 0.25) 0%, transparent 70%)',
+          filter: 'blur(50px)',
         }}
         animate={{
-          x: [0, 100, 50, 150, 0],
-          y: [0, 50, 100, 30, 0],
-          scale: [1, 1.3, 0.9, 1.2, 1],
+          x: [0, 60, 30, 80, 0], // 减小移动范围
+          y: [0, 30, 60, 20, 0],
+          scale: [1, 1.15, 0.95, 1.1, 1], // 减小缩放幅度
         }}
         transition={{
-          duration: 20,
+          duration: 50, // 从 20 秒放慢到 50 秒
           repeat: Infinity,
           ease: "easeInOut",
         }}
