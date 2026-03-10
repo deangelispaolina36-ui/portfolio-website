@@ -5,6 +5,7 @@ import {
   GamingProfile, 
   Portfolio, 
   Experience,
+  Achievements,
   Skills, 
   Contact 
 } from "./components/sections";
@@ -48,6 +49,11 @@ function App() {
         {/* 工作经历时间轴 - 揭示过渡 */}
         <SectionTransition id="experience" transitionType="reveal" delay={0.1}>
           <Experience />
+        </SectionTransition>
+
+        {/* 荣誉与成就 - 缩放过渡 */}
+        <SectionTransition id="achievements" transitionType="scale" delay={0.1}>
+          <Achievements />
         </SectionTransition>
 
         {/* 技能展示 - 滑入过渡 */}

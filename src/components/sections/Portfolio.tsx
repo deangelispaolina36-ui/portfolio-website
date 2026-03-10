@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, ExternalLink, Tag, Layers, Sparkles } from 'lucide-react';
+import { X, ExternalLink, Tag, Layers, ChevronLeft, ChevronRight, Image } from 'lucide-react';
 import { portfolioData, portfolioCategories, PortfolioItem } from '../../data/portfolio';
 import { AnimatedSection } from '../common';
 
@@ -13,6 +13,22 @@ function PortfolioModal({
   onClose: () => void;
 }) {
   const [imageError, setImageError] = useState(false);
+  const [galleryIndex, setGalleryIndex] = useState(0);
+  const [showGallery, setShowGallery] = useState(false);
+  
+  const hasGallery = item.gallery && item.gallery.length > 0;
+  
+  const nextImage = () => {
+    if (hasGallery) {
+      setGalleryIndex((prev) => (prev + 1) % item.gallery!.length);
+    }
+  };
+  
+  const prevImage = () => {
+    if (hasGallery) {
+      setGalleryIndex((prev) => (prev - 1 + item.gallery!.length) % item.gallery!.length);
+    }
+  };
   
   return (
     <motion.div
@@ -62,6 +78,17 @@ function PortfolioModal({
           )}
           <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/50 to-transparent" />
           
+          {/* 画廊按钮 */}
+          {hasGallery && (
+            <button
+              onClick={() => setShowGallery(true)}
+              className="absolute top-4 left-4 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md flex items-center gap-2 hover:bg-white/20 transition-colors border border-white/10 text-sm text-white"
+            >
+              <Image className="w-4 h-4" />
+              查看画廊 ({item.gallery!.length})
+            </button>
+          )}
+          
           {/* 标题覆盖 */}
           <div className="absolute bottom-0 left-0 right-0 p-8">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">
@@ -84,6 +111,36 @@ function PortfolioModal({
         <div className="p-8 max-h-[calc(90vh-18rem)] overflow-y-auto">
           {/* 描述 */}
           <p className="text-gray-300 mb-8 text-lg leading-relaxed">{item.description}</p>
+
+          {/* 画廊缩略图 */}
+          {hasGallery && (
+            <div className="mb-8">
+              <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+                <Image className="w-5 h-5 text-purple-400" />
+                作品画廊
+              </h3>
+              <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3">
+                {item.gallery!.map((img, idx) => (
+                  <motion.div
+                    key={idx}
+                    className="relative aspect-square rounded-lg overflow-hidden cursor-pointer border-2 border-transparent hover:border-purple-500/50 transition-colors"
+                    whileHover={{ scale: 1.05 }}
+                    onClick={() => {
+                      setGalleryIndex(idx);
+                      setShowGallery(true);
+                    }}
+                  >
+                    <img
+                      src={img}
+                      alt={`${item.title} - ${idx + 1}`}
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-black/20 hover:bg-black/0 transition-colors" />
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          )}
 
           {/* Markdown 内容区域 */}
           <div className="prose prose-invert max-w-none">
@@ -144,6 +201,84 @@ function PortfolioModal({
           )}
         </div>
       </motion.div>
+
+      {/* 全屏画廊查看器 */}
+      <AnimatePresence>
+        {showGallery && hasGallery && (
+          <motion.div
+            className="fixed inset-0 z-60 bg-black/95 flex items-center justify-center"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setShowGallery(false)}
+          >
+            {/* 关闭按钮 */}
+            <button
+              onClick={() => setShowGallery(false)}
+              className="absolute top-6 right-6 z-10 w-12 h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center hover:bg-white/20 transition-colors"
+            >
+              <X className="w-6 h-6" />
+            </button>
+
+            {/* 图片计数 */}
+            <div className="absolute top-6 left-6 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md text-white text-sm">
+              {galleryIndex + 1} / {item.gallery!.length}
+            </div>
+
+            {/* 左箭头 */}
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                prevImage();
+              }}
+              className="absolute left-6 top-1/2 -translate-y-1/2 w-14 h-14 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center hover:bg-white/20 transition-colors"
+            >
+              <ChevronLeft className="w-8 h-8" />
+            </button>
+
+            {/* 图片 */}
+            <motion.img
+              key={galleryIndex}
+              src={item.gallery![galleryIndex]}
+              alt={`${item.title} - ${galleryIndex + 1}`}
+              className="max-w-[85vw] max-h-[85vh] object-contain rounded-lg"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              onClick={(e) => e.stopPropagation()}
+            />
+
+            {/* 右箭头 */}
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                nextImage();
+              }}
+              className="absolute right-6 top-1/2 -translate-y-1/2 w-14 h-14 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center hover:bg-white/20 transition-colors"
+            >
+              <ChevronRight className="w-8 h-8" />
+            </button>
+
+            {/* 缩略图导航 */}
+            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 px-4 py-3 rounded-2xl bg-white/10 backdrop-blur-md">
+              {item.gallery!.map((img, idx) => (
+                <button
+                  key={idx}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setGalleryIndex(idx);
+                  }}
+                  className={`w-12 h-12 rounded-lg overflow-hidden border-2 transition-all ${
+                    idx === galleryIndex ? 'border-purple-500 scale-110' : 'border-transparent opacity-60 hover:opacity-100'
+                  }`}
+                >
+                  <img src={img} alt="" className="w-full h-full object-cover" />
+                </button>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 }

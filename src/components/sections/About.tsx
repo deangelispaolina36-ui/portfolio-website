@@ -1,7 +1,14 @@
 import { motion } from 'framer-motion';
-import { GraduationCap, Mail, Phone, Sparkles } from 'lucide-react';
+import { GraduationCap, Mail, Phone, Sparkles, Trophy, Award, Star } from 'lucide-react';
 import { personalInfo } from '../../data/portfolio';
 import { AnimatedSection } from '../common';
+
+// 重点荣誉数据
+const highlightAchievements = [
+  { icon: Trophy, label: '国赛三等奖', color: 'text-amber-400', bg: 'from-amber-500/20 to-orange-500/10' },
+  { icon: Award, label: '年度励志人物', color: 'text-purple-400', bg: 'from-purple-500/20 to-pink-500/10' },
+  { icon: Star, label: '非遗博览会参展', color: 'text-cyan-400', bg: 'from-cyan-500/20 to-blue-500/10' },
+];
 
 export function About() {
   return (
@@ -73,6 +80,30 @@ export function About() {
               <h3 className="text-2xl font-bold gradient-text-vivid mb-2">{personalInfo.name}</h3>
               <p className="text-gray-400 text-base">游戏策划 · AIGC探索者</p>
               <p className="text-purple-400/60 text-sm mt-2">热爱游戏，深耕产品，持续创造价值</p>
+            </motion.div>
+
+            {/* 荣誉亮点标签 */}
+            <motion.div 
+              className="flex flex-wrap justify-center gap-3 mt-6"
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.4 }}
+            >
+              {highlightAchievements.map((achievement, index) => (
+                <motion.div
+                  key={achievement.label}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r ${achievement.bg} border border-white/10`}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.5 + index * 0.1 }}
+                  whileHover={{ scale: 1.05, y: -2 }}
+                >
+                  <achievement.icon className={`w-4 h-4 ${achievement.color}`} />
+                  <span className={`text-sm font-medium ${achievement.color}`}>{achievement.label}</span>
+                </motion.div>
+              ))}
             </motion.div>
           </motion.div>
 

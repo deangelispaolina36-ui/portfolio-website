@@ -6,6 +6,7 @@ export interface PortfolioItem {
   tags: string[];
   description: string;
   coverImage: string;
+  gallery?: string[];  // 作品画廊图片
   detailContent?: string;
   link?: string;
 }
@@ -15,31 +16,106 @@ export const portfolioData: PortfolioItem[] = [
     id: 'liujin-tongniu',
     title: '宁夏鎏金铜牛文创项目',
     category: 'product',
-    tags: ['从0到1', '商业化', '11万营收'],
-    description: '主导文创产品设计与商业化落地，从用户研究到产品交付全流程把控，最终创收11万',
-    coverImage: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=400&fit=crop',
+    tags: ['从0到1', '商业化', '11万营收', '国赛获奖', '非遗博览会'],
+    description: '主导文创产品设计与商业化落地，从用户研究到产品交付全流程把控，最终创收11万。荣获中国大学生计算机设计大赛国家三等奖，受邀参展全国非遗博览会。',
+    coverImage: '/image/portfolio/liujin/用.jpg',
+    gallery: [
+      '/image/portfolio/liujin/牛牛冰箱贴2.png',
+      '/image/portfolio/liujin/牛牛书签.jpg',
+      '/image/portfolio/liujin/生成公仔虚拟人物.png',
+      '/image/portfolio/liujin/剪纸1.jpg',
+      '/image/portfolio/liujin/制作胡旋舞手办背景.png',
+      '/image/portfolio/liujin/用2.png',
+    ],
     detailContent: `
 ## 项目背景
 宁夏鎏金铜牛是宁夏博物馆的镇馆之宝，具有极高的文化价值。本项目旨在将这一文化IP进行现代化转译，打造年轻人喜爱的文创产品。
 
 ## 我的角色
 - 项目负责人
-- 产品策划
-- 商业化设计
+- 产品策划与IP设计
+- AIGC辅助创作（虚拟人物、场景设计）
+- 商业化落地执行
+
+## 🏆 项目荣誉
+- 中国大学生计算机设计大赛 **国家三等奖**
+- 中国大学生计算机设计大赛 **西北赛区一等奖**
+- 全国第八届非物质文化遗产博览会 **参展项目**
+- "石榴花开匠心流韵"宁夏非遗集市 **参展**
 
 ## 项目成果
-- 💰 总营收：11万元
-- 📦 产品线：3个系列，12个SKU
+- 💰 总营收：**11万元**
+- 📦 产品线：冰箱贴、书签、剪纸、虚拟人物等
 - 👥 服务用户：2000+
+- 🎨 创新点：AIGC辅助IP形象设计，传统与现代融合
 
-## 项目流程
-1. 用户研究与需求分析
-2. 产品概念设计
-3. 供应链整合
-4. 营销推广
-5. 销售与交付
+## 产品展示
+包含：鎏金铜牛冰箱贴、文创书签、剪纸作品、AIGC生成虚拟人物等
+    `,
+  },
+  {
+    id: 'guofeng-illustration',
+    title: '国风AI插画系列',
+    category: 'aigc',
+    tags: ['AIGC', '国风', 'Stable Diffusion', '原创创作'],
+    description: '使用AI工具创作的国风主题插画系列，融合传统文化元素与现代AI技术，展现盛世华章与民生安康的美好愿景。',
+    coverImage: '/image/portfolio/guofeng/《古代华宫：国之盛世》.jpg',
+    gallery: [
+      '/image/portfolio/guofeng/《古代华宫：国之盛世》.jpg',
+      '/image/portfolio/guofeng/《和风古韵：民之安康》.jpg',
+      '/image/portfolio/guofeng/《沙漠绿洲：国之坚韧》.jpg',
+      '/image/portfolio/guofeng/《水源寓安：民之根本》.jpg',
+    ],
+    detailContent: `
+## 系列简介
+这是一组以"国泰民安"为主题的国风AI插画系列，通过AI技术结合传统美学元素进行创作。
 
-（此处预留详细内容）
+## 作品列表
+1. **《古代华宫：国之盛世》** - 展现帝王宫殿的恢弘气势
+2. **《和风古韵：民之安康》** - 描绘百姓安居乐业的生活场景
+3. **《沙漠绿洲：国之坚韧》** - 象征中华民族的坚韧与开拓精神
+4. **《水源寓安：民之根本》** - 表达水源对民生的重要意义
+
+## 技术要点
+- 使用 Stable Diffusion 进行创作
+- 精心设计的中国风 Prompt 工程
+- 后期使用 Photoshop 进行细节优化
+- 色彩调控与构图设计
+
+## 创作理念
+将传统文化元素与现代AI技术相结合，用科技手段传承和创新中华美学。
+    `,
+  },
+  {
+    id: 'daguangsai-poster',
+    title: '大广赛版权公益海报',
+    category: 'design',
+    tags: ['大广赛', '公益海报', '版权保护', '省级三等奖'],
+    description: '全国大学生广告艺术大赛参赛作品，以"版权保护"为主题的公益海报设计，荣获宁夏赛区三等奖。',
+    coverImage: '/image/portfolio/daguangsai/《剪切与拼凑：原创的枷锁与盗版的剪刀》.png',
+    gallery: [
+      '/image/portfolio/daguangsai/《剪切与拼凑：原创的枷锁与盗版的剪刀》.png',
+      '/image/portfolio/daguangsai/《拼走的灵感，残缺的原创》.png',
+      '/image/portfolio/daguangsai/大广赛.jpg',
+    ],
+    detailContent: `
+## 作品简介
+全国大学生广告艺术大赛（大广赛）参赛作品，以"版权保护"为公益主题进行创作。
+
+## 🏆 获奖情况
+全国大学生广告艺术大赛 **宁夏赛区三等奖**
+
+## 作品列表
+1. **《剪切与拼凑：原创的枷锁与盗版的剪刀》**
+   - 通过剪刀与枷锁的视觉隐喻，表达盗版对原创的伤害
+   
+2. **《拼走的灵感，残缺的原创》**
+   - 以拼图缺失的概念，展现盗版对创作者灵感的剥夺
+
+## 设计理念
+- 运用视觉隐喻传达版权保护的重要性
+- 简洁有力的画面语言
+- 引发观者对知识产权的思考
     `,
   },
   {
@@ -74,78 +150,70 @@ export const portfolioData: PortfolioItem[] = [
 - AI 语音合成
 - 背景音乐生成
 - 多平台分发
-
-（此处预留详细流程图和数据对比）
     `,
   },
   {
-    id: 'ai-gallery',
-    title: 'AI 生成作品集',
-    category: 'aigc',
-    tags: ['Midjourney', 'Stable Diffusion', 'Prompt 设计'],
-    description: '展示 AI 图像生成能力与 Prompt 工程技术，包含多种风格的 AI 生成作品',
-    coverImage: 'https://images.unsplash.com/photo-1686191128892-3b37add4b844?w=600&h=400&fit=crop',
+    id: 'expo-exhibition',
+    title: '全国非遗博览会参展',
+    category: 'product',
+    tags: ['国家级', '非遗文化', '项目落地', '现场展示'],
+    description: '鎏金铜牛文创项目受邀参加全国第八届非物质文化遗产博览会，在山东济南进行现场展示与推广。',
+    coverImage: '/image/portfolio/expo/微信图片_20241116123911.jpg',
+    gallery: [
+      '/image/portfolio/expo/微信图片_20241116005329.jpg',
+      '/image/portfolio/expo/微信图片_20241116005353.jpg',
+      '/image/portfolio/expo/微信图片_20241116005433.jpg',
+      '/image/portfolio/expo/微信图片_20241116005439.jpg',
+      '/image/portfolio/expo/微信图片_20241116123911.jpg',
+      '/image/portfolio/expo/微信图片_20241116123915.jpg',
+    ],
     detailContent: `
-## 作品展示
-这是我使用 AI 工具创作的图像作品集，展示了不同风格和主题的 AI 生成能力。
+## 活动简介
+全国第八届非物质文化遗产博览会是由文化和旅游部主办的国家级非遗展示盛会，鎏金铜牛文创项目受邀参展。
 
-## 使用工具
-- Midjourney V6
-- Stable Diffusion XL
-- ComfyUI 工作流
+## 展会信息
+- 📍 地点：山东济南
+- 📅 时间：2024年11月
+- 🎫 级别：国家级文化展会
 
-## Prompt 工程
-每张作品都包含详细的 Prompt 说明，展示如何通过精准的提示词控制 AI 输出。
+## 参展内容
+- 鎏金铜牛IP文创产品全系列展示
+- 现场与观众互动交流
+- 文创产品售卖与推广
 
-（此处预留作品画廊和 Prompt 说明）
+## 意义与收获
+- 项目从校园走向全国舞台
+- 获得专业领域认可
+- 与全国各地非遗传承人交流学习
+- 拓展项目商业化视野
     `,
   },
   {
     id: 'video-works',
     title: '视频作品精选',
     category: 'design',
-    tags: ['Premiere', 'After Effects', '短视频'],
-    description: '抖音/小红书爆款视频作品，单条最高 200万+ 播放量',
+    tags: ['Premiere', '无人机航拍', '参赛作品'],
+    description: '短视频创作与航拍作品，包含参赛视频《中国护照在手 北非说走就走》《忠魂》等',
     coverImage: 'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=600&h=400&fit=crop',
     detailContent: `
 ## 作品亮点
-- 🔥 单条最高播放：200万+
-- 📱 平台：抖音、小红书
-- 🎬 类型：短视频、Vlog、产品展示
+- 🎬 参赛作品多次获奖
+- 🚁 无人机航拍素材拍摄与剪辑
+- 📱 平台：抖音、小红书、B站
 
 ## 代表作品
 
-### 作品1：[视频标题]
-- 播放量：200万+
-- 点赞：XX万
+### 《中国护照在手 北非说走就走》
+- 第七届大学生网络编辑创新大赛参赛作品
+- 视听新媒体类作品
 
-### 作品2：[视频标题]
-- 播放量：XX万
-- 点赞：XX万
+### 《忠魂》
+- 主题视频创作
+- 情感表达与视觉叙事
 
-（此处预留视频嵌入）
-    `,
-  },
-  {
-    id: 'design-portfolio',
-    title: '设计作品集',
-    category: 'design',
-    tags: ['Photoshop', '海报', '视觉设计'],
-    description: '活动海报、品牌视觉、UI 设计等平面设计作品合集',
-    coverImage: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=600&h=400&fit=crop',
-    detailContent: `
-## 设计作品展示
-
-### 活动海报
-校园活动、品牌推广等海报设计
-
-### 品牌视觉
-Logo、VI 系统设计
-
-### UI 设计
-App 界面、网页设计
-
-（此处预留作品画廊）
+### 无人机航拍作品
+- DJI无人机拍摄
+- 风景与城市空中摄影
     `,
   },
   {

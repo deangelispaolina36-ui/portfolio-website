@@ -8,6 +8,7 @@ const navLinks = [
   { name: 'GAMES', href: '#gaming' },
   { name: 'WORKS', href: '#portfolio' },
   { name: 'CAREER', href: '#experience' },
+  { name: 'HONORS', href: '#achievements' },
 ];
 
 export function Navbar() {
