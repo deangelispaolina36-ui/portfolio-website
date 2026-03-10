@@ -189,34 +189,6 @@ export const portfolioData: PortfolioItem[] = [
     `,
   },
   {
-    id: 'video-works',
-    title: '视频作品精选',
-    category: 'design',
-    tags: ['Premiere', '无人机航拍', '参赛作品'],
-    description: '短视频创作与航拍作品，包含参赛视频《中国护照在手 北非说走就走》《忠魂》等',
-    coverImage: 'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=600&h=400&fit=crop',
-    detailContent: `
-## 作品亮点
-- 🎬 参赛作品多次获奖
-- 🚁 无人机航拍素材拍摄与剪辑
-- 📱 平台：抖音、小红书、B站
-
-## 代表作品
-
-### 《中国护照在手 北非说走就走》
-- 第七届大学生网络编辑创新大赛参赛作品
-- 视听新媒体类作品
-
-### 《忠魂》
-- 主题视频创作
-- 情感表达与视觉叙事
-
-### 无人机航拍作品
-- DJI无人机拍摄
-- 风景与城市空中摄影
-    `,
-  },
-  {
     id: 'more-coming',
     title: '游戏分析报告 - Coming Soon',
     category: 'game-analysis',

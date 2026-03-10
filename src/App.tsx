@@ -3,8 +3,10 @@ import {
   Hero, 
   About, 
   GamingProfile, 
-  Portfolio, 
+  Portfolio,
+  VideoWorks,
   Experience,
+  Awards,
   Achievements,
   Skills, 
   Contact 
@@ -46,12 +48,22 @@ function App() {
           <Portfolio />
         </SectionTransition>
 
+        {/* 视频作品 - 滑入过渡 */}
+        <SectionTransition id="videos" transitionType="slide" delay={0.1}>
+          <VideoWorks />
+        </SectionTransition>
+
         {/* 工作经历时间轴 - 揭示过渡 */}
         <SectionTransition id="experience" transitionType="reveal" delay={0.1}>
           <Experience />
         </SectionTransition>
 
-        {/* 荣誉与成就 - 缩放过渡 */}
+        {/* 荣誉与成就 - 新增 Awards 组件 */}
+        <SectionTransition id="awards" transitionType="scale" delay={0.1}>
+          <Awards />
+        </SectionTransition>
+
+        {/* 荣誉与成就详情 - 缩放过渡 */}
         <SectionTransition id="achievements" transitionType="scale" delay={0.1}>
           <Achievements />
         </SectionTransition>
