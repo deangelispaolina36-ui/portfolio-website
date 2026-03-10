@@ -95,7 +95,7 @@ export const portfolioData: PortfolioItem[] = [
     coverImage: '/image/portfolio/daguangsai/《剪切与拼凑：原创的枷锁与盗版的剪刀》.png',
     gallery: [
       '/image/portfolio/daguangsai/《剪切与拼凑：原创的枷锁与盗版的剪刀》.png',
-      '/image/portfolio/daguangsai/《拼走的灵感，残缺的原创》.png',
+      '/image/portfolio/daguangsai/《拼走的灵感，残缺的原创》.jpg',
       '/image/portfolio/daguangsai/大广赛.jpg',
     ],
     detailContent: `

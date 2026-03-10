@@ -22,3 +22,10 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Backup files
+*.backup
+
+# Temp scripts
+find_large_files.cjs
+compress_images.mjs
