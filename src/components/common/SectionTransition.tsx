@@ -48,49 +48,49 @@ export function SectionTransition({
     restDelta: 0.001
   });
 
-  // 根据不同过渡类型设置动画值
+  // 根据不同过渡类型设置动画值 - 缩短过渡区间，减少空白感
   const opacity = useTransform(
     smoothProgress,
-    [0, 0.15, 0.85, 1],
+    [0, 0.08, 0.92, 1],
     transitionType === 'reveal' 
-      ? [0, 1, 1, 0.9]
-      : [0, 1, 1, 0.85]
+      ? [0, 1, 1, 0.95]
+      : [0, 1, 1, 0.9]
   );
 
   const y = useTransform(
     smoothProgress,
-    [0, 0.15, 0.85, 1],
+    [0, 0.08, 0.92, 1],
     transitionType === 'slide' 
-      ? [80, 0, 0, -40] 
+      ? [40, 0, 0, -20] 
       : transitionType === 'reveal'
-      ? [100, 0, 0, -20]
-      : [40, 0, 0, -20]
+      ? [50, 0, 0, -10]
+      : [20, 0, 0, -10]
   );
 
   const scale = useTransform(
     smoothProgress,
-    [0, 0.12, 0.88, 1],
+    [0, 0.08, 0.92, 1],
     transitionType === 'scale' 
-      ? [0.92, 1, 1, 0.97] 
+      ? [0.96, 1, 1, 0.98] 
       : transitionType === 'reveal'
-      ? [0.95, 1, 1, 0.99]
+      ? [0.98, 1, 1, 0.99]
       : [1, 1, 1, 1]
   );
 
   const blur = useTransform(
     smoothProgress,
-    [0, 0.15, 0.85, 1],
+    [0, 0.08, 0.92, 1],
     transitionType === 'blur' 
-      ? [10, 0, 0, 5] 
+      ? [5, 0, 0, 2] 
       : [0, 0, 0, 0]
   );
 
   // 旋转效果（微妙的 3D 感）
   const rotateX = useTransform(
     smoothProgress,
-    [0, 0.15, 0.85, 1],
+    [0, 0.08, 0.92, 1],
     transitionType === 'reveal'
-      ? [5, 0, 0, -2]
+      ? [3, 0, 0, -1]
       : [0, 0, 0, 0]
   );
 
@@ -112,10 +112,10 @@ export function SectionTransition({
         transformPerspective: 1000,
         transformOrigin: 'center center',
       }}
-      initial={{ opacity: 0, y: 50 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+      initial={{ opacity: 0, y: 30 }}
+      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
       transition={{
-        duration: 0.8,
+        duration: 0.6,
         delay: delay,
         ease: [0.25, 0.1, 0.25, 1], // 丝滑的贝塞尔曲线
       }}

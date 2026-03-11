@@ -7,7 +7,6 @@ import {
   VideoWorks,
   Experience,
   Awards,
-  Achievements,
   Skills, 
   Contact 
 } from "./components/sections";
@@ -58,14 +57,9 @@ function App() {
           <Experience />
         </SectionTransition>
 
-        {/* 荣誉与成就 - 新增 Awards 组件 */}
+        {/* 荣誉与成就 */}
         <SectionTransition id="awards" transitionType="scale" delay={0.1}>
           <Awards />
-        </SectionTransition>
-
-        {/* 荣誉与成就详情 - 缩放过渡 */}
-        <SectionTransition id="achievements" transitionType="scale" delay={0.1}>
-          <Achievements />
         </SectionTransition>
 
         {/* 技能展示 - 滑入过渡 */}

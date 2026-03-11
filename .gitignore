@@ -29,3 +29,6 @@ dist-ssr
 # Temp scripts
 find_large_files.cjs
 compress_images.mjs
+
+# Screenshots
+screenshot-*.png
