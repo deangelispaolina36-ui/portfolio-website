@@ -191,6 +191,7 @@ export function GamingProfile() {
                         src={gameLogoImages[profile.id]}
                         alt={profile.category}
                         className="max-w-[80%] max-h-[100px] object-contain relative z-10"
+                        loading="lazy"
                         style={{
                           filter: `drop-shadow(0 0 15px ${profile.color}60)`,
                         }}

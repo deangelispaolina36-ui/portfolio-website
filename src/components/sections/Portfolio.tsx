@@ -134,6 +134,7 @@ function PortfolioModal({
                       src={img}
                       alt={`${item.title} - ${idx + 1}`}
                       className="w-full h-full object-cover"
+                      loading="lazy"
                     />
                     <div className="absolute inset-0 bg-black/20 hover:bg-black/0 transition-colors" />
                   </motion.div>

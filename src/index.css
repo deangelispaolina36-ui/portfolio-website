@@ -744,316 +744,6 @@ html {
   text-transform: uppercase;
 }
 
-/* ================================
-   旧版 HERO 样式 (保留兼容)
-   ================================ */
-
-/* 沉浸式全屏背景布局 */
-.hero-immersive {
-  position: relative;
-  min-height: 100vh;
-  width: 100%;
-  background-size: cover;
-  background-position: center top;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  overflow: hidden;
-}
-
-/* 渐变遮罩层 - 左深右透 */
-.hero-gradient-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to right,
-    rgba(10, 10, 15, 1) 0%,
-    rgba(10, 10, 15, 0.85) 35%,
-    rgba(10, 10, 15, 0.4) 60%,
-    rgba(10, 10, 15, 0) 100%
-  );
-  pointer-events: none;
-  z-index: 1;
-}
-
-/* 移动端：从下到上的渐变 */
-@media (max-width: 768px) {
-  .hero-gradient-overlay {
-    background: linear-gradient(
-      to top,
-      rgba(10, 10, 15, 1) 0%,
-      rgba(10, 10, 15, 0.95) 40%,
-      rgba(10, 10, 15, 0.6) 70%,
-      rgba(10, 10, 15, 0.3) 100%
-    );
-  }
-  
-  .hero-immersive {
-    background-position: center center;
-    background-attachment: scroll;
-  }
-}
-
-/* 装饰性大数字 - 极低透明度 */
-.hero-decorative-number {
-  position: absolute;
-  font-size: clamp(20rem, 40vw, 50rem);
-  font-weight: 900;
-  font-family: "Helvetica Neue", "Arial Black", sans-serif;
-  color: rgba(255, 255, 255, 0.03);
-  line-height: 0.8;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-  user-select: none;
-  z-index: 0;
-}
-
-/* 内容包装器 */
-.hero-content-wrapper {
-  position: relative;
-  z-index: 10;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  padding: 6rem 4rem;
-  max-width: 50%;
-}
-
-@media (max-width: 1024px) {
-  .hero-content-wrapper {
-    max-width: 70%;
-    padding: 6rem 3rem;
-  }
-}
-
-@media (max-width: 768px) {
-  .hero-content-wrapper {
-    max-width: 100%;
-    padding: 8rem 1.5rem 4rem;
-    align-items: flex-end;
-  }
-}
-
-/* 文字内容 */
-.hero-text-content {
-  max-width: 540px;
-}
-
-/* 英文装饰字 - 极细 */
-.hero-subtitle-en {
-  font-family: "Helvetica Neue", "Inter", sans-serif;
-  font-size: 0.75rem;
-  font-weight: 200;
-  letter-spacing: 4px;
-  color: rgba(255, 255, 255, 0.5);
-  text-transform: uppercase;
-  margin-bottom: 1.5rem;
-}
-
-/* 状态指示器 */
-.hero-status {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 1.5rem;
-}
-
-.hero-status-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #4ade80;
-  animation: pulse-dot 2s ease-in-out infinite;
-}
-
-@keyframes pulse-dot {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.5; transform: scale(1.2); }
-}
-
-.hero-status-text {
-  font-family: "Helvetica Neue", "Inter", sans-serif;
-  font-size: 0.7rem;
-  font-weight: 400;
-  letter-spacing: 3px;
-  color: rgba(255, 255, 255, 0.4);
-  text-transform: uppercase;
-}
-
-/* 主标题 - 现代无衬线黑体 */
-.hero-title {
-  font-family: "PingFang SC", "Microsoft YaHei", "Helvetica Neue", sans-serif;
-  font-size: clamp(3.5rem, 10vw, 7rem);
-  font-weight: 700;
-  letter-spacing: 4px;
-  color: #ffffff;
-  line-height: 1.1;
-  margin-bottom: 1.5rem;
-}
-
-/* Slogan */
-.hero-slogan {
-  font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
-  font-size: 1.125rem;
-  font-weight: 300;
-  letter-spacing: 2px;
-  color: rgba(255, 255, 255, 0.6);
-  margin-bottom: 2rem;
-  line-height: 1.6;
-}
-
-/* 标签 - 文字+圆点分隔 */
-.hero-tags {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 2.5rem;
-  flex-wrap: wrap;
-}
-
-.hero-tags span {
-  font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
-  font-size: 0.875rem;
-  font-weight: 400;
-  letter-spacing: 1px;
-  color: rgba(255, 255, 255, 0.5);
-}
-
-.hero-tag-dot {
-  width: 4px !important;
-  height: 4px !important;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.3) !important;
-  flex-shrink: 0;
-}
-
-/* 按钮组 */
-.hero-buttons {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-  margin-bottom: 3rem;
-}
-
-/* 主按钮 - 极光玻璃拟态 */
-.hero-btn-primary {
-  padding: 1rem 2.5rem;
-  font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
-  font-size: 0.875rem;
-  font-weight: 500;
-  letter-spacing: 2px;
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  cursor: pointer;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.hero-btn-primary:hover {
-  background: rgba(255, 255, 255, 1);
-  color: #0a0a0f;
-  border-color: rgba(255, 255, 255, 1);
-}
-
-/* 次按钮 - 透明+下划线 */
-.hero-btn-secondary {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 1rem 1.5rem;
-  font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
-  font-size: 0.875rem;
-  font-weight: 400;
-  letter-spacing: 1px;
-  color: rgba(255, 255, 255, 0.7);
-  background: transparent;
-  border: none;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-decoration: none;
-}
-
-.hero-btn-secondary:hover {
-  color: #ffffff;
-  border-bottom-color: rgba(255, 255, 255, 0.8);
-}
-
-/* 底部信息 */
-.hero-footer {
-  padding-top: 2rem;
-}
-
-.hero-footer-line {
-  width: 40px;
-  height: 1px;
-  background: rgba(255, 255, 255, 0.2);
-  margin-bottom: 1rem;
-}
-
-.hero-footer-label {
-  font-family: "Helvetica Neue", "Inter", sans-serif;
-  font-size: 0.65rem;
-  font-weight: 400;
-  letter-spacing: 3px;
-  color: rgba(255, 255, 255, 0.3);
-  text-transform: uppercase;
-  margin-bottom: 0.5rem;
-}
-
-.hero-footer-email {
-  font-family: "Inter", sans-serif;
-  font-size: 0.875rem;
-  color: rgba(255, 255, 255, 0.5);
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.hero-footer-email:hover {
-  color: rgba(255, 255, 255, 0.9);
-}
-
-/* 滚动提示 */
-.hero-scroll-hint {
-  position: absolute;
-  bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 10;
-}
-
-@media (min-width: 1024px) {
-  .hero-scroll-hint {
-    left: 4rem;
-    transform: none;
-  }
-}
-
-.hero-scroll-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-  color: rgba(255, 255, 255, 0.3);
-  cursor: pointer;
-  transition: color 0.3s ease;
-}
-
-.hero-scroll-content:hover {
-  color: rgba(255, 255, 255, 0.6);
-}
-
-.hero-scroll-content span {
-  font-family: "Helvetica Neue", "Inter", sans-serif;
-  font-size: 0.65rem;
-  font-weight: 400;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-}
-
 /* 极简导航 - 左侧垂直 */
 .nav-vertical {
   position: fixed;
@@ -2035,7 +1725,6 @@ html {
     radial-gradient(ellipse 80% 50% at 20% 40%, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
     radial-gradient(ellipse 60% 40% at 80% 20%, rgba(236, 72, 153, 0.06) 0%, transparent 50%);
   animation: flowingWave1 30s ease-in-out infinite;
-  will-change: transform;
 }
 
 @keyframes flowingWave1 {
@@ -2065,7 +1754,6 @@ html {
     radial-gradient(ellipse 50% 30% at 30% 80%, rgba(6, 182, 212, 0.05) 0%, transparent 50%);
   animation: flowingWave2 25s ease-in-out infinite;
   animation-delay: -10s;
-  will-change: transform;
 }
 
 @keyframes flowingWave2 {
@@ -2091,7 +1779,6 @@ html {
     radial-gradient(ellipse 40% 30% at 50% 50%, rgba(167, 139, 250, 0.04) 0%, transparent 60%);
   animation: flowingWave3 20s ease-in-out infinite;
   animation-delay: -5s;
-  will-change: transform;
 }
 
 @keyframes flowingWave3 {
@@ -2576,7 +2263,6 @@ html {
   border-radius: 50%;
   filter: blur(80px);
   pointer-events: none;
-  will-change: transform, opacity;
 }
 
 .ambient-light-orb-1 {
@@ -2935,7 +2621,6 @@ html {
   border-radius: 50%;
   filter: blur(100px);
   pointer-events: none;
-  will-change: transform, opacity;
 }
 
 .dynamic-orb-1 {
@@ -3033,7 +2718,6 @@ html {
   height: 250%;
   top: -75%;
   left: -75%;
-  will-change: transform;
 }
 
 .dynamic-wave-1 {
@@ -3629,4 +3313,204 @@ html {
 .section-item-reveal.revealed {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* ================================
+   移动端响应式优化 (< 768px)
+   ================================ */
+@media (max-width: 768px) {
+  /* Hero 移动端优化 */
+  .hero-section-parallax {
+    min-height: 100svh; /* 使用 svh 避免移动端浏览器地址栏影响 */
+  }
+
+  .hero-content-parallax {
+    padding: 6rem 1.25rem 5rem !important;
+    align-items: center;
+  }
+
+  .hero-text-wrapper {
+    max-width: 100%;
+    text-align: center;
+  }
+
+  .hero-decoration-top {
+    justify-content: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-status-parallax {
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+
+  .hero-title-parallax {
+    font-size: clamp(2.5rem, 13vw, 4.5rem) !important;
+    letter-spacing: 2px !important;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+
+  .hero-slogan-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .hero-slogan-line {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-slogan-parallax {
+    font-size: clamp(1rem, 4vw, 1.25rem);
+    letter-spacing: 2px;
+    text-align: center;
+  }
+
+  .hero-subtitle-parallax {
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .hero-buttons-parallax {
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .hero-btn-glass {
+    padding: 0.875rem 2rem;
+    font-size: 0.8rem;
+  }
+
+  .hero-btn-ghost {
+    padding: 0.875rem 1rem;
+    font-size: 0.8rem;
+  }
+
+  .hero-footer-parallax {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 1.5rem;
+  }
+
+  .hero-footer-line-parallax {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-footer-label-parallax,
+  .hero-footer-email-parallax {
+    text-align: center;
+  }
+
+  .hero-decorative-number-parallax {
+    font-size: clamp(10rem, 50vw, 18rem);
+    left: 50%;
+    opacity: 0.5;
+  }
+
+  .hero-scroll-hint-parallax {
+    bottom: 1.5rem;
+  }
+
+  /* Section 通用移动端优化 */
+  .section-padding {
+    padding-top: 4rem !important;
+    padding-bottom: 4rem !important;
+  }
+
+  .container-custom {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  /* 证件照在移动端缩小 */
+  .profile-photo-container {
+    width: 120px !important;
+    height: 150px !important;
+  }
+
+  .profile-photo-wrapper {
+    width: 130px !important;
+    height: 160px !important;
+  }
+}
+
+/* ================================
+   极小屏幕适配 (< 400px)
+   ================================ */
+@media (max-width: 400px) {
+  .hero-title-parallax {
+    font-size: 2.25rem !important;
+    letter-spacing: 1px !important;
+  }
+
+  .hero-buttons-parallax {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .hero-btn-glass,
+  .hero-btn-ghost {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .section-padding {
+    padding-top: 3rem !important;
+    padding-bottom: 3rem !important;
+  }
+}
+
+/* ================================
+   平板端优化 (768px - 1024px)
+   ================================ */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .hero-content-parallax {
+    padding: 6rem 2rem 6rem 3rem;
+  }
+
+  .hero-title-parallax {
+    font-size: clamp(3.5rem, 10vw, 6rem);
+    letter-spacing: 4px;
+  }
+}
+
+/* ================================
+   prefers-reduced-motion 降级
+   ================================ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* 关闭装饰性模糊滤镜，节省 GPU 开销 */
+  .ambient-light-orb,
+  .dynamic-ambient-orb,
+  .flowing-wave-1,
+  .flowing-wave-2,
+  .flowing-wave-3,
+  .dynamic-wave {
+    display: none !important;
+  }
+
+  .glass,
+  .glass-strong,
+  .glass-cinematic,
+  .glass-tag,
+  .glass-card-premium {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
 }

@@ -1,5 +1,6 @@
 import { motion, useScroll, useTransform, useSpring, useInView } from 'framer-motion';
 import { useRef, ReactNode } from 'react';
+import { useDevicePerformance } from '../../hooks/useDevicePerformance';
 
 interface SectionTransitionProps {
   children: ReactNode;
@@ -17,8 +18,10 @@ interface SectionTransitionProps {
 }
 
 /**
- * 丝滑的 Section 过渡效果包装组件
- * 为每个页面区域添加自然流畅的进入/离开动画
+ * 丝滑的 Section 过渡效果包装组件（性能优化版）
+ * - high: 完整滚动视差 + 分隔光效
+ * - medium: 简化滚动（去掉 blur/rotateX），保留分隔线
+ * - low: 纯 useInView 淡入，无滚动绑定
  */
 export function SectionTransition({
   children,
@@ -29,39 +32,110 @@ export function SectionTransition({
   showBottomDivider = false,
   delay = 0,
 }: SectionTransitionProps) {
+  const deviceLevel = useDevicePerformance();
   const sectionRef = useRef<HTMLElement>(null);
-  const isInView = useInView(sectionRef, { 
-    once: false, 
+  const isInView = useInView(sectionRef, {
+    once: false,
     amount: 0.1,
-    margin: "0px 0px -100px 0px"
-  });
-  
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ['start end', 'end start']
+    margin: '0px 0px -100px 0px',
   });
 
-  // 平滑的滚动进度
+  // ============================================================
+  // LOW 级别：纯 InView 淡入，无滚动绑定，极简
+  // ============================================================
+  if (deviceLevel === 'low') {
+    return (
+      <motion.section
+        ref={sectionRef}
+        id={id}
+        className={`relative ${className}`}
+        initial={{ opacity: 0, y: 30 }}
+        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+        transition={{ duration: 0.5, delay, ease: [0.25, 0.1, 0.25, 1] }}
+      >
+        {/* 简化顶部分隔线 — 无动画 */}
+        {showTopDivider && (
+          <div className="absolute left-[10%] right-[10%] top-0 h-[1px] bg-gradient-to-r from-transparent via-purple-500/30 to-transparent" />
+        )}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : { opacity: 0 }}
+          transition={{ duration: 0.5, delay: delay + 0.15 }}
+        >
+          {children}
+        </motion.div>
+        {showBottomDivider && (
+          <div className="absolute left-[10%] right-[10%] bottom-0 h-[1px] bg-gradient-to-r from-transparent via-indigo-500/30 to-transparent" />
+        )}
+      </motion.section>
+    );
+  }
+
+  // ============================================================
+  // MEDIUM & HIGH 级别：使用滚动绑定
+  // ============================================================
+  return <SectionTransitionFull
+    sectionRef={sectionRef}
+    isInView={isInView}
+    className={className}
+    id={id}
+    transitionType={transitionType}
+    showTopDivider={showTopDivider}
+    showBottomDivider={showBottomDivider}
+    delay={delay}
+    deviceLevel={deviceLevel}
+  >
+    {children}
+  </SectionTransitionFull>;
+}
+
+// 分离为子组件，这样 low 级别完全不会创建 useScroll/useSpring/useTransform
+function SectionTransitionFull({
+  children,
+  sectionRef,
+  isInView,
+  className,
+  id,
+  transitionType,
+  showTopDivider,
+  showBottomDivider,
+  delay,
+  deviceLevel,
+}: {
+  children: ReactNode;
+  sectionRef: React.RefObject<HTMLElement>;
+  isInView: boolean;
+  className: string;
+  id?: string;
+  transitionType: string;
+  showTopDivider: boolean;
+  showBottomDivider: boolean;
+  delay: number;
+  deviceLevel: 'medium' | 'high';
+}) {
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start end', 'end start'],
+  });
+
   const smoothProgress = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
-    restDelta: 0.001
+    restDelta: 0.001,
   });
 
-  // 根据不同过渡类型设置动画值 - 缩短过渡区间，减少空白感
+  // 基础动画值（medium + high 共用）
   const opacity = useTransform(
     smoothProgress,
     [0, 0.08, 0.92, 1],
-    transitionType === 'reveal' 
-      ? [0, 1, 1, 0.95]
-      : [0, 1, 1, 0.9]
+    transitionType === 'reveal' ? [0, 1, 1, 0.95] : [0, 1, 1, 0.9]
   );
 
   const y = useTransform(
     smoothProgress,
     [0, 0.08, 0.92, 1],
-    transitionType === 'slide' 
-      ? [40, 0, 0, -20] 
+    transitionType === 'slide'
+      ? [40, 0, 0, -20]
       : transitionType === 'reveal'
       ? [50, 0, 0, -10]
       : [20, 0, 0, -10]
@@ -70,33 +144,32 @@ export function SectionTransition({
   const scale = useTransform(
     smoothProgress,
     [0, 0.08, 0.92, 1],
-    transitionType === 'scale' 
-      ? [0.96, 1, 1, 0.98] 
+    transitionType === 'scale'
+      ? [0.96, 1, 1, 0.98]
       : transitionType === 'reveal'
       ? [0.98, 1, 1, 0.99]
       : [1, 1, 1, 1]
   );
 
+  // blur 和 rotateX 仅 high 使用
   const blur = useTransform(
     smoothProgress,
     [0, 0.08, 0.92, 1],
-    transitionType === 'blur' 
-      ? [5, 0, 0, 2] 
-      : [0, 0, 0, 0]
+    deviceLevel === 'high' && transitionType === 'blur' ? [5, 0, 0, 2] : [0, 0, 0, 0]
   );
 
-  // 旋转效果（微妙的 3D 感）
   const rotateX = useTransform(
     smoothProgress,
     [0, 0.08, 0.92, 1],
-    transitionType === 'reveal'
-      ? [3, 0, 0, -1]
-      : [0, 0, 0, 0]
+    deviceLevel === 'high' && transitionType === 'reveal' ? [3, 0, 0, -1] : [0, 0, 0, 0]
   );
 
   // 分隔线动画
   const dividerScale = useTransform(smoothProgress, [0, 0.2], [0, 1]);
   const dividerOpacity = useTransform(smoothProgress, [0, 0.2], [0, 1]);
+
+  const useBlurFilter = deviceLevel === 'high' && transitionType === 'blur';
+  const useRotate = deviceLevel === 'high' && transitionType === 'reveal';
 
   return (
     <motion.section
@@ -107,49 +180,31 @@ export function SectionTransition({
         opacity,
         y,
         scale,
-        filter: transitionType === 'blur' ? `blur(${blur.get()}px)` : undefined,
-        rotateX: transitionType === 'reveal' ? rotateX : undefined,
-        transformPerspective: 1000,
+        filter: useBlurFilter ? `blur(${blur.get()}px)` : undefined,
+        rotateX: useRotate ? rotateX : undefined,
+        transformPerspective: useRotate ? 1000 : undefined,
         transformOrigin: 'center center',
       }}
       initial={{ opacity: 0, y: 30 }}
       animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-      transition={{
-        duration: 0.6,
-        delay: delay,
-        ease: [0.25, 0.1, 0.25, 1], // 丝滑的贝塞尔曲线
-      }}
+      transition={{ duration: 0.6, delay, ease: [0.25, 0.1, 0.25, 1] }}
     >
       {/* 顶部分隔光效 */}
       {showTopDivider && (
-        <motion.div 
+        <motion.div
           className="absolute left-0 right-0 top-0 h-40 pointer-events-none z-10"
-          style={{
-            opacity: dividerOpacity,
-          }}
+          style={{ opacity: dividerOpacity }}
         >
-          {/* 渐变光晕 */}
-          <div 
+          <div
             className="absolute inset-0"
             style={{
-              background: `linear-gradient(to bottom,
-                rgba(139, 92, 246, 0.08) 0%,
-                rgba(167, 139, 250, 0.04) 30%,
-                transparent 100%
-              )`,
+              background: `linear-gradient(to bottom, rgba(139, 92, 246, 0.08) 0%, rgba(167, 139, 250, 0.04) 30%, transparent 100%)`,
             }}
           />
-          {/* 霓虹分隔线 */}
-          <motion.div 
+          <motion.div
             className="absolute top-0 left-[10%] right-[10%] h-[1px]"
             style={{
-              background: `linear-gradient(90deg,
-                transparent 0%,
-                rgba(139, 92, 246, 0.5) 20%,
-                rgba(167, 139, 250, 0.7) 50%,
-                rgba(139, 92, 246, 0.5) 80%,
-                transparent 100%
-              )`,
+              background: `linear-gradient(90deg, transparent 0%, rgba(139, 92, 246, 0.5) 20%, rgba(167, 139, 250, 0.7) 50%, rgba(139, 92, 246, 0.5) 80%, transparent 100%)`,
               boxShadow: '0 0 15px rgba(139, 92, 246, 0.4), 0 0 30px rgba(139, 92, 246, 0.2)',
               scaleX: dividerScale,
               transformOrigin: 'center',
@@ -157,49 +212,32 @@ export function SectionTransition({
           />
         </motion.div>
       )}
-      
+
       {/* 内容区域 */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-        transition={{
-          duration: 0.6,
-          delay: delay + 0.2,
-        }}
+        transition={{ duration: 0.6, delay: delay + 0.2 }}
       >
         {children}
       </motion.div>
-      
+
       {/* 底部分隔光效 */}
       {showBottomDivider && (
-        <motion.div 
+        <motion.div
           className="absolute left-0 right-0 bottom-0 h-40 pointer-events-none z-10"
-          style={{
-            opacity: dividerOpacity,
-          }}
+          style={{ opacity: dividerOpacity }}
         >
-          {/* 渐变光晕 */}
-          <div 
+          <div
             className="absolute inset-0"
             style={{
-              background: `linear-gradient(to top,
-                rgba(99, 102, 241, 0.06) 0%,
-                rgba(139, 92, 246, 0.03) 30%,
-                transparent 100%
-              )`,
+              background: `linear-gradient(to top, rgba(99, 102, 241, 0.06) 0%, rgba(139, 92, 246, 0.03) 30%, transparent 100%)`,
             }}
           />
-          {/* 霓虹分隔线 */}
-          <motion.div 
+          <motion.div
             className="absolute bottom-0 left-[10%] right-[10%] h-[1px]"
             style={{
-              background: `linear-gradient(90deg,
-                transparent 0%,
-                rgba(99, 102, 241, 0.4) 20%,
-                rgba(139, 92, 246, 0.6) 50%,
-                rgba(99, 102, 241, 0.4) 80%,
-                transparent 100%
-              )`,
+              background: `linear-gradient(90deg, transparent 0%, rgba(99, 102, 241, 0.4) 20%, rgba(139, 92, 246, 0.6) 50%, rgba(99, 102, 241, 0.4) 80%, transparent 100%)`,
               boxShadow: '0 0 12px rgba(99, 102, 241, 0.3), 0 0 25px rgba(99, 102, 241, 0.15)',
               scaleX: dividerScale,
               transformOrigin: 'center',

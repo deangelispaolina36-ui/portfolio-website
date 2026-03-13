@@ -34,7 +34,7 @@ export function Footer() {
               <span className="text-lg font-bold gradient-text">{personalInfo.name}</span>
             </div>
             <p className="text-sm text-muted-foreground">
-              游戏策划 | AIGC 爱好者
+              创意策划 | AIGC 探索者
             </p>
           </div>
 

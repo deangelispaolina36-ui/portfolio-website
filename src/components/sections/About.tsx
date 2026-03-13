@@ -63,6 +63,7 @@ export function About() {
                   src="/image/证件照.png" 
                   alt={personalInfo.name}
                   className="profile-photo-image"
+                  loading="lazy"
                 />
                 {/* 边框光效 */}
                 <div className="profile-photo-border" />
@@ -78,7 +79,7 @@ export function About() {
               transition={{ delay: 0.3 }}
             >
               <h3 className="text-2xl font-bold gradient-text-vivid mb-2">{personalInfo.name}</h3>
-              <p className="text-gray-400 text-base">游戏策划 · AIGC探索者</p>
+              <p className="text-gray-400 text-base">创意策划 · AIGC探索者</p>
               <p className="text-purple-400/60 text-sm mt-2">热爱游戏，深耕产品，持续创造价值</p>
             </motion.div>
 
