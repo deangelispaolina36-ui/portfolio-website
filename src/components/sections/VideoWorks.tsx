@@ -1,8 +1,17 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Video, Play, Clock, Tag, Film, Plane, Palette, Briefcase } from 'lucide-react';
+import { Video, Play, Clock, Tag, Film, Plane, Palette, Briefcase, ExternalLink } from 'lucide-react';
 import { AnimatedSection } from '../common';
-import { videoWorksData, videoCategories, videoStats, VideoWork } from '../../data/videos';
+import { videoWorksData, videoCategories, videoStats, bilibiliHome, VideoWork } from '../../data/videos';
+
+// B站SVG图标
+function BilibiliIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+      <path d="M17.813 4.653h.854c1.51.054 2.769.578 3.773 1.574 1.004.995 1.524 2.249 1.56 3.76v7.36c-.036 1.51-.556 2.769-1.56 3.773s-2.262 1.524-3.773 1.56H5.333c-1.51-.036-2.769-.556-3.773-1.56S.036 18.858 0 17.347v-7.36c.036-1.511.556-2.765 1.56-3.76 1.004-.996 2.262-1.52 3.773-1.574h.774l-1.174-1.12a1.234 1.234 0 0 1-.373-.906c0-.356.124-.658.373-.907l.027-.027c.267-.249.573-.373.92-.373.347 0 .653.124.92.373L9.653 4.44c.071.071.134.142.187.213h4.267a.836.836 0 0 1 .16-.213l2.853-2.747c.267-.249.573-.373.92-.373.347 0 .662.151.929.4.267.249.391.551.391.907 0 .355-.124.657-.373.906zM5.333 7.24c-.746.018-1.373.276-1.88.773-.506.498-.769 1.13-.786 1.894v7.52c.017.764.28 1.395.786 1.893.507.498 1.134.756 1.88.773h13.334c.746-.017 1.373-.275 1.88-.773.506-.498.769-1.129.786-1.893v-7.52c-.017-.765-.28-1.396-.786-1.894-.507-.497-1.134-.755-1.88-.773zM8 11.107c.373 0 .684.124.933.373.25.249.383.569.4.96v1.173c-.017.391-.15.711-.4.96-.249.25-.56.374-.933.374s-.684-.125-.933-.374c-.25-.249-.383-.569-.4-.96V12.44c.017-.391.15-.711.4-.96.249-.249.56-.373.933-.373zm8 0c.373 0 .684.124.933.373.25.249.383.569.4.96v1.173c-.017.391-.15.711-.4.96-.249.25-.56.374-.933.374s-.684-.125-.933-.374c-.25-.249-.383-.569-.4-.96V12.44c.017-.391.15-.711.4-.96.249-.249.56-.373.933-.373z" />
+    </svg>
+  );
+}
 
 // 分类图标映射
 const categoryIcons: Record<string, React.ReactNode> = {
@@ -51,6 +60,14 @@ function VideoCard({ video, index, onClick }: { video: VideoWork; index: number;
               {video.duration}
             </div>
           )}
+
+          {/* B站标识 */}
+          {video.platform === 'bilibili' && (
+            <div className="absolute bottom-3 right-3 px-2 py-1 rounded-md text-xs font-medium text-[#00a1d6] backdrop-blur-md bg-black/50 flex items-center gap-1">
+              <BilibiliIcon className="w-3.5 h-3.5" />
+              Bilibili
+            </div>
+          )}
           
           {/* 悬停效果 */}
           <div className="absolute inset-0 bg-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -90,8 +107,14 @@ function VideoCard({ video, index, onClick }: { video: VideoWork; index: number;
   );
 }
 
-// 视频详情模态框
+// 视频详情模态框 - 支持跳转B站
 function VideoModal({ video, onClose }: { video: VideoWork; onClose: () => void }) {
+  const handleWatchOnBilibili = () => {
+    if (video.videoUrl) {
+      window.open(video.videoUrl, '_blank', 'noopener,noreferrer');
+    }
+  };
+
   return (
     <motion.div
       className="fixed inset-0 z-50 flex items-center justify-center p-4"
@@ -113,12 +136,18 @@ function VideoModal({ video, onClose }: { video: VideoWork; onClose: () => void 
         exit={{ scale: 0.9, opacity: 0 }}
       >
         {/* 视频预览区 */}
-        <div className="relative aspect-video bg-gradient-to-br from-purple-900/50 to-pink-900/50 flex items-center justify-center">
+        <div
+          className="relative aspect-video bg-gradient-to-br from-purple-900/50 to-pink-900/50 flex items-center justify-center cursor-pointer group"
+          onClick={handleWatchOnBilibili}
+        >
           <div className="text-center">
-            <div className="w-20 h-20 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center mx-auto mb-4 border border-white/20">
-              <Play className="w-10 h-10 text-white ml-1" />
+            <div className="w-20 h-20 rounded-full bg-[#00a1d6]/20 backdrop-blur-md flex items-center justify-center mx-auto mb-4 border border-[#00a1d6]/40 group-hover:scale-110 group-hover:bg-[#00a1d6]/30 transition-all duration-300">
+              <BilibiliIcon className="w-10 h-10 text-[#00a1d6]" />
             </div>
-            <p className="text-gray-400 text-sm">视频预览功能即将上线</p>
+            <p className="text-gray-300 text-sm font-medium flex items-center gap-2 justify-center">
+              点击前往 Bilibili 观看
+              <ExternalLink className="w-4 h-4" />
+            </p>
           </div>
         </div>
         
@@ -144,12 +173,22 @@ function VideoModal({ video, onClose }: { video: VideoWork; onClose: () => void 
             </div>
           )}
           
-          <button
-            onClick={onClose}
-            className="mt-6 w-full py-3 rounded-xl bg-white/10 hover:bg-white/20 transition-colors text-white font-medium"
-          >
-            关闭
-          </button>
+          <div className="mt-6 flex gap-3">
+            <button
+              onClick={handleWatchOnBilibili}
+              className="flex-1 py-3 rounded-xl bg-[#00a1d6] hover:bg-[#00b5e5] transition-colors text-white font-medium flex items-center justify-center gap-2"
+            >
+              <BilibiliIcon className="w-5 h-5" />
+              在 Bilibili 观看
+              <ExternalLink className="w-4 h-4" />
+            </button>
+            <button
+              onClick={onClose}
+              className="px-6 py-3 rounded-xl bg-white/10 hover:bg-white/20 transition-colors text-white font-medium"
+            >
+              关闭
+            </button>
+          </div>
         </div>
       </motion.div>
     </motion.div>
@@ -205,6 +244,26 @@ export function VideoWorks() {
             >
               从参赛作品到航拍摄影，用镜头记录精彩瞬间
             </motion.p>
+
+            {/* B站主页入口 */}
+            <motion.div
+              className="mt-6"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.25 }}
+            >
+              <a
+                href={bilibiliHome}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2.5 px-6 py-3 rounded-full bg-[#00a1d6]/10 hover:bg-[#00a1d6]/20 border border-[#00a1d6]/30 hover:border-[#00a1d6]/50 text-[#00a1d6] font-medium text-sm transition-all duration-300 group"
+              >
+                <BilibiliIcon className="w-5 h-5" />
+                <span>访问我的 Bilibili 主页</span>
+                <ExternalLink className="w-4 h-4 opacity-60 group-hover:opacity-100 transition-opacity" />
+              </a>
+            </motion.div>
           </div>
 
           {/* 统计概览 */}
