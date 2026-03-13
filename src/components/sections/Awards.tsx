@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Trophy, Award, Star, Medal, Sparkles } from 'lucide-react';
 import { AnimatedSection } from '../common';
-import { awardCategories, awardsData, awardStats, Award as AwardType } from '../../data/awards';
+import { awardCategories, awardsData, awardStats, additionalHonorsCount, Award as AwardType } from '../../data/awards';
 
 // 图标映射
 const levelIcons: Record<string, React.ReactNode> = {
@@ -212,7 +212,7 @@ export function Awards() {
 
           {/* 底部总结 */}
           <motion.div
-            className="mt-14 text-center"
+            className="mt-14 text-center space-y-3"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -224,6 +224,9 @@ export function Awards() {
                 累计获得 <span className="text-amber-400 font-bold">{awardStats.total}</span> 项荣誉，
                 其中国家级 <span className="text-amber-400 font-bold">{awardStats.national}</span> 项
               </span>
+            </div>
+            <div className="text-sm text-gray-500">
+              另有 {additionalHonorsCount.smallCompetitions} 项校园赛事奖项、{additionalHonorsCount.certificates} 项资格证书、{additionalHonorsCount.volunteerServices} 项志愿服务经历
             </div>
           </motion.div>
         </AnimatedSection>
