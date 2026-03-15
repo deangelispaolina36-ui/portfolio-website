@@ -49,14 +49,80 @@ export function Contact() {
           </div>
 
           <div className="max-w-4xl mx-auto">
-            <div className="grid md:grid-cols-2 gap-8">
-              {/* 联系方式卡片 */}
+            <div className="grid md:grid-cols-2 gap-8 items-stretch">
+              {/* 左侧：期待合作大卡片 */}
               <motion.div
-                className="space-y-5"
+                className="glass-card-premium p-6 sm:p-8 card-glow-hover flex flex-col"
                 initial={{ opacity: 0, x: -40 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.7 }}
+              >
+                <div className="text-center mb-6 sm:mb-8">
+                  <motion.div 
+                    className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center mx-auto mb-4 sm:mb-5 shadow-lg shadow-purple-500/30"
+                    whileHover={{ scale: 1.05, rotate: 5 }}
+                    transition={{ type: 'spring', stiffness: 300 }}
+                  >
+                    <span className="text-4xl sm:text-5xl">👋</span>
+                  </motion.div>
+                  <h3 className="text-2xl font-bold text-white mb-2">
+                    期待与你合作
+                  </h3>
+                  <p className="text-gray-400">
+                    随时欢迎通过右侧方式联系我
+                  </p>
+                </div>
+
+                {/* 位置信息 */}
+                <div className="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/10 mb-5">
+                  <div className="w-10 h-10 rounded-xl bg-purple-500/10 flex items-center justify-center">
+                    <MapPin className="w-5 h-5 text-purple-400" />
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-500">当前位置</p>
+                    <p className="text-white font-medium">深圳</p>
+                  </div>
+                </div>
+
+                {/* 状态 */}
+                <div className="flex items-center gap-4 p-4 rounded-xl bg-green-500/10 border border-green-500/20 mb-6 sm:mb-8">
+                  <div className="relative">
+                    <div className="w-3 h-3 rounded-full bg-green-500" />
+                    <div className="absolute inset-0 w-3 h-3 rounded-full bg-green-500 animate-ping opacity-50" />
+                  </div>
+                  <div>
+                    <p className="text-sm text-green-400">当前状态</p>
+                    <p className="text-sm sm:text-base text-white font-medium">正在寻找 运营 / 产品 / 策划 等机会</p>
+                  </div>
+                </div>
+
+                {/* 快捷操作 - 用 mt-auto 推到底部 */}
+                <div className="space-y-3 mt-auto">
+                  <a
+                    href={`mailto:${personalInfo.email}?subject=求职咨询 - ${personalInfo.name}`}
+                    className="btn-gradient-vivid w-full flex items-center justify-center gap-2"
+                  >
+                    <Mail className="w-4 h-4" />
+                    <span>发送邮件</span>
+                  </a>
+                  <a
+                    href={`tel:${personalInfo.phone}`}
+                    className="block w-full py-3 px-6 rounded-xl glass-card-premium border border-purple-500/30 text-purple-400 font-semibold text-center hover:bg-purple-500/10 transition-colors"
+                  >
+                    <Phone className="w-4 h-4 inline mr-2" />
+                    拨打电话
+                  </a>
+                </div>
+              </motion.div>
+
+              {/* 右侧：联系方式卡片 - 均匀分布等高 */}
+              <motion.div
+                className="flex flex-col justify-between"
+                initial={{ opacity: 0, x: 40 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7, delay: 0.2 }}
               >
                 {/* 邮箱 */}
                 <a
@@ -110,72 +176,6 @@ export function Contact() {
                       <p className="text-xs text-gray-600 mt-0.5">同手机号</p>
                     </div>
                   </div>
-                </div>
-              </motion.div>
-
-              {/* 右侧信息卡片 */}
-              <motion.div
-                className="glass-card-premium p-6 sm:p-8 h-fit card-glow-hover"
-                initial={{ opacity: 0, x: 40 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.7, delay: 0.2 }}
-              >
-                <div className="text-center mb-6 sm:mb-8">
-                  <motion.div 
-                    className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center mx-auto mb-4 sm:mb-5 shadow-lg shadow-purple-500/30"
-                    whileHover={{ scale: 1.05, rotate: 5 }}
-                    transition={{ type: 'spring', stiffness: 300 }}
-                  >
-                    <span className="text-4xl sm:text-5xl">👋</span>
-                  </motion.div>
-                  <h3 className="text-2xl font-bold text-white mb-2">
-                    期待与你合作
-                  </h3>
-                  <p className="text-gray-400">
-                    随时欢迎通过以上方式联系我
-                  </p>
-                </div>
-
-                {/* 位置信息 */}
-                <div className="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/10 mb-5">
-                  <div className="w-10 h-10 rounded-xl bg-purple-500/10 flex items-center justify-center">
-                    <MapPin className="w-5 h-5 text-purple-400" />
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-500">当前位置</p>
-                    <p className="text-white font-medium">深圳</p>
-                  </div>
-                </div>
-
-                {/* 状态 */}
-                <div className="flex items-center gap-4 p-4 rounded-xl bg-green-500/10 border border-green-500/20 mb-6 sm:mb-8">
-                  <div className="relative">
-                    <div className="w-3 h-3 rounded-full bg-green-500" />
-                    <div className="absolute inset-0 w-3 h-3 rounded-full bg-green-500 animate-ping opacity-50" />
-                  </div>
-                  <div>
-                    <p className="text-sm text-green-400">当前状态</p>
-                    <p className="text-sm sm:text-base text-white font-medium">正在寻找 运营 / 产品 / 策划 等机会</p>
-                  </div>
-                </div>
-
-                {/* 快捷操作 */}
-                <div className="space-y-3">
-                  <a
-                    href={`mailto:${personalInfo.email}?subject=求职咨询 - ${personalInfo.name}`}
-                    className="btn-gradient-vivid w-full flex items-center justify-center gap-2"
-                  >
-                    <Mail className="w-4 h-4" />
-                    <span>发送邮件</span>
-                  </a>
-                  <a
-                    href={`tel:${personalInfo.phone}`}
-                    className="block w-full py-3 px-6 rounded-xl glass-card-premium border border-purple-500/30 text-purple-400 font-semibold text-center hover:bg-purple-500/10 transition-colors"
-                  >
-                    <Phone className="w-4 h-4 inline mr-2" />
-                    拨打电话
-                  </a>
                 </div>
               </motion.div>
             </div>
