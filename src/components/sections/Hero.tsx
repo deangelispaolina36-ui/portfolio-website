@@ -150,7 +150,7 @@ export function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.7, duration: 0.8 }}
             >
-              15年游戏人 · 腾讯实习 · AIGC 探索者
+              15年游戏人 · 腾讯IEG实习生 · AIGC 探索者
             </motion.p>
 
             {/* CTA 按钮组 */}

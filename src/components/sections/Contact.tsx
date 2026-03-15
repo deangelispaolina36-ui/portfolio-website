@@ -156,7 +156,7 @@ export function Contact() {
                   </div>
                   <div>
                     <p className="text-sm text-green-400">当前状态</p>
-                    <p className="text-white font-medium">正在寻找 运营 / 产品 相关机会</p>
+                    <p className="text-white font-medium">正在寻找 运营 / 产品 / 策划 等机会</p>
                   </div>
                 </div>
 

@@ -32,7 +32,7 @@ export function Experience() {
               viewport={{ once: true }}
             >
               <Briefcase className="w-4 h-4" />
-              工作经历
+              实习经历
             </motion.div>
             <motion.h2
               className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4"
