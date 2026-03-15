@@ -116,9 +116,9 @@ export function Contact() {
                 </div>
               </motion.div>
 
-              {/* 右侧：联系方式卡片 - 均匀分布等高 */}
+              {/* 右侧：联系方式卡片 - 垂直居中适当间距 */}
               <motion.div
-                className="flex flex-col justify-between"
+                className="flex flex-col justify-center gap-20"
                 initial={{ opacity: 0, x: 40 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
