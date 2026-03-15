@@ -157,7 +157,7 @@ export function Experience() {
                         viewport={{ once: true }}
                         transition={{ delay: 0.6 }}
                       >
-                        <div className={`grid grid-cols-3 gap-4 ${index % 2 === 0 ? 'md:text-right' : 'md:text-left'}`}>
+                        <div className={`grid grid-cols-1 sm:grid-cols-3 gap-4 ${index % 2 === 0 ? 'md:text-right' : 'md:text-left'}`}>
                           {tencentMetrics.map((metric, mIndex) => (
                             <motion.div
                               key={mIndex}

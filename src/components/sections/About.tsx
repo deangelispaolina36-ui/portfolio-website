@@ -118,20 +118,20 @@ export function About() {
               transition={{ duration: 0.7 }}
             >
               {/* 个人简介 */}
-              <div className="glass-card-premium p-8 card-glow-hover">
+              <div className="glass-card-premium p-6 sm:p-8 card-glow-hover">
                 <div className="flex items-center gap-3 mb-5">
                   <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500/20 to-pink-500/20 flex items-center justify-center">
                     <span className="text-xl">👨‍💻</span>
                   </div>
                   <h3 className="text-xl font-semibold gradient-text-vivid">个人简介</h3>
                 </div>
-                <p className="text-gray-300 leading-relaxed text-lg">
+                <p className="text-gray-300 leading-relaxed text-base sm:text-lg">
                   {personalInfo.bio}
                 </p>
               </div>
 
               {/* 标签云 */}
-              <div className="glass-card-premium p-8 card-glow-hover">
+              <div className="glass-card-premium p-6 sm:p-8 card-glow-hover">
                 <div className="flex items-center gap-3 mb-5">
                   <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500/20 to-pink-500/20 flex items-center justify-center">
                     <span className="text-xl">🏷️</span>
@@ -165,7 +165,7 @@ export function About() {
               transition={{ duration: 0.7, delay: 0.2 }}
             >
               {/* 教育背景 */}
-              <div className="glass-card-premium p-8 card-glow-hover">
+              <div className="glass-card-premium p-6 sm:p-8 card-glow-hover">
                 <div className="flex items-center gap-3 mb-5">
                   <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500/20 to-pink-500/20 flex items-center justify-center">
                     <GraduationCap className="w-5 h-5 text-purple-400" />
@@ -191,7 +191,7 @@ export function About() {
               </div>
 
               {/* 联系方式 */}
-              <div className="glass-card-premium p-8 card-glow-hover">
+              <div className="glass-card-premium p-6 sm:p-8 card-glow-hover">
                 <div className="flex items-center gap-3 mb-5">
                   <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500/20 to-pink-500/20 flex items-center justify-center">
                     <span className="text-xl">📬</span>

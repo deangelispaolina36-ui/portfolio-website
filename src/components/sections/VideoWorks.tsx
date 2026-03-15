@@ -171,7 +171,7 @@ function TencentVideoCard({ video, index }: { video: TencentVideo; index: number
       href={video.videoUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className="tencent-video-card group block flex-shrink-0 w-[280px] scroll-snap-start"
+      className="tencent-video-card group block flex-shrink-0 w-[240px] sm:w-[280px] scroll-snap-start"
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
@@ -299,7 +299,7 @@ function TencentVideoShowcase() {
         ].map((item, i) => (
           <motion.div
             key={i}
-            className="relative glass-card-premium p-7 text-center overflow-hidden group hover:bg-teal-500/[0.05] hover:border-teal-500/20 hover:-translate-y-1 transition-all duration-400"
+            className="relative glass-card-premium p-5 sm:p-7 text-center overflow-hidden group hover:bg-teal-500/[0.05] hover:border-teal-500/20 hover:-translate-y-1 transition-all duration-400"
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
@@ -308,10 +308,10 @@ function TencentVideoShowcase() {
             {/* 底部高亮线 */}
             <div className={`absolute bottom-0 left-[10%] right-[10%] h-0.5 rounded-sm bg-gradient-to-r from-transparent ${item.borderGradient} to-transparent`} />
             
-            <div className={`w-12 h-12 mx-auto mb-4 rounded-xl flex items-center justify-center text-xl bg-teal-500/10 border border-teal-500/20`}>
+            <div className={`w-10 h-10 sm:w-12 sm:h-12 mx-auto mb-3 sm:mb-4 rounded-xl flex items-center justify-center text-lg sm:text-xl bg-teal-500/10 border border-teal-500/20`}>
               {item.icon}
             </div>
-            <p className={`text-4xl font-extrabold bg-gradient-to-br ${item.gradientFrom} ${item.gradientTo} bg-clip-text text-transparent font-heading mb-1.5`}>
+            <p className={`text-3xl sm:text-4xl font-extrabold bg-gradient-to-br ${item.gradientFrom} ${item.gradientTo} bg-clip-text text-transparent font-heading mb-1.5`}>
               {item.suffix === '亿+' ? (
                 <AnimatedCounter value={item.value} suffix="亿+" />
               ) : item.suffix === '万+' ? (
@@ -383,7 +383,7 @@ function TencentVideoShowcase() {
       <AnimatePresence>
         {isExpanded && (
           <motion.div
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-8"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3 mb-8"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
@@ -416,8 +416,8 @@ function TencentVideoShowcase() {
       </AnimatePresence>
 
       {/* 底部统计 */}
-      <motion.div
-        className="flex items-center justify-center gap-4 sm:gap-6 pt-6 border-t border-white/[0.06] text-[13px] text-gray-600 flex-wrap"
+        <motion.div
+          className="flex items-center justify-center gap-3 sm:gap-6 pt-6 border-t border-white/[0.06] text-[11px] sm:text-[13px] text-gray-600 flex-wrap"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
@@ -547,7 +547,7 @@ export function VideoWorks() {
 
             {/* 底部统计 */}
             <motion.div
-              className="mt-8 pt-6 border-t border-white/[0.06] flex items-center justify-center gap-6 text-sm text-gray-500"
+              className="mt-8 pt-6 border-t border-white/[0.06] flex items-center justify-center gap-3 sm:gap-6 text-xs sm:text-sm text-gray-500 flex-wrap"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}

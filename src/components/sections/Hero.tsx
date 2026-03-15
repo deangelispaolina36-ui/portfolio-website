@@ -1,5 +1,5 @@
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
-import { ArrowDown, Mail } from 'lucide-react';
+import { ArrowDown, Mail, Monitor } from 'lucide-react';
 import { personalInfo } from '../../data/portfolio';
 import { useRef, useEffect, useState } from 'react';
 
@@ -151,6 +151,17 @@ export function Hero() {
               transition={{ delay: 0.7, duration: 0.8 }}
             >
               15年游戏人 · 腾讯IEG实习生 · AIGC 探索者
+            </motion.p>
+
+            {/* 移动端提示 - 仅小屏可见 */}
+            <motion.p
+              className="hero-mobile-hint"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.75, duration: 0.8 }}
+            >
+              <Monitor className="w-3 h-3" />
+              <span>使用电脑打开体验更佳</span>
             </motion.p>
 
             {/* CTA 按钮组 */}
