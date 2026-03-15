@@ -1,14 +1,7 @@
 import { motion } from 'framer-motion';
-import { Building2, Calendar, MapPin, Star, Users, Play, Zap, Briefcase } from 'lucide-react';
+import { Building2, Calendar, MapPin, Star, Briefcase } from 'lucide-react';
 import { experiences } from '../../data/portfolio';
 import { AnimatedSection } from '../common';
-
-// 腾讯工作数据指标
-const tencentMetrics = [
-  { value: '1.1亿+', label: '粉丝矩阵', icon: Users, color: '#8b5cf6' },
-  { value: '6000万+', label: '个人贡献播放量', icon: Play, color: '#ec4899' },
-  { value: '70%', label: '独立搭建AI工作流提效', icon: Zap, color: '#f59e0b' },
-];
 
 export function Experience() {
   return (
@@ -147,42 +140,6 @@ export function Experience() {
                         </motion.div>
                       ))}
                     </div>
-
-                    {/* 腾讯数据指标 - 只在腾讯经历下显示 */}
-                    {exp.id === 'tencent' && (
-                      <motion.div
-                        className="mt-8 pt-8 border-t border-white/10"
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.6 }}
-                      >
-                        <div className={`grid grid-cols-3 gap-4 ${index % 2 === 0 ? 'md:text-right' : 'md:text-left'}`}>
-                          {tencentMetrics.map((metric, mIndex) => (
-                            <motion.div
-                              key={mIndex}
-                              className="text-center"
-                              initial={{ opacity: 0, scale: 0.8 }}
-                              whileInView={{ opacity: 1, scale: 1 }}
-                              viewport={{ once: true }}
-                              transition={{ delay: 0.7 + mIndex * 0.1 }}
-                            >
-                              <div 
-                                className="w-12 h-12 mx-auto mb-3 rounded-xl flex items-center justify-center"
-                                style={{ 
-                                  background: `linear-gradient(135deg, ${metric.color}20 0%, ${metric.color}05 100%)`,
-                                  border: `1px solid ${metric.color}30`,
-                                }}
-                              >
-                                <metric.icon className="w-5 h-5" style={{ color: metric.color }} />
-                              </div>
-                              <p className="text-2xl font-bold gradient-text-vivid">{metric.value}</p>
-                              <p className="text-xs text-gray-500 mt-1">{metric.label}</p>
-                            </motion.div>
-                          ))}
-                        </div>
-                      </motion.div>
-                    )}
                   </motion.div>
                 </div>
 

@@ -3483,6 +3483,63 @@ html {
 }
 
 /* ================================
+   腾讯实习展区 - 横向卡片墙样式
+   ================================ */
+
+/* 横向滚动容器滚动条 */
+.tencent-card-scroll::-webkit-scrollbar {
+  height: 6px;
+}
+
+.tencent-card-scroll::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 3px;
+}
+
+.tencent-card-scroll::-webkit-scrollbar-thumb {
+  background: linear-gradient(90deg, #14b8a6, #06b6d4);
+  border-radius: 3px;
+}
+
+/* 腾讯视频卡片悬停渐变边框 */
+.tencent-video-card > div::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 1rem;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(20, 184, 166, 0.3), rgba(6, 182, 212, 0.1), transparent);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s;
+  pointer-events: none;
+}
+
+.tencent-video-card:hover > div::before {
+  opacity: 1;
+}
+
+/* Line-clamp utility */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* scroll-snap for cards */
+.scroll-snap-start {
+  scroll-snap-align: start;
+}
+
+/* font-heading for data panel */
+.font-heading {
+  font-family: "Space Grotesk", "Noto Sans SC", sans-serif;
+}
+
+/* ================================
    prefers-reduced-motion 降级
    ================================ */
 @media (prefers-reduced-motion: reduce) {
