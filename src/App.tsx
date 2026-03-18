@@ -67,10 +67,10 @@ function App() {
           <Skills />
         </SectionTransition>
 
-        {/* 联系方式 - 缩放过渡 */}
-        <SectionTransition id="contact" transitionType="scale" showBottomDivider={true} delay={0.1}>
+        {/* 联系方式 - 暂时隐藏 */}
+        {/* <SectionTransition id="contact" transitionType="scale" showBottomDivider={true} delay={0.1}>
           <Contact />
-        </SectionTransition>
+        </SectionTransition> */}
       </main>
 
       {/* 页脚 */}

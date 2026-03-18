@@ -118,8 +118,8 @@ export function Navbar() {
           transition={{ duration: 0.8, delay: 1.2 }}
         />
 
-        {/* 联系按钮 */}
-        <motion.a
+        {/* 联系按钮 - 暂时隐藏 */}
+        {/* <motion.a
           href="#contact"
           className="text-xs tracking-[3px] font-light text-amber-400/80 hover:text-amber-400 transition-colors"
           style={{ writingMode: 'vertical-rl', textOrientation: 'mixed' }}
@@ -133,7 +133,7 @@ export function Navbar() {
           whileHover={{ x: 4 }}
         >
           CONTACT
-        </motion.a>
+        </motion.a> */}
       </motion.nav>
 
       {/* 移动端导航栏 */}
@@ -218,7 +218,7 @@ export function Navbar() {
               exit={{ opacity: 0 }}
             >
               <nav className="flex flex-col items-center gap-8">
-                {[...navLinks, { name: 'CONTACT', href: '#contact' }].map((link, index) => (
+                {navLinks.map((link, index) => (
                   <motion.a
                     key={link.name}
                     href={link.href}

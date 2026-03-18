@@ -6,7 +6,6 @@ const footerLinks = [
   { name: '首页', href: '#hero' },
   { name: '关于我', href: '#about' },
   { name: '作品集', href: '#portfolio' },
-  { name: '联系', href: '#contact' },
 ];
 
 export function Footer() {
