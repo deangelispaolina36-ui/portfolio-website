@@ -432,16 +432,32 @@ export interface ExperienceMetric {
 
 export const experiences: Experience[] = [
   {
-    id: 'tencent',
+    id: 'tencent-chaohe',
+    company: '腾讯 IEG · 玩家互动中心',
+    department: '互动娱乐事业群（游戏）',
+    location: '深圳',
+    position: '产品运营实习生',
+    period: '2026.02 - 至今',
+    highlights: [
+      '主导设计"超核AI周报"产品方案，规划数据采集→Prompt整合→大模型生成→页面渲染全链路，调用混元/DeepSeek实现千人千面内容触达',
+      '搭建OpenClaw多智能体协同工作流，覆盖业务对接、周报生成等场景，支持企微/微信/QQ端直接操控',
+      '深入一线对接超核玩家（大R/超R/顶R）400+人，用户满意度93%，主动建联沉默用户100+',
+      '参与超核无忧充值、黑耀卡充值等商业化活动上线，熟悉从策划到上线全流程',
+    ],
+    logo: 'https://www.tencent.com/favicon.ico',
+  },
+  {
+    id: 'tencent-guardian',
     company: '腾讯 IEG · 成长守护中心',
     department: '互动娱乐事业群（游戏）',
     location: '深圳',
     position: '内容运营实习生',
-    period: '2025.09 - 2026.06',
+    period: '2025.09 - 2026.02',
     highlights: [
-      '多平台矩阵运营，全网粉丝1.1亿，完成KPI 1.3亿播放',
-      '搭建AIGC Workflow，AI使用率+50%，效率+70%',
-      '主导内部游戏赛事，3个月策划执行',
+      '负责抖音/快手/小红书/B站/微博/QQ频道/视频号7平台运营，个人贡献播放量3000万+，产出3条百万级爆款',
+      '独立搭建图文/视频/音频三类AIGC生产工作流，输出全链路SOP，推动AI使用率+50%、生产效率+70%',
+      '参与选题规划、审核把控、制作协同与复盘迭代，围绕播放/完播/互动/转粉等指标持续优化内容质量',
+      '独立策划部门内部赛事（无畏契约/火影忍者/和平精英），搭建高玩组-裁判组-组委会三级执行架构',
     ],
     logo: 'https://www.tencent.com/favicon.ico',
   },
@@ -522,7 +538,7 @@ export const otherSkills = [
 export const personalInfo = {
   name: '王泰然',
   title: '',
-  subtitle: '15年游戏经验 × 腾讯实习经历 × AIGC 产品思维',
+  subtitle: '15年游戏经验 × 腾讯IEG双岗实习 × AIGC 产品思维',
   email: 'wtairan_nxu@163.com',
   phone: '15769672279',
   wechat: 'vwtairan857',
@@ -531,7 +547,7 @@ export const personalInfo = {
     period: '2022-2026',
     major: '广告学 & 数字化创新创业管理',
   },
-  bio: '我是一名热爱游戏与创意的策划人，拥有15年核心玩家经历。在腾讯成长守护中心实习期间，积累了丰富的内容运营和 AIGC 应用经验。我相信只有真正理解用户，才能做出好的产品。',
+  bio: '我是一名热爱游戏与创意的策划人，拥有15年核心玩家经历。在腾讯IEG先后经历成长守护中心（内容运营）和玩家互动中心（产品运营），积累了丰富的内容运营、AIGC应用和产品设计经验。我相信只有真正理解用户，才能做出好的产品。',
   tags: ['创意策划', '用户运营', 'AIGC', '腾讯实习', '15年玩家'],
   targetCompanies: ['AIGC 深度运用', '腾讯实习生', '15年游戏经验'],
 };

@@ -2,12 +2,20 @@ import { motion } from 'framer-motion';
 import { Building2, Calendar, MapPin, Star, Users, Play, Zap, Briefcase } from 'lucide-react';
 import { experiences } from '../../data/portfolio';
 import { AnimatedSection } from '../common';
+import CountUp from '../reactbits/CountUp';
 
-// 腾讯工作数据指标
-const tencentMetrics = [
-  { value: '1.1亿+', label: '粉丝矩阵', icon: Users, color: '#8b5cf6' },
-  { value: '6000万+', label: '个人贡献播放量', icon: Play, color: '#ec4899' },
-  { value: '70%', label: '独立搭建AI工作流提效', icon: Zap, color: '#f59e0b' },
+// 玩家互动中心数据指标
+const chaoheMetrics = [
+  { value: 400, suffix: '+', label: '对接超核玩家', icon: Users, color: '#14b8a6', decimals: false },
+  { value: 93, suffix: '%', label: '用户满意度', icon: Star, color: '#06b6d4', decimals: false },
+  { value: 100, suffix: '+', label: '建联沉默用户', icon: Zap, color: '#0d9488', decimals: false },
+];
+
+// 成长守护中心数据指标
+const guardianMetrics = [
+  { value: 3000, suffix: '万+', label: '个人贡献播放量', icon: Play, color: '#ec4899', decimals: false },
+  { value: 70, suffix: '%', label: '独立搭建AI工作流提效', icon: Zap, color: '#f59e0b', decimals: false },
+  { value: 3, suffix: '条', label: '百万级爆款视频', icon: Star, color: '#8b5cf6', decimals: false },
 ];
 
 export function Experience() {
@@ -148,8 +156,8 @@ export function Experience() {
                       ))}
                     </div>
 
-                    {/* 腾讯数据指标 - 只在腾讯经历下显示 */}
-                    {exp.id === 'tencent' && (
+                    {/* 数据指标 - 玩家互动中心 */}
+                    {exp.id === 'tencent-chaohe' && (
                       <motion.div
                         className="mt-8 pt-8 border-t border-white/10"
                         initial={{ opacity: 0, y: 20 }}
@@ -158,7 +166,7 @@ export function Experience() {
                         transition={{ delay: 0.6 }}
                       >
                         <div className={`grid grid-cols-1 sm:grid-cols-3 gap-4 ${index % 2 === 0 ? 'md:text-right' : 'md:text-left'}`}>
-                          {tencentMetrics.map((metric, mIndex) => (
+                          {chaoheMetrics.map((metric, mIndex) => (
                             <motion.div
                               key={mIndex}
                               className="text-center"
@@ -176,7 +184,49 @@ export function Experience() {
                               >
                                 <metric.icon className="w-5 h-5" style={{ color: metric.color }} />
                               </div>
-                              <p className="text-2xl font-bold gradient-text-vivid">{metric.value}</p>
+                              <p className="text-2xl font-bold gradient-text-vivid">
+                                <CountUp to={metric.value} from={0} duration={2.5} delay={0.8 + mIndex * 0.15} separator={metric.decimals ? '' : ','} />
+                                <span>{metric.suffix}</span>
+                              </p>
+                              <p className="text-xs text-gray-500 mt-1">{metric.label}</p>
+                            </motion.div>
+                          ))}
+                        </div>
+                      </motion.div>
+                    )}
+
+                    {/* 数据指标 - 成长守护中心 */}
+                    {exp.id === 'tencent-guardian' && (
+                      <motion.div
+                        className="mt-8 pt-8 border-t border-white/10"
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.6 }}
+                      >
+                        <div className={`grid grid-cols-1 sm:grid-cols-3 gap-4 ${index % 2 === 0 ? 'md:text-right' : 'md:text-left'}`}>
+                          {guardianMetrics.map((metric, mIndex) => (
+                            <motion.div
+                              key={mIndex}
+                              className="text-center"
+                              initial={{ opacity: 0, scale: 0.8 }}
+                              whileInView={{ opacity: 1, scale: 1 }}
+                              viewport={{ once: true }}
+                              transition={{ delay: 0.7 + mIndex * 0.1 }}
+                            >
+                              <div 
+                                className="w-12 h-12 mx-auto mb-3 rounded-xl flex items-center justify-center"
+                                style={{ 
+                                  background: `linear-gradient(135deg, ${metric.color}20 0%, ${metric.color}05 100%)`,
+                                  border: `1px solid ${metric.color}30`,
+                                }}
+                              >
+                                <metric.icon className="w-5 h-5" style={{ color: metric.color }} />
+                              </div>
+                              <p className="text-2xl font-bold gradient-text-vivid">
+                                <CountUp to={metric.value} from={0} duration={2.5} delay={0.8 + mIndex * 0.15} separator={metric.decimals ? '' : ','} />
+                                <span>{metric.suffix}</span>
+                              </p>
                               <p className="text-xs text-gray-500 mt-1">{metric.label}</p>
                             </motion.div>
                           ))}

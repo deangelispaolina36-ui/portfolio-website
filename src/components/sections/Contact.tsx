@@ -2,6 +2,8 @@ import { motion } from 'framer-motion';
 import { Mail, Phone, MessageCircle, Send, MapPin, Heart } from 'lucide-react';
 import { personalInfo } from '../../data/portfolio';
 import { AnimatedSection } from '../common';
+import SpotlightCard from '../reactbits/SpotlightCard';
+import StarBorder from '../reactbits/StarBorder';
 
 export function Contact() {
   return (
@@ -99,13 +101,15 @@ export function Contact() {
 
                 {/* 快捷操作 - 用 mt-auto 推到底部 */}
                 <div className="space-y-3 mt-auto">
-                  <a
-                    href={`mailto:${personalInfo.email}?subject=求职咨询 - ${personalInfo.name}`}
-                    className="btn-gradient-vivid w-full flex items-center justify-center gap-2"
-                  >
-                    <Mail className="w-4 h-4" />
-                    <span>发送邮件</span>
-                  </a>
+                  <StarBorder color="#a855f7" speed="5s" className="w-full rounded-xl">
+                    <a
+                      href={`mailto:${personalInfo.email}?subject=求职咨询 - ${personalInfo.name}`}
+                      className="btn-gradient-vivid w-full flex items-center justify-center gap-2"
+                    >
+                      <Mail className="w-4 h-4" />
+                      <span>发送邮件</span>
+                    </a>
+                  </StarBorder>
                   <a
                     href={`tel:${personalInfo.phone}`}
                     className="block w-full py-3 px-6 rounded-xl glass-card-premium border border-purple-500/30 text-purple-400 font-semibold text-center hover:bg-purple-500/10 transition-colors"
@@ -125,10 +129,11 @@ export function Contact() {
                 transition={{ duration: 0.7, delay: 0.2 }}
               >
                 {/* 邮箱 */}
-                <a
-                  href={`mailto:${personalInfo.email}`}
-                  className="contact-card-enhanced group block p-4 sm:p-6"
-                >
+                <SpotlightCard className="rounded-2xl" spotlightColor="rgba(168, 85, 247, 0.15)">
+                  <a
+                    href={`mailto:${personalInfo.email}`}
+                    className="contact-card-enhanced group block p-4 sm:p-6"
+                  >
                   <div className="flex items-center gap-4 sm:gap-5">
                     <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br from-purple-500/15 to-pink-500/15 flex items-center justify-center border border-purple-500/20 group-hover:border-purple-500/40 transition-all duration-300 group-hover:scale-110 flex-shrink-0">
                       <Mail className="w-5 h-5 sm:w-6 sm:h-6 text-purple-400" />
@@ -141,13 +146,15 @@ export function Contact() {
                     </div>
                     <Send className="w-5 h-5 text-gray-600 group-hover:text-purple-400 group-hover:translate-x-1 transition-all hidden sm:block" />
                   </div>
-                </a>
+                  </a>
+                </SpotlightCard>
 
                 {/* 电话 */}
-                <a
-                  href={`tel:${personalInfo.phone}`}
-                  className="contact-card-enhanced group block p-4 sm:p-6"
-                >
+                <SpotlightCard className="rounded-2xl" spotlightColor="rgba(236, 72, 153, 0.15)">
+                  <a
+                    href={`tel:${personalInfo.phone}`}
+                    className="contact-card-enhanced group block p-4 sm:p-6"
+                  >
                   <div className="flex items-center gap-4 sm:gap-5">
                     <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br from-purple-500/15 to-pink-500/15 flex items-center justify-center border border-purple-500/20 group-hover:border-purple-500/40 transition-all duration-300 group-hover:scale-110 flex-shrink-0">
                       <Phone className="w-5 h-5 sm:w-6 sm:h-6 text-pink-400" />
@@ -161,9 +168,11 @@ export function Contact() {
                     <Send className="w-5 h-5 text-gray-600 group-hover:text-pink-400 group-hover:translate-x-1 transition-all hidden sm:block" />
                   </div>
                 </a>
+                </SpotlightCard>
 
                 {/* 微信 */}
-                <div className="contact-card-enhanced p-4 sm:p-6">
+                <SpotlightCard className="rounded-2xl" spotlightColor="rgba(34, 197, 94, 0.15)">
+                  <div className="contact-card-enhanced p-4 sm:p-6">
                   <div className="flex items-center gap-4 sm:gap-5">
                     <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br from-green-500/15 to-emerald-500/15 flex items-center justify-center border border-green-500/20 flex-shrink-0">
                       <MessageCircle className="w-5 h-5 sm:w-6 sm:h-6 text-green-400" />
@@ -177,6 +186,7 @@ export function Contact() {
                     </div>
                   </div>
                 </div>
+                </SpotlightCard>
               </motion.div>
             </div>
           </div>

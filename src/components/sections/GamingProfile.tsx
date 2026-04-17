@@ -3,6 +3,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Gamepad2, ChevronDown, Sparkles } from 'lucide-react';
 import { gamingProfiles, gameUnderstandings, gameInsight, gamingStats } from '../../data/portfolio';
 import { AnimatedSection } from '../common';
+import CountUp from '../reactbits/CountUp';
+import ShinyText from '../reactbits/ShinyText';
 
 // 游戏Logo图片映射
 const gameLogoImages: Record<string, string> = {
@@ -79,7 +81,7 @@ export function GamingProfile() {
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
             >
-              From Player to Game Operator
+              <ShinyText text="From Player to Game Operator" speed={3} color="#9ca3af" shineColor="#c084fc" />
             </motion.p>
             <motion.p
               className="text-gray-500 text-sm md:text-base max-w-2xl mx-auto mb-12"
@@ -99,7 +101,11 @@ export function GamingProfile() {
               viewport={{ once: true }}
               transition={{ delay: 0.3 }}
             >
-              {gamingStats.map((stat, index) => (
+              {[
+                { num: 15, suffix: '年+', label: '游戏经验' },
+                { num: 10, suffix: '+', label: '深度游戏' },
+                { num: 16000, suffix: 'h+', label: '累计时长' },
+              ].map((stat, index) => (
                 <motion.div
                   key={stat.label}
                   className="text-center group"
@@ -110,7 +116,8 @@ export function GamingProfile() {
                   whileHover={{ scale: 1.05 }}
                 >
                   <div className="text-3xl md:text-4xl lg:text-5xl font-bold gradient-text-vivid mb-2 group-hover:scale-110 transition-transform">
-                    {stat.value}
+                    <CountUp to={stat.num} from={0} duration={2.5} delay={0.5 + index * 0.2} separator="," className="gradient-text-vivid" />
+                    <span>{stat.suffix}</span>
                   </div>
                   <div className="text-xs md:text-sm text-gray-400 tracking-wider">
                     {stat.label}

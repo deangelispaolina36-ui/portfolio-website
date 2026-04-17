@@ -3,6 +3,8 @@ import { motion } from 'framer-motion';
 import { Trophy, Award, Star, Medal, Sparkles } from 'lucide-react';
 import { AnimatedSection } from '../common';
 import { awardCategories, awardsData, awardStats, additionalHonorsCount, Award as AwardType } from '../../data/awards';
+import CountUp from '../reactbits/CountUp';
+import SpotlightCard from '../reactbits/SpotlightCard';
 
 // 图标映射
 const levelIcons: Record<string, React.ReactNode> = {
@@ -24,13 +26,14 @@ function AwardCard({ award, index }: { award: AwardType; index: number }) {
       viewport={{ once: true }}
       transition={{ delay: index * 0.05, duration: 0.4 }}
     >
-      <div
+      <SpotlightCard
         className={`
           glass-card-premium p-5 rounded-2xl border border-white/10 
           hover:border-${award.level === 'national' ? 'amber' : 'purple'}-500/30 
           transition-all duration-300 h-full
           ${award.highlight ? 'ring-1 ring-amber-500/30' : ''}
         `}
+        spotlightColor={award.level === 'national' ? 'rgba(245, 158, 11, 0.15)' : 'rgba(168, 85, 247, 0.15)'}
       >
         {/* 高亮标记 */}
         {award.highlight && (
@@ -67,7 +70,7 @@ function AwardCard({ award, index }: { award: AwardType; index: number }) {
             {award.description}
           </p>
         )}
-      </div>
+      </SpotlightCard>
     </motion.div>
   );
 }
@@ -172,7 +175,7 @@ export function Awards() {
               >
                 <div className="text-3xl mb-2">{cat.icon}</div>
                 <div className={`text-2xl font-bold bg-gradient-to-r ${cat.gradient} bg-clip-text text-transparent`}>
-                  {cat.count}
+                  <CountUp to={cat.count} from={0} duration={2} delay={0.3 + index * 0.15} />
                 </div>
                 <div className="text-sm text-gray-400">{cat.name}</div>
               </div>

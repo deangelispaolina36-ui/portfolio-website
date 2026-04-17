@@ -2,6 +2,8 @@ import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { ArrowDown, Mail, Monitor } from 'lucide-react';
 import { personalInfo } from '../../data/portfolio';
 import { useRef, useEffect, useState } from 'react';
+import BlurText from '../reactbits/BlurText';
+import ShinyText from '../reactbits/ShinyText';
 
 export function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -120,15 +122,21 @@ export function Hero() {
               <span className="hero-status-text-parallax">OPEN TO WORK</span>
             </motion.div>
 
-            {/* 主标题 - 极大无衬线字体 */}
-            <motion.h1
+            {/* 主标题 - 极大无衬线字体 + BlurText 动画 */}
+            <motion.div
               className="hero-title-parallax"
               initial={{ opacity: 0, x: -60 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.4, duration: 0.9, ease: 'easeOut' }}
             >
-              {personalInfo.name}
-            </motion.h1>
+              <BlurText 
+                text={personalInfo.name} 
+                delay={150}
+                animateBy="letters"
+                direction="top"
+                className="hero-title-parallax"
+              />
+            </motion.div>
 
             {/* Slogan - 细体 */}
             <motion.div
@@ -150,7 +158,7 @@ export function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.7, duration: 0.8 }}
             >
-              15年游戏人 · 腾讯IEG实习生 · AIGC 探索者
+              <ShinyText text="15年游戏人 · 腾讯IEG实习生 · AIGC 探索者" speed={3} color="#9ca3af" shineColor="#e879f9" />
             </motion.p>
 
             {/* 移动端提示 - 仅小屏可见 */}
@@ -178,7 +186,7 @@ export function Hero() {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
-                <span className="hero-btn-glass-text">探索作品</span>
+                <span className="hero-btn-glass-text"><ShinyText text="探索作品" speed={2} color="#ffffff" shineColor="#e879f9" /></span>
                 <span className="hero-btn-glass-hover-bg" />
               </motion.button>
               

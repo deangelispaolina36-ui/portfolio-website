@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { skillCategories, otherSkills } from '../../data/portfolio';
 import { AnimatedSection } from '../common';
 import { Cpu, Sparkles } from 'lucide-react';
+import SpotlightCard from '../reactbits/SpotlightCard';
 
 export function Skills() {
   return (
@@ -52,12 +53,15 @@ export function Skills() {
             {skillCategories.map((category, categoryIndex) => (
               <motion.div
                 key={category.name}
-                className="glass-card-premium p-8 card-glow-hover"
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: categoryIndex * 0.15, duration: 0.6 }}
               >
+                <SpotlightCard
+                  className="glass-card-premium p-8 card-glow-hover rounded-2xl"
+                  spotlightColor="rgba(168, 85, 247, 0.15)"
+                >
                 {/* 分类标题 */}
                 <h3 className="text-xl font-bold gradient-text-vivid mb-8 flex items-center gap-3">
                   <span className="w-2 h-2 rounded-full bg-gradient-to-r from-purple-500 to-pink-500" />
@@ -97,6 +101,7 @@ export function Skills() {
                     </motion.div>
                   ))}
                 </div>
+                </SpotlightCard>
               </motion.div>
             ))}
           </div>
