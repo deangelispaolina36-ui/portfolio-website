@@ -10,6 +10,8 @@ const navLinks = [
   { name: 'VIDEO', href: '#videos' },
   { name: 'CAREER', href: '#experience' },
   { name: 'AWARDS', href: '#awards' },
+  { name: 'SKILLS', href: '#skills' },
+  { name: 'CONTACT', href: '#contact' },
 ];
 
 export function Navbar() {
@@ -118,22 +120,7 @@ export function Navbar() {
           transition={{ duration: 0.8, delay: 1.2 }}
         />
 
-        {/* 联系按钮 */}
-        <motion.a
-          href="#contact"
-          className="text-xs tracking-[3px] font-light text-amber-400/80 hover:text-amber-400 transition-colors"
-          style={{ writingMode: 'vertical-rl', textOrientation: 'mixed' }}
-          onClick={(e) => {
-            e.preventDefault();
-            scrollToSection('#contact');
-          }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 1.5 }}
-          whileHover={{ x: 4 }}
-        >
-          CONTACT
-        </motion.a>
+
       </motion.nav>
 
       {/* 移动端导航栏 */}
