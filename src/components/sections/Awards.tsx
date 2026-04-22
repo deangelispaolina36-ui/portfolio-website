@@ -89,7 +89,7 @@ function CategoryTab({
     <motion.button
       onClick={onClick}
       className={`
-        relative px-5 py-3 rounded-xl text-sm font-medium transition-all duration-300
+        relative px-3 py-2 sm:px-5 sm:py-3 rounded-xl text-xs sm:text-sm font-medium transition-all duration-300
         ${isActive
           ? `bg-gradient-to-r ${category.gradient} text-white shadow-lg`
           : 'glass-card-premium hover:bg-white/5 text-gray-400 hover:text-white border border-white/10'
@@ -130,7 +130,7 @@ export function Awards() {
       <div className="container-custom relative z-10">
         <AnimatedSection>
           {/* Section 标题 */}
-          <div className="text-center mb-14">
+          <div className="text-center mb-8 sm:mb-14">
             <motion.div
               className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium glass-card-premium border border-amber-500/20 text-amber-400 mb-6"
               initial={{ opacity: 0, y: 20 }}
@@ -162,7 +162,7 @@ export function Awards() {
 
           {/* 统计概览 */}
           <motion.div
-            className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12"
+            className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-8 sm:mb-12"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -171,7 +171,7 @@ export function Awards() {
             {awardCategories.map((cat, index) => (
               <div
                 key={cat.id}
-                className="glass-card-premium p-5 rounded-2xl border border-white/10 text-center"
+                className="glass-card-premium p-3 sm:p-5 rounded-2xl border border-white/10 text-center"
               >
                 <div className="text-3xl mb-2">{cat.icon}</div>
                 <div className={`text-2xl font-bold bg-gradient-to-r ${cat.gradient} bg-clip-text text-transparent`}>
@@ -184,7 +184,7 @@ export function Awards() {
 
           {/* 分类标签 */}
           <motion.div
-            className="flex flex-wrap justify-center gap-3 mb-12"
+            className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-8 sm:mb-12"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -202,7 +202,7 @@ export function Awards() {
 
           {/* 荣誉网格 */}
           <motion.div
-            className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5"
+            className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5"
             layout
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -215,7 +215,7 @@ export function Awards() {
 
           {/* 底部总结 */}
           <motion.div
-            className="mt-14 text-center space-y-3"
+            className="mt-8 sm:mt-14 text-center space-y-3"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}

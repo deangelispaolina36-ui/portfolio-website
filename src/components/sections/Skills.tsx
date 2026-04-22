@@ -49,7 +49,7 @@ export function Skills() {
           </div>
 
           {/* 技能分类网格 */}
-          <div className="grid md:grid-cols-2 gap-8 mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 md:gap-8 mb-12">
             {skillCategories.map((category, categoryIndex) => (
               <motion.div
                 key={category.name}
@@ -59,11 +59,11 @@ export function Skills() {
                 transition={{ delay: categoryIndex * 0.15, duration: 0.6 }}
               >
                 <SpotlightCard
-                  className="glass-card-premium p-8 card-glow-hover rounded-2xl"
+                  className="glass-card-premium p-5 sm:p-6 md:p-8 card-glow-hover rounded-2xl"
                   spotlightColor="rgba(168, 85, 247, 0.15)"
                 >
                 {/* 分类标题 */}
-                <h3 className="text-xl font-bold gradient-text-vivid mb-8 flex items-center gap-3">
+                <h3 className="text-lg sm:text-xl font-bold gradient-text-vivid mb-5 sm:mb-8 flex items-center gap-3">
                   <span className="w-2 h-2 rounded-full bg-gradient-to-r from-purple-500 to-pink-500" />
                   {category.name}
                 </h3>
@@ -108,18 +108,18 @@ export function Skills() {
 
           {/* 其他技能标签云 */}
           <motion.div
-            className="glass-card-premium p-8 card-glow-hover"
+            className="glass-card-premium p-5 sm:p-6 md:p-8 card-glow-hover"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.4, duration: 0.6 }}
           >
-            <h3 className="text-xl font-bold gradient-text-vivid mb-8 flex items-center gap-3">
+            <h3 className="text-lg sm:text-xl font-bold gradient-text-vivid mb-5 sm:mb-8 flex items-center gap-3">
               <Sparkles className="w-5 h-5 text-pink-400" />
               其他技能
             </h3>
 
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap gap-2 sm:gap-3">
               {otherSkills.map((skill, index) => (
                 <motion.span
                   key={skill}
@@ -138,7 +138,7 @@ export function Skills() {
 
           {/* 技能总结 */}
           <motion.div
-            className="mt-14 grid grid-cols-2 md:grid-cols-4 gap-6"
+            className="mt-8 sm:mt-14 grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -160,7 +160,7 @@ export function Skills() {
                 whileHover={{ y: -5 }}
               >
                 <div 
-                  className="text-4xl mb-4 transition-transform duration-300 group-hover:scale-110"
+                  className="text-3xl sm:text-4xl mb-3 sm:mb-4 transition-transform duration-300 group-hover:scale-110"
                 >
                   {stat.icon}
                 </div>

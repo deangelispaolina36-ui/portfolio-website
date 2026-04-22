@@ -194,7 +194,7 @@ export function Achievements() {
       <div className="container-custom relative z-10">
         <AnimatedSection>
           {/* Section 标题 */}
-          <div className="text-center mb-20">
+          <div className="text-center mb-10 sm:mb-16 md:mb-20">
             <motion.div
               className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium glass-card-premium border border-amber-500/20 text-amber-400 mb-6"
               initial={{ opacity: 0, y: 20 }}
@@ -226,7 +226,7 @@ export function Achievements() {
 
           {/* 统计概览 */}
           <motion.div
-            className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16 max-w-4xl mx-auto"
+            className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-10 sm:mb-16 max-w-4xl mx-auto"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -240,7 +240,7 @@ export function Achievements() {
             ].map((stat, index) => (
               <motion.div
                 key={index}
-                className="glass-card-premium p-6 text-center"
+                className="glass-card-premium p-4 sm:p-6 text-center"
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
@@ -254,7 +254,7 @@ export function Achievements() {
           </motion.div>
 
           {/* 荣誉分类展示 */}
-          <div className="space-y-16">
+          <div className="space-y-10 sm:space-y-16">
             {categories.map((category, catIndex) => (
               <motion.div
                 key={category.key}
@@ -264,12 +264,12 @@ export function Achievements() {
                 transition={{ delay: catIndex * 0.2 }}
               >
                 {/* 分类标题 */}
-                <div className="flex items-center gap-4 mb-8">
-                  <div className={`w-14 h-14 rounded-2xl ${category.iconBg} flex items-center justify-center border ${category.borderColor}`}>
-                    <category.icon className={`w-7 h-7 bg-gradient-to-r ${category.color} bg-clip-text`} style={{ color: category.color.includes('amber') ? '#fbbf24' : category.color.includes('purple') ? '#a855f7' : '#22d3ee' }} />
+                <div className="flex items-center gap-3 sm:gap-4 mb-5 sm:mb-8">
+                  <div className={`w-10 h-10 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl ${category.iconBg} flex items-center justify-center border ${category.borderColor}`}>
+                    <category.icon className={`w-5 h-5 sm:w-7 sm:h-7 bg-gradient-to-r ${category.color} bg-clip-text`} style={{ color: category.color.includes('amber') ? '#fbbf24' : category.color.includes('purple') ? '#a855f7' : '#22d3ee' }} />
                   </div>
                   <div>
-                    <h3 className={`text-2xl font-bold bg-gradient-to-r ${category.color} bg-clip-text text-transparent`}>
+                    <h3 className={`text-xl sm:text-2xl font-bold bg-gradient-to-r ${category.color} bg-clip-text text-transparent`}>
                       {category.title}
                     </h3>
                     <p className="text-gray-500 text-sm">{category.subtitle}</p>
@@ -278,11 +278,11 @@ export function Achievements() {
                 </div>
 
                 {/* 荣誉卡片网格 */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5">
                   {achievements[category.key].map((achievement, index) => (
                     <motion.div
                       key={achievement.id}
-                      className={`relative glass-card-premium p-6 card-glow-hover ${achievement.highlight ? 'ring-1 ring-amber-500/30' : ''}`}
+                      className={`relative glass-card-premium p-4 sm:p-6 card-glow-hover ${achievement.highlight ? 'ring-1 ring-amber-500/30' : ''}`}
                       initial={{ opacity: 0, y: 20 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}

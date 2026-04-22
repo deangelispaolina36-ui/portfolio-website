@@ -38,7 +38,7 @@ export function GamingProfile() {
       <div className="container-custom relative z-10">
         <AnimatedSection>
           {/* ========== 模块一：Hero 区 ========== */}
-          <div className="text-center mb-20">
+          <div className="text-center mb-10 sm:mb-16 md:mb-20">
             {/* 顶部标签 */}
             <motion.div
               className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium glass-card-premium border border-pink-500/20 text-pink-400 mb-8"
@@ -129,13 +129,13 @@ export function GamingProfile() {
 
           {/* ========== 模块二：核心游戏履历卡片 ========== */}
           <motion.div
-            className="mb-24"
+            className="mb-14 sm:mb-20 md:mb-24"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.4 }}
           >
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4 md:gap-6">
               {gamingProfiles.map((profile, index) => (
                 <motion.div
                   key={profile.id}
@@ -159,7 +159,7 @@ export function GamingProfile() {
                     style={{
                       background: `linear-gradient(180deg, rgba(30,30,40,0.9) 0%, rgba(20,20,30,0.95) 100%)`,
                       border: `1px solid ${profile.color}20`,
-                      minHeight: expandedCard === profile.id ? 'auto' : '320px',
+                      minHeight: expandedCard === profile.id ? 'auto' : undefined,
                     }}
                     onClick={() => toggleCard(profile.id)}
                     whileHover={{ 
@@ -176,7 +176,7 @@ export function GamingProfile() {
 
                     {/* 游戏Logo区域 */}
                     <div 
-                      className="relative h-32 md:h-40 flex items-center justify-center overflow-hidden"
+                      className="relative h-24 sm:h-32 md:h-40 flex items-center justify-center overflow-hidden"
                       style={{
                         background: `radial-gradient(circle at center, ${profile.color}15 0%, transparent 70%)`,
                       }}
@@ -197,7 +197,7 @@ export function GamingProfile() {
                       <motion.img
                         src={gameLogoImages[profile.id]}
                         alt={profile.category}
-                        className="max-w-[80%] max-h-[100px] object-contain relative z-10"
+                        className="max-w-[75%] sm:max-w-[80%] max-h-[70px] sm:max-h-[100px] object-contain relative z-10"
                         loading="lazy"
                         style={{
                           filter: `drop-shadow(0 0 15px ${profile.color}60)`,
@@ -216,7 +216,7 @@ export function GamingProfile() {
                       <div className="flex items-center justify-between">
                         <div>
                           <h3
-                            className="text-lg md:text-xl font-bold"
+                            className="text-base sm:text-lg md:text-xl font-bold"
                             style={{ color: profile.color }}
                           >
                             {profile.category}
@@ -321,7 +321,7 @@ export function GamingProfile() {
 
           {/* ========== 模块三：游戏理解能力 ========== */}
           <motion.div
-            className="mb-24"
+            className="mb-14 sm:mb-20 md:mb-24"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -349,7 +349,7 @@ export function GamingProfile() {
             </div>
 
             {/* 四个能力维度卡片 */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
               {gameUnderstandings.map((understanding, index) => (
                 <motion.div
                   key={understanding.id}
@@ -442,7 +442,7 @@ export function GamingProfile() {
             <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-purple-500/5 via-transparent to-pink-500/5" />
             
             <div 
-              className="relative p-8 md:p-12 rounded-3xl text-center"
+              className="relative p-5 sm:p-8 md:p-12 rounded-3xl text-center"
               style={{
                 background: 'linear-gradient(180deg, rgba(30,30,40,0.6) 0%, rgba(20,20,30,0.8) 100%)',
                 border: '1px solid rgba(139,92,246,0.2)',

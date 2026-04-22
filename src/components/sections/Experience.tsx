@@ -32,7 +32,7 @@ export function Experience() {
       <div className="container-custom relative z-10">
         <AnimatedSection>
           {/* Section 标题 */}
-          <div className="text-center mb-20">
+          <div className="text-center mb-10 sm:mb-16 md:mb-20">
             <motion.div
               className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium glass-card-premium border border-purple-500/20 text-purple-400 mb-6"
               initial={{ opacity: 0, y: 20 }}
@@ -74,7 +74,7 @@ export function Experience() {
             {experiences.map((exp, index) => (
               <motion.div
                 key={exp.id}
-                className={`relative flex flex-col md:flex-row gap-8 mb-16 last:mb-0 ${
+                className={`relative flex flex-col md:flex-row gap-4 sm:gap-8 mb-10 sm:mb-16 last:mb-0 ${
                   index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
                 }`}
                 initial={{ opacity: 0, y: 60 }}
@@ -102,22 +102,22 @@ export function Experience() {
                   }`}
                 >
                   <motion.div
-                    className="glass-card-premium p-8 card-glow-hover"
+                    className="glass-card-premium p-5 sm:p-6 md:p-8 card-glow-hover"
                     whileHover={{ y: -5 }}
                   >
                     {/* 公司信息 */}
                     <div className={`flex items-start gap-5 mb-5 ${index % 2 === 0 ? 'md:flex-row-reverse' : ''}`}>
                       {/* 公司 Logo */}
-                      <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-500/15 to-pink-500/15 flex items-center justify-center flex-shrink-0 border border-purple-500/20">
+                      <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl bg-gradient-to-br from-purple-500/15 to-pink-500/15 flex items-center justify-center flex-shrink-0 border border-purple-500/20">
                         {exp.logo ? (
-                          <img src={exp.logo} alt={exp.company} className="w-10 h-10" />
+                          <img src={exp.logo} alt={exp.company} className="w-7 h-7 sm:w-10 sm:h-10" />
                         ) : (
-                          <Building2 className="w-8 h-8 text-purple-400" />
+                          <Building2 className="w-6 h-6 sm:w-8 sm:h-8 text-purple-400" />
                         )}
                       </div>
                       
                       <div className={`flex-1 ${index % 2 === 0 ? 'md:text-right' : 'md:text-left'}`}>
-                        <h3 className="text-2xl font-bold text-white">
+                        <h3 className="text-xl sm:text-2xl font-bold text-white">
                           {exp.company}
                         </h3>
                         {exp.department && (
