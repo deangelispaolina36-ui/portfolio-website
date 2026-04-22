@@ -47,6 +47,12 @@ export default {
           end: "#8b5cf6",
           accent: "#06b6d4",
         },
+        // SpaceX 深空色系
+        spacex: {
+          black: "#000000",
+          spectral: "#f0f0fa",
+          ghost: "rgba(240, 240, 250, 0.08)",
+        },
         // 游戏品类色
         game: {
           moba: "#f59e0b",

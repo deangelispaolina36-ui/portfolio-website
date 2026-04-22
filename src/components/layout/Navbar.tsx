@@ -74,7 +74,7 @@ export function Navbar() {
       >
         {/* 垂直线 - 顶部 */}
         <motion.div 
-          className="w-px h-16 bg-gradient-to-b from-transparent to-white/20"
+          className="w-px h-16 bg-gradient-to-b from-transparent to-[#f0f0fa]/20"
           initial={{ height: 0 }}
           animate={{ height: 64 }}
           transition={{ duration: 0.8, delay: 0.8 }}
@@ -85,10 +85,10 @@ export function Navbar() {
           <motion.a
             key={link.name}
             href={link.href}
-            className={`group relative text-xs tracking-[3px] font-light transition-all duration-300 ${
+            className={`group relative text-xs tracking-[4px] font-light transition-all duration-300 ${
               activeSection === link.href.replace('#', '')
-                ? 'text-white'
-                : 'text-white/40 hover:text-white'
+                ? 'text-[#f0f0fa]'
+                : 'text-[#f0f0fa]/40 hover:text-[#f0f0fa]'
             }`}
             style={{ writingMode: 'vertical-rl', textOrientation: 'mixed' }}
             onClick={(e) => {
@@ -103,7 +103,7 @@ export function Navbar() {
             {link.name}
             {/* 活动指示器 */}
             <motion.span
-              className={`absolute left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-amber-400 ${
+              className={`absolute left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-[#f0f0fa] ${
                 activeSection === link.href.replace('#', '') ? 'opacity-100' : 'opacity-0 group-hover:opacity-50'
               }`}
               style={{ bottom: '-12px' }}
@@ -114,7 +114,7 @@ export function Navbar() {
 
         {/* 垂直线 - 底部 */}
         <motion.div 
-          className="w-px h-16 bg-gradient-to-t from-transparent to-white/20"
+          className="w-px h-16 bg-gradient-to-t from-transparent to-[#f0f0fa]/20"
           initial={{ height: 0 }}
           animate={{ height: 64 }}
           transition={{ duration: 0.8, delay: 1.2 }}
@@ -143,8 +143,8 @@ export function Navbar() {
                 scrollToSection('#hero');
               }}
             >
-              <span className="text-lg font-editorial tracking-wide text-white">TR</span>
-              <span className="text-xs text-white/40 tracking-[2px] uppercase">Wang</span>
+              <span className="text-lg font-editorial tracking-[3px] text-[#f0f0fa]">TR</span>
+              <span className="text-xs text-[#f0f0fa]/40 tracking-[3px] uppercase">Wang</span>
             </motion.a>
 
             {/* 菜单按钮 - 极简风格 */}
@@ -188,9 +188,9 @@ export function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
-            {/* 背景 */}
+            {/* 背景 - 深空黑 */}
             <motion.div
-              className="absolute inset-0 bg-[#0f172a]"
+              className="absolute inset-0 bg-[#050510]"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -211,8 +211,8 @@ export function Navbar() {
                     href={link.href}
                     className={`text-2xl font-editorial tracking-[8px] transition-all ${
                       activeSection === link.href.replace('#', '')
-                        ? 'text-white'
-                        : 'text-white/50 hover:text-white'
+                        ? 'text-[#f0f0fa]'
+                        : 'text-[#f0f0fa]/40 hover:text-[#f0f0fa]'
                     }`}
                     onClick={(e) => {
                       e.preventDefault();
@@ -235,8 +235,8 @@ export function Navbar() {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.5 }}
               >
-                <div className="w-px h-12 bg-gradient-to-b from-white/20 to-transparent" />
-                <span className="text-xs text-white/30 tracking-[3px]">PORTFOLIO 2026</span>
+                <div className="w-px h-12 bg-gradient-to-b from-[#f0f0fa]/20 to-transparent" />
+                <span className="text-xs text-[#f0f0fa]/25 tracking-[4px]">PORTFOLIO 2026</span>
               </motion.div>
             </motion.div>
           </motion.div>

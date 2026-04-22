@@ -100,7 +100,7 @@ export function Hero() {
           }}
         >
           <div className="hero-text-wrapper">
-            {/* 顶部装饰线 + Portfolio标识 */}
+            {/* 顶部装饰线 + Portfolio标识 - SpaceX 任务标签风 */}
             <motion.div
               className="hero-decoration-top"
               initial={{ opacity: 0, x: -30 }}
@@ -108,7 +108,7 @@ export function Hero() {
               transition={{ delay: 0.2, duration: 0.8 }}
             >
               <span className="hero-decoration-line" />
-              <span className="hero-decoration-text">PORTFOLIO 2025</span>
+              <span className="hero-decoration-text">PORTFOLIO — 2025</span>
             </motion.div>
 
             {/* 状态指示器 */}
@@ -158,7 +158,7 @@ export function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.7, duration: 0.8 }}
             >
-              <ShinyText text="15年游戏人 · 腾讯IEG实习生 · AIGC 探索者" speed={3} color="#9ca3af" shineColor="#e879f9" />
+              <ShinyText text="15年游戏人 · 腾讯IEG实习生 · AIGC 探索者" speed={3} color="#9ca3af" shineColor="#f0f0fa" />
             </motion.p>
 
             {/* 移动端提示 - 仅小屏可见 */}
@@ -186,7 +186,7 @@ export function Hero() {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
-                <span className="hero-btn-glass-text"><ShinyText text="探索作品" speed={2} color="#ffffff" shineColor="#e879f9" /></span>
+                <span className="hero-btn-glass-text"><ShinyText text="探索作品" speed={2} color="#f0f0fa" shineColor="#c4b5fd" /></span>
                 <span className="hero-btn-glass-hover-bg" />
               </motion.button>
               
@@ -221,15 +221,16 @@ export function Hero() {
           </div>
         </motion.div>
 
-        {/* 右下角英文装饰 */}
+        {/* 右下角英文装饰 - SpaceX 任务标注风 */}
         <motion.div
           className="hero-decoration-corner"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.2, duration: 0.8 }}
         >
-          <span>IMMERSIVE</span>
+          <span>CREATIVE</span>
           <span>EXPERIENCE</span>
+          <span style={{ marginTop: '0.5rem', letterSpacing: '6px', fontSize: '0.5rem' }}>——</span>
         </motion.div>
 
         {/* 滚动提示 */}

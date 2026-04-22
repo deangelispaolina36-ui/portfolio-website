@@ -189,7 +189,7 @@ function SectionTransitionFull({
       animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
       transition={{ duration: 0.6, delay, ease: [0.25, 0.1, 0.25, 1] }}
     >
-      {/* 顶部分隔光效 */}
+      {/* 顶部分隔光效 - SpaceX 深空光谱 */}
       {showTopDivider && (
         <motion.div
           className="absolute left-0 right-0 top-0 h-40 pointer-events-none z-10"
@@ -198,14 +198,14 @@ function SectionTransitionFull({
           <div
             className="absolute inset-0"
             style={{
-              background: `linear-gradient(to bottom, rgba(139, 92, 246, 0.08) 0%, rgba(167, 139, 250, 0.04) 30%, transparent 100%)`,
+              background: `linear-gradient(to bottom, rgba(139, 92, 246, 0.06) 0%, rgba(240, 240, 250, 0.02) 30%, transparent 100%)`,
             }}
           />
           <motion.div
             className="absolute top-0 left-[10%] right-[10%] h-[1px]"
             style={{
-              background: `linear-gradient(90deg, transparent 0%, rgba(139, 92, 246, 0.5) 20%, rgba(167, 139, 250, 0.7) 50%, rgba(139, 92, 246, 0.5) 80%, transparent 100%)`,
-              boxShadow: '0 0 15px rgba(139, 92, 246, 0.4), 0 0 30px rgba(139, 92, 246, 0.2)',
+              background: `linear-gradient(90deg, transparent 0%, rgba(240, 240, 250, 0.2) 20%, rgba(167, 139, 250, 0.5) 50%, rgba(240, 240, 250, 0.2) 80%, transparent 100%)`,
+              boxShadow: '0 0 15px rgba(139, 92, 246, 0.3), 0 0 30px rgba(240, 240, 250, 0.1)',
               scaleX: dividerScale,
               transformOrigin: 'center',
             }}
@@ -222,7 +222,7 @@ function SectionTransitionFull({
         {children}
       </motion.div>
 
-      {/* 底部分隔光效 */}
+      {/* 底部分隔光效 - SpaceX 深空光谱 */}
       {showBottomDivider && (
         <motion.div
           className="absolute left-0 right-0 bottom-0 h-40 pointer-events-none z-10"
@@ -231,14 +231,14 @@ function SectionTransitionFull({
           <div
             className="absolute inset-0"
             style={{
-              background: `linear-gradient(to top, rgba(99, 102, 241, 0.06) 0%, rgba(139, 92, 246, 0.03) 30%, transparent 100%)`,
+              background: `linear-gradient(to top, rgba(99, 102, 241, 0.04) 0%, rgba(240, 240, 250, 0.02) 30%, transparent 100%)`,
             }}
           />
           <motion.div
             className="absolute bottom-0 left-[10%] right-[10%] h-[1px]"
             style={{
-              background: `linear-gradient(90deg, transparent 0%, rgba(99, 102, 241, 0.4) 20%, rgba(139, 92, 246, 0.6) 50%, rgba(99, 102, 241, 0.4) 80%, transparent 100%)`,
-              boxShadow: '0 0 12px rgba(99, 102, 241, 0.3), 0 0 25px rgba(99, 102, 241, 0.15)',
+              background: `linear-gradient(90deg, transparent 0%, rgba(240, 240, 250, 0.15) 20%, rgba(139, 92, 246, 0.4) 50%, rgba(240, 240, 250, 0.15) 80%, transparent 100%)`,
+              boxShadow: '0 0 12px rgba(99, 102, 241, 0.2), 0 0 25px rgba(240, 240, 250, 0.08)',
               scaleX: dividerScale,
               transformOrigin: 'center',
             }}

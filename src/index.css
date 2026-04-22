@@ -6,15 +6,15 @@
 
 @layer base {
   :root {
-    /* 电影感配色 - 午夜蓝主调 */
+    /* 电影感配色 - 午夜蓝主调 × SpaceX 深空融合 */
     --background: 222 47% 6%;
-    --foreground: 210 40% 98%;
+    --foreground: 240 14% 95%;
 
     --card: 222 47% 8%;
-    --card-foreground: 210 40% 98%;
+    --card-foreground: 240 14% 95%;
 
     --popover: 222 47% 8%;
-    --popover-foreground: 210 40% 98%;
+    --popover-foreground: 240 14% 95%;
 
     /* 主色调 - 优雅金/暖橙（从夕阳提取） */
     --primary: 30 80% 55%;
@@ -22,7 +22,7 @@
 
     /* 次要色调 - 柔和紫 */
     --secondary: 250 60% 60%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary-foreground: 240 14% 95%;
 
     --muted: 222 30% 12%;
     --muted-foreground: 215 20% 55%;
@@ -32,7 +32,7 @@
     --accent-foreground: 222 47% 6%;
 
     --destructive: 0 84% 60%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 240 14% 95%;
 
     --border: 222 20% 15%;
     --input: 222 20% 12%;
@@ -43,6 +43,13 @@
     /* 午夜蓝色值 */
     --midnight-blue: #0f172a;
     --midnight-deep: #0a0f1a;
+    
+    /* SpaceX 融合色值 */
+    --spectral-white: #f0f0fa;
+    --space-black: #000000;
+    --ghost-surface: rgba(240, 240, 250, 0.08);
+    --ghost-border: rgba(240, 240, 250, 0.25);
+    --ghost-border-hover: rgba(240, 240, 250, 0.45);
   }
 }
 
@@ -64,23 +71,23 @@
   }
 }
 
-/* 自定义滚动条 */
+/* 自定义滚动条 - 深空色调 */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: hsl(var(--background));
+  background: #050510;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #6366f1 0%, #8b5cf6 100%);
-  border-radius: 4px;
+  background: linear-gradient(180deg, rgba(139, 92, 246, 0.5) 0%, rgba(240, 240, 250, 0.2) 100%);
+  border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, #818cf8 0%, #a78bfa 100%);
+  background: linear-gradient(180deg, rgba(139, 92, 246, 0.7) 0%, rgba(240, 240, 250, 0.3) 100%);
 }
 
 /* 平滑滚动 */
@@ -88,10 +95,10 @@ html {
   scroll-behavior: smooth;
 }
 
-/* 选中文本样式 */
+/* 选中文本样式 - 光谱色 */
 ::selection {
-  background: rgba(99, 102, 241, 0.4);
-  color: #ffffff;
+  background: rgba(139, 92, 246, 0.35);
+  color: #f0f0fa;
 }
 
 /* ================================
@@ -106,42 +113,42 @@ html {
     #1e1b4b 100%);
 }
 
-/* 玻璃拟态卡片 - 通透空气感 */
+/* 玻璃拟态卡片 - SpaceX 幽灵表面 */
 .glass {
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(240, 240, 250, 0.02);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(240, 240, 250, 0.06);
 }
 
 .glass-strong {
-  background: rgba(15, 23, 42, 0.85);
+  background: rgba(10, 15, 26, 0.85);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(240, 240, 250, 0.08);
 }
 
 /* 电影感玻璃卡片 */
 .glass-cinematic {
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(240, 240, 250, 0.03);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(240, 240, 250, 0.08);
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
 }
 
-/* 毛玻璃标签 */
+/* 毛玻璃标签 - 幽灵风 */
 .glass-tag {
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(240, 240, 250, 0.04);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(240, 240, 250, 0.08);
   transition: all 0.3s ease;
 }
 
 .glass-tag:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.2);
+  background: rgba(240, 240, 250, 0.08);
+  border-color: rgba(240, 240, 250, 0.15);
 }
 
 /* 渐变文字 - 主色调（优雅金） */
@@ -304,16 +311,16 @@ html {
   transform-origin: center center;
 }
 
-/* 智能遮罩 - 从左到右渐变（适配紫粉色调海景） */
+/* 智能遮罩 - SpaceX 深空渐变（保持左侧文字可读性） */
 .hero-smart-gradient {
   position: absolute;
   inset: 0;
   background: linear-gradient(
     to right,
-    rgba(15, 15, 35, 0.95) 0%,
-    rgba(20, 18, 40, 0.85) 20%,
-    rgba(30, 25, 50, 0.6) 40%,
-    rgba(40, 35, 60, 0.3) 60%,
+    rgba(5, 5, 16, 0.97) 0%,
+    rgba(10, 15, 26, 0.9) 20%,
+    rgba(15, 18, 35, 0.65) 40%,
+    rgba(20, 20, 40, 0.35) 60%,
     transparent 80%
   );
   pointer-events: none;
@@ -460,7 +467,7 @@ html {
   max-width: 600px;
 }
 
-/* 顶部装饰 */
+/* 顶部装饰 - SpaceX 工业风 */
 .hero-decoration-top {
   display: flex;
   align-items: center;
@@ -471,15 +478,15 @@ html {
 .hero-decoration-line {
   width: 48px;
   height: 1px;
-  background: rgba(255, 255, 255, 0.4);
+  background: rgba(240, 240, 250, 0.35);
 }
 
 .hero-decoration-text {
   font-family: "Helvetica Neue", "Inter", sans-serif;
   font-size: 0.7rem;
   font-weight: 300;
-  letter-spacing: 4px;
-  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: 5px;
+  color: rgba(240, 240, 250, 0.45);
   text-transform: uppercase;
 }
 
@@ -509,21 +516,21 @@ html {
   font-family: "Helvetica Neue", "Inter", sans-serif;
   font-size: 0.7rem;
   font-weight: 400;
-  letter-spacing: 3px;
-  color: rgba(255, 255, 255, 0.4);
+  letter-spacing: 4px;
+  color: rgba(240, 240, 250, 0.4);
   text-transform: uppercase;
 }
 
-/* 主标题 - 极大无衬线字体 */
+/* 主标题 - 极大无衬线字体 × SpaceX 工业感 */
 .hero-title-parallax {
   font-family: "PingFang SC", "Microsoft YaHei", "SF Pro Display", "Helvetica Neue", sans-serif;
   font-size: clamp(4rem, 12vw, 9rem);
   font-weight: 700;
-  letter-spacing: 6px;
-  color: #ffffff;
+  letter-spacing: 8px;
+  color: var(--spectral-white);
   line-height: 1;
   margin-bottom: 1.5rem;
-  text-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 4px 40px rgba(0, 0, 0, 0.4);
 }
 
 @media (max-width: 768px) {
@@ -541,7 +548,7 @@ html {
 .hero-slogan-line {
   width: 64px;
   height: 2px;
-  background: linear-gradient(to right, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.1));
+  background: linear-gradient(to right, rgba(240, 240, 250, 0.7), rgba(240, 240, 250, 0.05));
   margin-bottom: 1.5rem;
 }
 
@@ -549,18 +556,18 @@ html {
   font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
   font-size: clamp(1.25rem, 3vw, 1.75rem);
   font-weight: 300;
-  letter-spacing: 3px;
-  color: rgba(255, 255, 255, 0.85);
+  letter-spacing: 4px;
+  color: rgba(240, 240, 250, 0.85);
   line-height: 1.6;
 }
 
-/* 副标题 */
+/* 副标题 - SpaceX 工业大写风 */
 .hero-subtitle-parallax {
   font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
   font-size: 0.875rem;
   font-weight: 400;
-  letter-spacing: 2px;
-  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: 3px;
+  color: rgba(240, 240, 250, 0.5);
   text-transform: uppercase;
   margin-bottom: 2.5rem;
 }
@@ -573,17 +580,19 @@ html {
   margin-bottom: 3rem;
 }
 
-/* 毛玻璃主按钮 */
+/* 毛玻璃主按钮 - SpaceX 幽灵按钮美学 */
 .hero-btn-glass {
   position: relative;
   padding: 1.125rem 2.5rem;
   font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
   font-size: 0.875rem;
   font-weight: 500;
-  letter-spacing: 2px;
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--spectral-white);
+  background: var(--ghost-surface);
+  border: 1px solid var(--ghost-border);
+  border-radius: 32px;
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   cursor: pointer;
@@ -600,10 +609,11 @@ html {
 .hero-btn-glass-hover-bg {
   position: absolute;
   inset: 0;
-  background: rgba(255, 255, 255, 1);
+  background: var(--spectral-white);
   transform: translateY(100%);
   transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 1;
+  border-radius: 32px;
 }
 
 .hero-btn-glass:hover .hero-btn-glass-hover-bg {
@@ -611,41 +621,39 @@ html {
 }
 
 .hero-btn-glass:hover .hero-btn-glass-text {
-  color: #0f172a;
+  color: #0a0f1a;
 }
 
 .hero-btn-glass:hover {
-  border-color: rgba(255, 255, 255, 1);
-  box-shadow: 0 8px 32px rgba(255, 255, 255, 0.15);
+  border-color: var(--ghost-border-hover);
+  box-shadow: 0 0 40px rgba(240, 240, 250, 0.1);
 }
 
-/* Ghost 次按钮 */
+/* Ghost 次按钮 - SpaceX 幽灵美学 */
 .hero-btn-ghost {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 1.125rem 1.5rem;
+  padding: 1.125rem 2rem;
   font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
   font-size: 0.875rem;
   font-weight: 400;
-  letter-spacing: 1px;
-  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 2px;
+  color: rgba(240, 240, 250, 0.6);
   background: transparent;
-  border: none;
-  text-decoration: underline;
-  text-underline-offset: 8px;
-  text-decoration-color: rgba(255, 255, 255, 0.3);
-  text-decoration-thickness: 1px;
+  border: 1px solid rgba(240, 240, 250, 0.15);
+  border-radius: 32px;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
 .hero-btn-ghost:hover {
-  color: #ffffff;
-  text-decoration-color: rgba(255, 255, 255, 0.8);
+  color: var(--spectral-white);
+  border-color: var(--ghost-border);
+  background: rgba(240, 240, 250, 0.05);
 }
 
-/* 底部信息 */
+/* 底部信息 - 深空风格 */
 .hero-footer-parallax {
   padding-top: 2rem;
 }
@@ -653,7 +661,7 @@ html {
 .hero-footer-line-parallax {
   width: 40px;
   height: 1px;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(240, 240, 250, 0.2);
   margin-bottom: 1rem;
 }
 
@@ -661,8 +669,8 @@ html {
   font-family: "Helvetica Neue", "Inter", sans-serif;
   font-size: 0.65rem;
   font-weight: 400;
-  letter-spacing: 3px;
-  color: rgba(255, 255, 255, 0.3);
+  letter-spacing: 4px;
+  color: rgba(240, 240, 250, 0.3);
   text-transform: uppercase;
   margin-bottom: 0.5rem;
 }
@@ -670,16 +678,16 @@ html {
 .hero-footer-email-parallax {
   font-family: "Inter", sans-serif;
   font-size: 0.875rem;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(240, 240, 250, 0.5);
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
 .hero-footer-email-parallax:hover {
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--spectral-white);
 }
 
-/* 右下角装饰文字 */
+/* 右下角装饰文字 - SpaceX 航空标签风 */
 .hero-decoration-corner {
   position: absolute;
   right: 2rem;
@@ -695,8 +703,8 @@ html {
   font-family: "Helvetica Neue", "Inter", sans-serif;
   font-size: 0.6rem;
   font-weight: 300;
-  letter-spacing: 4px;
-  color: rgba(255, 255, 255, 0.15);
+  letter-spacing: 5px;
+  color: rgba(240, 240, 250, 0.12);
   text-transform: uppercase;
 }
 
@@ -727,20 +735,20 @@ html {
   flex-direction: column;
   align-items: center;
   gap: 0.5rem;
-  color: rgba(255, 255, 255, 0.3);
+  color: rgba(240, 240, 250, 0.25);
   cursor: pointer;
   transition: color 0.3s ease;
 }
 
 .hero-scroll-content-parallax:hover {
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(240, 240, 250, 0.6);
 }
 
 .hero-scroll-content-parallax span {
   font-family: "Helvetica Neue", "Inter", sans-serif;
   font-size: 0.65rem;
   font-weight: 400;
-  letter-spacing: 3px;
+  letter-spacing: 4px;
   text-transform: uppercase;
 }
 
@@ -831,16 +839,17 @@ html {
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-/* 按钮样式 - 优雅版 */
+/* 按钮样式 - 优雅版 × SpaceX 幽灵美学 */
 .btn-elegant {
   position: relative;
-  background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: white;
+  background: var(--ghost-surface);
+  border: 1px solid var(--ghost-border);
+  color: var(--spectral-white);
   padding: 0.875rem 2rem;
   font-size: 0.875rem;
   font-weight: 400;
-  letter-spacing: 1px;
+  letter-spacing: 2px;
+  border-radius: 32px;
   transition: all 0.4s ease;
   overflow: hidden;
 }
@@ -849,16 +858,17 @@ html {
   content: '';
   position: absolute;
   inset: 0;
-  background: white;
+  background: var(--spectral-white);
   transform: scaleX(0);
   transform-origin: right;
   transition: transform 0.4s ease;
   z-index: -1;
+  border-radius: 32px;
 }
 
 .btn-elegant:hover {
-  color: var(--midnight-blue);
-  border-color: white;
+  color: #0a0f1a;
+  border-color: var(--ghost-border-hover);
 }
 
 .btn-elegant:hover::before {
@@ -1172,28 +1182,29 @@ html {
   box-shadow: 0 25px 50px -12px rgba(139, 92, 246, 0.25);
 }
 
-/* 玻璃卡片升级版 */
+/* 玻璃卡片升级版 - SpaceX 幽灵表面美学 */
 .glass-card-premium {
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(240, 240, 250, 0.02);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(240, 240, 250, 0.06);
   border-radius: 1.5rem;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .glass-card-premium:hover {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(139, 92, 246, 0.3);
+  background: rgba(240, 240, 250, 0.04);
+  border-color: rgba(139, 92, 246, 0.25);
   box-shadow: 
     0 20px 40px rgba(0, 0, 0, 0.3),
-    0 0 0 1px rgba(139, 92, 246, 0.1),
+    0 0 0 1px rgba(240, 240, 250, 0.05),
     inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
 /* 渐变文字增强 - 紫粉色调 */
+/* 渐变文字 - 光谱太空风 */
 .gradient-text-vivid {
-  background: linear-gradient(135deg, #a78bfa 0%, #f472b6 50%, #fbbf24 100%);
+  background: linear-gradient(135deg, #c4b5fd 0%, #f0abfc 40%, #fbbf24 80%, #f0f0fa 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
